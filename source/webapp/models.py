@@ -68,14 +68,3 @@ class Program(models.Model):
 
     def __str__(self):
         return self.name
-
-
-class Session(models.Model):
-    program = models.ForeignKey(Program, verbose_name='Программа', on_delete=models.PROTECT)
-    description = models.TextField(max_length=2000, blank=True, null=True)
-    created_date = models.DateTimeField(auto_now_add=True)
-    edited_date = models.DateTimeField(auto_now=True)
-    deleted_date = models.DateTimeField(auto_now_add=True)
-
-    def __str__(self):
-        return self.program
