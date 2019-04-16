@@ -79,3 +79,25 @@ class Session(models.Model):
 
     def __str__(self):
         return self.program
+
+
+class Results(models.Model):
+    DONE = 'done'
+    DONE_WITH_HINT = 'done with hint'
+    NO_ANSWER = 'no answer'
+
+    STATUS_CHOICES = (
+        (DONE, 'done'),
+        (DONE_WITH_HINT, 'done with hint'),
+        (NO_ANSWER, 'no answer')
+    )
+
+    session = models.ForeignKey('Session', on_delete=models.CASCADE)
+    skill = models.ForeignKey('Skill', on_delete=models.PROTECT)
+    status = models.CharField(max_length=255, default=NO_ANSWER, choices=STATUS_CHOICES)
+    created_date = models.DateTimeField(auto_now_add=True)
+    edited_date = models.DateTimeField(auto_now=True, blank=True, null=True)
+    deleted_date = models.DateTimeField(blank=True, null=True)
+
+    def __str__(self):
+        return 'Сессия %s,  навык %s' % (self.session_id, self.skill.code_skill)
