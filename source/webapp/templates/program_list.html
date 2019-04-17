@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Main page</title>
+</head>
+<body>
+    <h2>Программы</h2>
+    {% for program in program_list %}
+        <li>{{ program.name }}</li>
+    {% endfor %}
+</body>
+</html>
