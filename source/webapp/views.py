@@ -1,3 +1,9 @@
-from django.shortcuts import render
+from django.views.generic.list import ListView
+from webapp.models import Program
 
-# Create your views here.
+
+class ProgramList(ListView):
+    model = Program
+    template_name = 'program_list.html'
+
+
