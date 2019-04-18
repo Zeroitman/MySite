@@ -12,6 +12,9 @@ class Category(models.Model):
     def _str_(self):
         return "%s, Код категории: %s" % (self.name, self.code_category)
 
+    class Meta:
+        verbose_name_plural = 'Category'
+
 
 class Skill(models.Model):
     code_skill = models.CharField(max_length=5, verbose_name='Код навыка')
@@ -95,7 +98,7 @@ class Results(models.Model):
     )
 
     session = models.ForeignKey(Session, on_delete=models.CASCADE, related_name='session_results')
-    skill = models.ForeignKey(Skill, on_delete=models.PROTECT, related_name='skills_result')
+    skill = models.ForeignKey(Skill, on_delete=models.PROTECT, related_name='skills_results')
     status = models.CharField(max_length=255, default=NO_ANSWER,
                               choices=STATUS_CHOICES, verbose_name="Статус результата")
     created_date = models.DateTimeField(auto_now_add=True, verbose_name="Дата создания")
@@ -104,3 +107,6 @@ class Results(models.Model):
 
     def __str__(self):
         return 'Сессия %s,  навык %s' % (self.session.id, self.skill.code_skill)
+
+    class Meta:
+        verbose_name_plural = 'Results'
