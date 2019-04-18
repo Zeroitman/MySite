@@ -47,7 +47,7 @@ class Children(models.Model):
     preferences = models.CharField(max_length=1000, blank=True, null=True, verbose_name='Предпочтения ребенка')
     contacts = models.CharField(max_length=200, blank=True, null=True, verbose_name='Контакты ребенка')
     first_parent = models.ForeignKey(UserInfo, on_delete=models.PROTECT, related_name='fp_child')
-    second_parent = models.ForeignKey(UserInfo, on_delete=models.PROTECT, related_name='sp_child')
+    second_parent = models.ForeignKey(UserInfo, blank=True, null=True, on_delete=models.PROTECT, related_name='sp_child')
     created_date = models.DateTimeField(auto_now_add=True, verbose_name='Дата добавления ребенка')
     edited_date = models.DateTimeField(auto_now=True, null=True, blank=True, verbose_name='Дата редактирования')
     deleted_date = models.DateTimeField(null=True, blank=True, verbose_name='Дата удаления')
