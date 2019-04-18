@@ -15,7 +15,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'webapp'
+    'webapp',
+    'behave_django',
 ]
 
 MIDDLEWARE = [
@@ -65,6 +66,9 @@ DATABASES = {
         'USER': 'aba_django',
         'PASSWORD': 'aba_django',
         'HOST': '127.0.0.1',
+        'TEST': {
+            'NAME': 'test_base',
+        },
     }
 }
 
