@@ -1,5 +1,5 @@
-from django.views.generic import ListView, DetailView
 from webapp.models import Program, Session
+from django.views.generic import ListView, DetailView
 
 
 class ProgramList(ListView):
@@ -12,6 +12,6 @@ class SessionDetail(DetailView):
     template_name = 'session_detail.html'
 
 
-
-
-
+class ProgramDetailView(DetailView):
+    model = Program
+    template_name = 'program_detail.html'

@@ -1,0 +1,40 @@
+{% load staticfiles %}
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>{% block title %}{% endblock %}</title>
+    <link rel="stylesheet" href="{% static 'css/bootstrap.css' %}">
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    {% block styles %}{% endblock %}
+</head>
+<body>
+<div class="container">
+    <h1 class="text-center mt-5">Вход</h1>
+    <form action="{% url 'login' %}" method="post">
+        {% csrf_token %}
+        {% if form.errors %}
+            <p class="form-text text-danger text-center">Данные не введены / Введено неверное имя пользователя или пароль.</p>
+        {% endif %}
+        <input type="hidden" name="next" value="{{ next }}">
+        <div class="form-row form-group">
+            <input type="text" class="form-control col-12" name="username" id="username" placeholder="Имя пользователя"
+                   value="{% if form.username.value %}{{ form.username.value }}{% endif %}">
+        </div>
+        <div class="form-row form-group">
+            <input type="password" class="form-control col-12" name="password" id="password" placeholder="Пароль"
+                   value="{% if form.password.value %}{{ form.password.value }}{% endif %}">
+        </div>
+        <div class="text-center">
+            <button type="submit" class="btn btn-primary">Войти</button>
+        </div>
+    </form>
+</div>
+<script src="{% static 'js/jquery-3.3.1.min.js' %}"></script>
+<script src="{% static 'js/popper.min.js' %}"></script>
+<script src="{% static 'js/bootstrap.min.js' %}"></script>
+</body>
+</html>

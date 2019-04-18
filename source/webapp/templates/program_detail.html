@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+{% block title %}Детали программы{% endblock %}
+{% block content %}
+    <div class="d-flex d-inline container">
+        <div class="description w-50">
+            <p class="font-weight-bold">Программа: <span class="font-weight-normal">{{ program.name }}</span></p>
+            <p class="font-weight-bold">Описание: <span class="font-weight-normal">{{ program.description }}</span></p>
+            <p class="font-weight-bold">Ребенок: <span class="font-weight-normal">{{ program.child.first_name }}, {{ program.child.last_name }}</span></p>
+            <p class="font-weight-bold">Автор: <span class="font-weight-normal">{{ program.author_therapist }}</span></p>
+            <p class="font-weight-bold">Терапист: <span class="font-weight-normal">{{ program.attending_therapist }}</span></p>
+            <p class="font-weight-bold">Скилл: <span class="font-weight-normal">{{ program.skill }}</span></p>
+            <p class="font-weight-bold">Дата создания: <span class="font-weight-normal">{{ program.created_date }}</span></p>
+            <p class="font-weight-bold">Дата последнего редактирования: <span class="font-weight-normal">{{ program.edited_date }}</span></p>
+            <p class="font-weight-bold">Дата удаления: <span class="font-weight-normal">{{ program.deleted_date }}</span></p>
+        </div>
+    </div>
+{% endblock %}
