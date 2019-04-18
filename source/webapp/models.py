@@ -18,6 +18,7 @@ class Skill(models.Model):
     name = models.CharField(max_length=255, verbose_name='Название навыка')
     category = models.ForeignKey(Category, on_delete=models.PROTECT, related_name='skill')
     description = models.TextField(max_length=1000, null=True, blank=True, verbose_name='Описание навыка')
+    criterion = models.TextField(max_length=1000, null=True, blank=True, verbose_name='Критерии')
     created_date = models.DateTimeField(auto_now_add=True, verbose_name='Время создания навыка')
     updated_date = models.DateTimeField(auto_now=True, null=True, blank=True, verbose_name='Время редактирование навыка')
     deleted_date = models.DateTimeField(null=True, blank=True, verbose_name='Время удаления навыка')
