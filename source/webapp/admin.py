@@ -1,6 +1,6 @@
 from django.contrib import admin
 from django.contrib.auth.models import User
-from webapp.models import UserInfo, Skill, Program, Session, Results, Children, Category
+from webapp.models import UserInfo, Skill, Program, Session, Result, Child, Categories
 from django.contrib.auth.admin import UserAdmin
 
 
@@ -73,6 +73,6 @@ admin.site.register(User, UserInfoAdmin)
 admin.site.register(Skill, SkillModelAdmin)
 admin.site.register(Program, ProgramModelAdmin)
 admin.site.register(Session, SessionModelAdmin)
-admin.site.register(Results, ResultModelAdmin)
-admin.site.register(Children, ChildrenModelAdmin)
-admin.site.register(Category, CategoryModelAdmin)
+admin.site.register(Result, ResultModelAdmin)
+admin.site.register(Child, ChildrenModelAdmin)
+admin.site.register(Categories, CategoryModelAdmin)

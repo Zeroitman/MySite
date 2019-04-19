@@ -2,7 +2,7 @@ from django.db import models
 from django.contrib.auth.models import User
 
 
-class Category(models.Model):
+class Categories(models.Model):
     name = models.CharField(max_length=255, verbose_name='Название категории')
     code_category = models.CharField(max_length=50, null=True, blank=True, verbose_name='Код категории')
     created_date = models.DateTimeField(auto_now_add=True, verbose_name='Время добавления')
@@ -17,8 +17,9 @@ class Category(models.Model):
 class Skill(models.Model):
     code_skill = models.CharField(max_length=5, verbose_name='Код навыка')
     name = models.CharField(max_length=255, verbose_name='Название навыка')
-    category = models.ForeignKey(Category, on_delete=models.PROTECT, related_name='skill')
+    category = models.ForeignKey(Categories, on_delete=models.PROTECT, related_name='skill')
     description = models.TextField(max_length=1000, null=True, blank=True, verbose_name='Описание навыка')
+    criterion = models.TextField(max_length=1000, null=True, blank=True, verbose_name='Критерии')
     created_date = models.DateTimeField(auto_now_add=True, verbose_name='Время создания навыка')
     updated_date = models.DateTimeField(auto_now=True, null=True, blank=True,
                                         verbose_name='Время редактирование навыка')
@@ -39,7 +40,7 @@ class UserInfo(models.Model):
         return "%s %s" % (self.user.first_name, self.user.last_name)
 
 
-class Children(models.Model):
+class Child(models.Model):
     first_name = models.CharField(max_length=100, verbose_name='Имя ребенка')
     last_name = models.CharField(max_length=100, verbose_name='Фамилия ребенка')
     third_name = models.CharField(max_length=100, blank=True, null=True, verbose_name='Отчество ребенка')
@@ -49,8 +50,7 @@ class Children(models.Model):
     characteristic = models.CharField(max_length=1000, blank=True, null=True, verbose_name='Характеристика на ребенка')
     preferences = models.CharField(max_length=1000, blank=True, null=True, verbose_name='Предпочтения ребенка')
     contacts = models.CharField(max_length=200, blank=True, null=True, verbose_name='Контакты ребенка')
-    first_parent = models.ForeignKey(UserInfo, on_delete=models.PROTECT, verbose_name='Родитель',
-                                     related_name='fp_child')
+    first_parent = models.ForeignKey(UserInfo, on_delete=models.PROTECT, verbose_name='Родитель')
     second_parent = models.ForeignKey(UserInfo, on_delete=models.PROTECT, related_name='sp_child')
     created_date = models.DateTimeField(auto_now_add=True, verbose_name='Дата добавления ребенка')
     edited_date = models.DateTimeField(auto_now=True, null=True, blank=True, verbose_name='Дата редактирования')
@@ -64,7 +64,7 @@ class Children(models.Model):
 class Program(models.Model):
     name = models.CharField(max_length=255, verbose_name="Название программы")
     description = models.TextField(max_length=2000, blank=True, null=True, verbose_name="Описание программы")
-    child = models.ForeignKey(Children, on_delete=models.PROTECT, related_name="child_program",
+    child = models.ForeignKey(Child, on_delete=models.PROTECT, related_name="child_program",
                               verbose_name='Имя ребенка')
     author_therapist = models.ForeignKey(UserInfo, on_delete=models.PROTECT, related_name='author_program')
     attending_therapist = models.ForeignKey(UserInfo, on_delete=models.PROTECT, related_name='attending_program')
@@ -90,7 +90,7 @@ class Session(models.Model):
         verbose_name_plural = 'Сессии'
 
 
-class Results(models.Model):
+class Result(models.Model):
     DONE = 'done'
     DONE_WITH_HINT = 'with_hint'
     NO_ANSWER = 'no_answer'
@@ -102,7 +102,7 @@ class Results(models.Model):
     )
 
     session = models.ForeignKey(Session, on_delete=models.CASCADE, related_name='session_results')
-    skill = models.ForeignKey(Skill, on_delete=models.PROTECT, related_name='skills_result')
+    skill = models.ForeignKey(Skill, on_delete=models.PROTECT, related_name='skills_results')
     status = models.CharField(max_length=255, default=NO_ANSWER,
                               choices=STATUS_CHOICES, verbose_name="Статус результата")
     created_date = models.DateTimeField(auto_now_add=True, verbose_name="Дата создания")
