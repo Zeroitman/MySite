@@ -1,17 +1,22 @@
 {% extends 'base.html' %}
 {% block title %}Детали программы{% endblock %}
 {% block content %}
-    <div class="d-flex d-inline container">
+    <div class="container">
         <div class="description w-50">
             <p class="font-weight-bold">Программа: <span class="font-weight-normal">{{ program.name }}</span></p>
             <p class="font-weight-bold">Описание: <span class="font-weight-normal">{{ program.description }}</span></p>
             <p class="font-weight-bold">Ребенок: <span class="font-weight-normal">{{ program.child.first_name }}, {{ program.child.last_name }}</span></p>
             <p class="font-weight-bold">Автор: <span class="font-weight-normal">{{ program.author_therapist }}</span></p>
             <p class="font-weight-bold">Терапист: <span class="font-weight-normal">{{ program.attending_therapist }}</span></p>
-            <p class="font-weight-bold">Скилл: <span class="font-weight-normal">{{ program.skill }}</span></p>
+            <ul class="font-weight-bold">Навыки:
+                {% for program_skill in program.skill.all %}
+                    <li class="font-weight-normal p-2">{{ program_skill.name }}</li>
+                {% endfor %}
+            </ul>
             <p class="font-weight-bold">Дата создания: <span class="font-weight-normal">{{ program.created_date }}</span></p>
             <p class="font-weight-bold">Дата последнего редактирования: <span class="font-weight-normal">{{ program.edited_date }}</span></p>
             <p class="font-weight-bold">Дата удаления: <span class="font-weight-normal">{{ program.deleted_date }}</span></p>
         </div>
+        <a class="btn btn-primary" href={% url 'webapp:session_view' program.pk %} role="button">Начать сессию с программой</a>
     </div>
 {% endblock %}

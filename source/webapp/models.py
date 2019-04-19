@@ -72,7 +72,8 @@ class Program(models.Model):
 
 
 class Session(models.Model):
-    program = models.ForeignKey(Program, verbose_name='Программа', on_delete=models.PROTECT)
+    program = models.ForeignKey(Program, verbose_name='Программа',
+                                on_delete=models.PROTECT, related_name='session_program')
     description = models.TextField(max_length=2000, blank=True, null=True, verbose_name="Описание сессии")
     created_date = models.DateTimeField(auto_now_add=True, verbose_name="Дата создания")
     edited_date = models.DateTimeField(auto_now=True, blank=True, null=True, verbose_name="Дата редактирования")
