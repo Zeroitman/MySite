@@ -1,13 +1,12 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Main page</title>
-</head>
-<body>
-    <h2>Программы</h2>
-    {% for program in program_list %}
-        <li><a class="page-link" href="{% url 'webapp:program_detail' program.pk %}">{{ program.name }}</a></li>
-    {% endfor %}
-</body>
-</html>
+{% extends 'base.html' %}
+{% block title %}{% endblock %}
+{% block content %}
+    <div class="container">
+        <h2 class="text-center">Доступные программы</h2>
+        {% for program in program_list %}
+            <ul class="list-group">
+                <li class="list-group"><a href="{% url 'webapp:program_detail' program.pk %}">{{ program.name }}</a></li>
+            </ul>
+        {% endfor %}
+    </div>>
+{% endblock %}
