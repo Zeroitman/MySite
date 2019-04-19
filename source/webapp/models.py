@@ -2,7 +2,7 @@ from django.db import models
 from django.contrib.auth.models import User
 
 
-class Category(models.Model):
+class Categories(models.Model):
     name = models.CharField(max_length=255, verbose_name='Название категории')
     code_category = models.CharField(max_length=50, null=True, blank=True, verbose_name='Код категории')
     created_date = models.DateTimeField(auto_now_add=True, verbose_name='Время добавления')
@@ -13,13 +13,13 @@ class Category(models.Model):
         return "%s, Код категории: %s" % (self.name, self.code_category)
 
     class Meta:
-        verbose_name_plural = 'Category'
+        verbose_name_plural = 'Categories'
 
 
 class Skill(models.Model):
     code_skill = models.CharField(max_length=5, verbose_name='Код навыка')
     name = models.CharField(max_length=255, verbose_name='Название навыка')
-    category = models.ForeignKey(Category, on_delete=models.PROTECT, related_name='skill')
+    category = models.ForeignKey(Categories, on_delete=models.PROTECT, related_name='skill')
     description = models.TextField(max_length=1000, null=True, blank=True, verbose_name='Описание навыка')
     criterion = models.TextField(max_length=1000, null=True, blank=True, verbose_name='Критерии')
     created_date = models.DateTimeField(auto_now_add=True, verbose_name='Время создания навыка')
@@ -40,7 +40,7 @@ class UserInfo(models.Model):
         return "%s %s" % (self.user.first_name, self.user.last_name)
 
 
-class Children(models.Model):
+class Child(models.Model):
     first_name = models.CharField(max_length=100, verbose_name='Имя ребенка')
     last_name = models.CharField(max_length=100, verbose_name='Фамилия ребенка')
     third_name = models.CharField(max_length=100, blank=True, null=True, verbose_name='Отчество ребенка')
@@ -59,11 +59,14 @@ class Children(models.Model):
     def __str__(self):
         return "%s %s, %s" % (self.first_name, self.last_name, self.age)
 
+    class Meta:
+        verbose_name_plural = 'Children'
+
 
 class Program(models.Model):
     name = models.CharField(max_length=255, verbose_name="Название программы")
     description = models.TextField(max_length=2000, blank=True, null=True, verbose_name="Описание программы")
-    child = models.ForeignKey(Children, on_delete=models.PROTECT, related_name="child_program")
+    child = models.ForeignKey(Child, on_delete=models.PROTECT, related_name="child_program")
     author_therapist = models.ForeignKey(UserInfo, on_delete=models.PROTECT, related_name='author_program')
     attending_therapist = models.ForeignKey(UserInfo, on_delete=models.PROTECT, related_name='attending_program')
     skill = models.ManyToManyField(Skill, related_name='skill_program')
@@ -86,7 +89,7 @@ class Session(models.Model):
         return 'Сессия номер: %s, Программа: %s, Создано %s' % (self.id, self.program.name, self.created_date)
 
 
-class Results(models.Model):
+class Result(models.Model):
     DONE = 'done'
     DONE_WITH_HINT = 'with_hint'
     NO_ANSWER = 'no_answer'
@@ -109,4 +112,4 @@ class Results(models.Model):
         return 'Сессия %s,  навык %s' % (self.session.id, self.skill.code_skill)
 
     class Meta:
-        verbose_name_plural = 'Results'
+        verbose_name_plural = 'Result'
