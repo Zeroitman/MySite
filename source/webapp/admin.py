@@ -10,7 +10,7 @@ class ResultModelAdmin(admin.ModelAdmin):
     list_filter = ['created_date', 'edited_date']
 
     def session_id(self, obj):
-        return obj.session.id
+        return obj.session.pk
     session_id.empty_value_display = 'Не известно'
 
     def code_skill(self, obj):
