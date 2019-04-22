@@ -10,13 +10,15 @@ class ProgramList(ListView):
 
 def current_session(request, pk):
     current_program = Program.objects.get(id=pk)
-    skill_ids_list = current_program.skill.all()
-    skill_names_list = []
-    session = Session.objects.create(program=current_program)
-    session.save()
-    for skill in skill_ids_list:
-        skill_names_list.append(skill.name)
-    return render(request, 'session_detail.html', {'list': skill_names_list, 'id': session.pk})
+    try:
+        session, created_session = Session.objects.get_or_create(program=current_program)
+        if created_session:
+            session.save()
+            return render(request, 'session_detail.html', {'program': current_program})
+        else:
+            return render(request, 'session_detail.html', {'program': current_program})
+    except Exception as error:
+        print("Error happened " + repr(error))
 
 
 class ProgramDetailView(DetailView):
