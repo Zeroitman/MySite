@@ -54,7 +54,7 @@ Linux и Mac OS:
 Чтобы отключить (деактивировать) виртуальное окружение, в корневой папке используйте команду deactivate:
 
 ```bash
-(venv) project root > deactivate
+корневая папка проекта  > deactivate
 ```
 
 Установите Django:
@@ -63,10 +63,10 @@ Linux и Mac OS:
 pip install Django
 ```
  
- Склонируйте проект:
+Склонируйте проект:
 
- ```bash
- git clone https://Maks941@bitbucket.org/abapythonteam/aba.git
+```bash
+git clone https://Maks941@bitbucket.org/abapythonteam/aba.git
 ```
 
 После установки перейдите в папку с файлом manage.py и проведите миграции:
