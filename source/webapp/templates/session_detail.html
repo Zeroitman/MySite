@@ -10,10 +10,11 @@
         <body>
             <div class="container">
                 <div>
-                    <h4>Сессия №: {{ id }}</h4>
-                    <p>{{ session.description }}</p>
-                    {% for skill_in_program in list %}
-                        <p>{{ skill_in_program }}</p>
+                    {% for session in program.session_program.all %}
+                        <h4>Сессия №: {{ session.id }}</h4>
+                    {% endfor %}
+                    {% for skills in program.skill.all %}
+                        <p>{{ skills.name }}</p>
                         <button>Ответил сам</button>
                         <button>Ответил с подсказкой</button>
                     {% endfor %}
