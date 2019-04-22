@@ -50,8 +50,9 @@ class Child(models.Model):
     characteristic = models.CharField(max_length=1000, blank=True, null=True, verbose_name='Характеристика на ребенка')
     preferences = models.CharField(max_length=1000, blank=True, null=True, verbose_name='Предпочтения ребенка')
     contacts = models.CharField(max_length=200, blank=True, null=True, verbose_name='Контакты ребенка')
-    first_parent = models.ForeignKey(UserInfo, on_delete=models.PROTECT, verbose_name='Родитель')
-    second_parent = models.ForeignKey(UserInfo, on_delete=models.PROTECT, related_name='sp_child')
+    first_parent = models.ForeignKey(UserInfo, on_delete=models.PROTECT,
+                                     related_name="fp_child", verbose_name='Родитель')
+    second_parent = models.ForeignKey(UserInfo, on_delete=models.PROTECT, blank=True, null=True, related_name='sp_child')
     created_date = models.DateTimeField(auto_now_add=True, verbose_name='Дата добавления ребенка')
     edited_date = models.DateTimeField(auto_now=True, null=True, blank=True, verbose_name='Дата редактирования')
     deleted_date = models.DateTimeField(null=True, blank=True, verbose_name='Дата удаления')
@@ -79,7 +80,8 @@ class Program(models.Model):
 
 
 class Session(models.Model):
-    program = models.ForeignKey(Program, on_delete=models.PROTECT, verbose_name="Программа")
+    program = models.ForeignKey(Program, verbose_name='Программа',
+                                on_delete=models.PROTECT, related_name='session_program')
     description = models.TextField(max_length=2000, blank=True, null=True, verbose_name="Описание сессии")
     created_date = models.DateTimeField(auto_now_add=True, verbose_name="Дата создания")
     edited_date = models.DateTimeField(auto_now=True, blank=True, null=True, verbose_name="Дата редактирования")

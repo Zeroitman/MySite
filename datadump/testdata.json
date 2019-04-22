@@ -1,6 +1,6 @@
 [
 {
-  "model": "webapp.category",
+  "model": "webapp.categories",
   "pk": 1,
   "fields": {
     "name": "\u0421\u043e\u0442\u0440\u0443\u0434\u043d\u0438\u0447\u0435\u0441\u0442\u0432\u043e \u0438 \u044d\u0444\u0444\u0435\u043a\u0442\u0438\u0432\u043d\u043e\u0441\u0442\u044c \u043f\u043e\u043e\u0449\u0440\u0435\u043d\u0438\u044f",
@@ -11,7 +11,7 @@
   }
 },
 {
-  "model": "webapp.category",
+  "model": "webapp.categories",
   "pk": 2,
   "fields": {
     "name": "\u0412\u0438\u0437\u0443\u0430\u043b\u044c\u043d\u044b\u0435 \u043a\u0430\u0447\u0435\u0441\u0442\u0432\u0430",
@@ -22,7 +22,7 @@
   }
 },
 {
-  "model": "webapp.category",
+  "model": "webapp.categories",
   "pk": 3,
   "fields": {
     "name": "\u042f\u0437\u044b\u043a \u0432\u043e\u0441\u043f\u0440\u0438\u044f\u0442\u0438\u044f",
@@ -227,8 +227,8 @@
     "deleted_date": null
   }
 },
-{
-  "model": "webapp.children",
+  {
+  "model": "webapp.child",
   "pk": 1,
   "fields": {
     "first_name": "Children1",
@@ -248,7 +248,7 @@
   }
 },
 {
-  "model": "webapp.children",
+  "model": "webapp.child",
   "pk": 2,
   "fields": {
     "first_name": "Children2",
@@ -268,11 +268,27 @@
   }
 },
 {
+  "model": "auth.group",
+  "pk": 1,
+  "fields": {
+    "name": "\u0420\u043e\u0434\u0438\u0442\u0435\u043b\u0438",
+    "permissions": []
+  }
+},
+{
+  "model": "auth.group",
+  "pk": 2,
+  "fields": {
+    "name": "\u0422\u0435\u0440\u0430\u043f\u0438\u0441\u0442\u044b",
+    "permissions": []
+  }
+},
+{
   "model": "auth.user",
   "pk": 1,
   "fields": {
     "password": "pbkdf2_sha256$150000$7BqCker8HkA5$DrDaXumkEhBBDqcBYmpz3Ale+UQKitBgbyvaWBLSUMk=",
-    "last_login": "2019-04-17T10:41:24.983Z",
+    "last_login": "2019-04-17T08:08:22.573Z",
     "is_superuser": true,
     "username": "admin",
     "first_name": "",
@@ -415,6 +431,69 @@
     "phone": "0552 66 39 10",
     "deleted_date": null,
     "edited_date": "2019-04-17T08:40:25.563Z"
+  }
+},
+  {
+  "model": "webapp.program",
+  "pk": 1,
+  "fields": {
+    "name": "\u041f\u0440\u043e\u0433\u0440\u0430\u043c\u043c\u0430 1",
+    "description": "",
+    "child": 1,
+    "author_therapist": 3,
+    "attending_therapist": 4,
+    "created_date": "2019-04-18T06:52:24.474Z",
+    "edited_date": "2019-04-18T06:52:24.474Z",
+    "deleted_date": null,
+    "skill": [
+      1,
+      2,
+      3,
+      4,
+      5
+    ]
+  }
+},
+{
+  "model": "webapp.program",
+  "pk": 2,
+  "fields": {
+    "name": "\u041f\u0440\u043e\u0433\u0440\u0430\u043c\u043c\u0430 2",
+    "description": "",
+    "child": 2,
+    "author_therapist": 3,
+    "attending_therapist": 3,
+    "created_date": "2019-04-18T06:53:13.472Z",
+    "edited_date": "2019-04-18T06:53:13.472Z",
+    "deleted_date": null,
+    "skill": [
+      6,
+      7,
+      8,
+      9,
+      10
+    ]
+  }
+},
+{
+  "model": "webapp.program",
+  "pk": 3,
+  "fields": {
+    "name": "\u041f\u0440\u043e\u0433\u0440\u0430\u043c\u043c\u0430 3",
+    "description": "",
+    "child": 1,
+    "author_therapist": 3,
+    "attending_therapist": 4,
+    "created_date": "2019-04-18T06:53:52.026Z",
+    "edited_date": "2019-04-18T06:53:52.026Z",
+    "deleted_date": null,
+    "skill": [
+      11,
+      12,
+      13,
+      14,
+      15
+    ]
   }
 }
 ]
