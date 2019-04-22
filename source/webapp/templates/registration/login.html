@@ -9,6 +9,7 @@
     <title>{% block title %}{% endblock %}</title>
     <link rel="stylesheet" href="{% static 'css/bootstrap.css' %}">
     <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <script src="{% static 'js/jquery-3.3.1.min.js' %}"></script>
     {% block styles %}{% endblock %}
 </head>
 <body>
@@ -17,7 +18,7 @@
     <form action="{% url 'login' %}" method="post">
         {% csrf_token %}
         {% if form.errors %}
-            <p class="form-text text-danger text-center">Данные не введены / Введено неверное имя пользователя или пароль.</p>
+            <p class="form-text text-danger text-center">Введено неверное имя пользователя или пароль</p>
         {% endif %}
         <input type="hidden" name="next" value="{{ next }}">
         <div class="form-row form-group">
@@ -32,8 +33,27 @@
             <button type="submit" class="btn btn-primary">Войти</button>
         </div>
     </form>
+    <script>
+        $(function () {
+            $('button[type="submit"]').prop('disabled', true);
+            $('.form-control').keyup(function () {
+                if ($('#username').val()) {
+                    $('button[type="submit"]').prop('disabled', true);
+                    if ($('#password').val()) {
+                        $('button[type="submit"]').prop('disabled', false);
+                    }
+                } else if ($('#password').val()) {
+                    $('button[type="submit"]').prop('disabled', true);
+                    if ($('#username').val()) {
+                        $('button[type="submit"]').prop('disabled', false);
+                    }
+                } else {
+                    $('button[type="submit"]').prop('disabled', true);
+                }
+            });
+        });
+    </script>
 </div>
-<script src="{% static 'js/jquery-3.3.1.min.js' %}"></script>
 <script src="{% static 'js/popper.min.js' %}"></script>
 <script src="{% static 'js/bootstrap.min.js' %}"></script>
 </body>
