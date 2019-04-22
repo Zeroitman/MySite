@@ -9,6 +9,9 @@ class Categories(models.Model):
     edited_date = models.DateTimeField(auto_now=True, null=True, blank=True, verbose_name='Время редактирования')
     deleted_date = models.DateTimeField(null=True, blank=True, verbose_name='Время удаления')
 
+    def __str__(self):
+        return "%s. %s" % (self.code_category, self.name)
+
     class Meta:
         verbose_name = 'Категории'
         verbose_name_plural = 'Категории'
@@ -25,6 +28,9 @@ class Skill(models.Model):
                                         verbose_name='Время редактирование навыка')
     deleted_date = models.DateTimeField(null=True, blank=True, verbose_name='Время удаления навыка')
 
+    def __str__(self):
+        return "%s. %s" % (self.code_skill, self.name)
+
     class Meta:
         verbose_name = 'Навык'
         verbose_name_plural = 'Навыки'
@@ -37,7 +43,7 @@ class UserInfo(models.Model):
     edited_date = models.DateTimeField(auto_now=True, blank=True, null=True, verbose_name='Дата редактирования')
 
     def __str__(self):
-        return "%s %s" % (self.user.first_name, self.user.last_name)
+        return "%s. %s %s" % (self.user.id, self.user.first_name, self.user.last_name)
 
 
 class Child(models.Model):
@@ -57,6 +63,9 @@ class Child(models.Model):
     edited_date = models.DateTimeField(auto_now=True, null=True, blank=True, verbose_name='Дата редактирования')
     deleted_date = models.DateTimeField(null=True, blank=True, verbose_name='Дата удаления')
 
+    def __str__(self):
+        return "%s. %s %s" % (self.id, self.last_name, self.first_name)
+
     class Meta:
         verbose_name = 'Дети'
         verbose_name_plural = 'Дети'
@@ -74,6 +83,9 @@ class Program(models.Model):
     edited_date = models.DateTimeField(auto_now=True, blank=True, null=True, verbose_name="Дата редактирования")
     deleted_date = models.DateTimeField(blank=True, null=True, verbose_name="Дата удаления")
 
+    def __str__(self):
+        return "%s. %s %s" % (self.id, self.name, self.created_date)
+
     class Meta:
         verbose_name = 'Программа'
         verbose_name_plural = 'Программы'
@@ -86,6 +98,9 @@ class Session(models.Model):
     created_date = models.DateTimeField(auto_now_add=True, verbose_name="Дата создания")
     edited_date = models.DateTimeField(auto_now=True, blank=True, null=True, verbose_name="Дата редактирования")
     deleted_date = models.DateTimeField(blank=True, null=True, verbose_name="Дата удаления")
+
+    def __str__(self):
+        return "Сессия %s" % self.id
 
     class Meta:
         verbose_name = 'Сессия'
@@ -110,6 +125,9 @@ class Result(models.Model):
     created_date = models.DateTimeField(auto_now_add=True, verbose_name="Дата создания")
     edited_date = models.DateTimeField(auto_now=True, blank=True, null=True, verbose_name="Дата редактирования")
     deleted_date = models.DateTimeField(blank=True, null=True, verbose_name="Дата удаления")
+
+    def __str__(self):
+        return "Результаты к сессии %s" % self.session.id
 
     class Meta:
         verbose_name = 'Результат'
