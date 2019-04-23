@@ -19,25 +19,24 @@ class ResultModelAdmin(admin.ModelAdmin):
 
 
 class SessionModelAdmin(admin.ModelAdmin):
-    list_display = ['id', 'program_name', 'created_date']
-    search_fields = ['program_name']
+    list_display = ['id', 'program_name', 'created_date', 'child_name']
+    search_fields = ['program_name', 'child_name']
     list_filter = ['created_date', 'edited_date']
-
-    def program_name(self, obj):
-        return obj.program.name
-
-    program_name.empty_value_display = 'Не известно'
-
-
-class ProgramModelAdmin(admin.ModelAdmin):
-    list_display = ['name', 'child_name']
-    search_fields = ['name', 'child_name']
-    list_filter = ['created_date', 'edited_date']
-    filter_horizontal = ('skill',)
 
     def child_name(self, obj):
         return obj.child.first_name
     child_name.empty_value_display = 'Не известно'
+
+    def program_name(self, obj):
+        return obj.program.name
+    program_name.empty_value_display = 'Не известно'
+
+
+class ProgramModelAdmin(admin.ModelAdmin):
+    list_display = ['name']
+    search_fields = ['name']
+    list_filter = ['created_date', 'edited_date']
+    filter_horizontal = ('skill',)
 
 
 class SkillModelAdmin(admin.ModelAdmin):
