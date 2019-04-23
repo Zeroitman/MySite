@@ -74,10 +74,7 @@ class Child(models.Model):
 class Program(models.Model):
     name = models.CharField(max_length=255, verbose_name="Название программы")
     description = models.TextField(max_length=2000, blank=True, null=True, verbose_name="Описание программы")
-    child = models.ForeignKey(Child, on_delete=models.PROTECT, related_name="child_program",
-                              verbose_name='Имя ребенка')
     author_therapist = models.ForeignKey(UserInfo, on_delete=models.PROTECT, related_name='author_program')
-    attending_therapist = models.ForeignKey(UserInfo, on_delete=models.PROTECT, related_name='attending_program')
     skill = models.ManyToManyField(Skill, related_name='skill_program')
     created_date = models.DateTimeField(auto_now_add=True, verbose_name="Дата создания")
     edited_date = models.DateTimeField(auto_now=True, blank=True, null=True, verbose_name="Дата редактирования")
@@ -92,8 +89,9 @@ class Program(models.Model):
 
 
 class Session(models.Model):
-    program = models.ForeignKey(Program, verbose_name='Программа',
-                                on_delete=models.PROTECT, related_name='session_program')
+    program = models.ManyToManyField(Program, verbose_name='Программа', related_name='session_program')
+    child = models.ForeignKey(Child, on_delete=models.PROTECT, related_name="session_child", verbose_name='Имя ребенка')
+    attending_therapist = models.ForeignKey(UserInfo, on_delete=models.PROTECT, related_name='attending_session')
     description = models.TextField(max_length=2000, blank=True, null=True, verbose_name="Описание сессии")
     created_date = models.DateTimeField(auto_now_add=True, verbose_name="Дата создания")
     edited_date = models.DateTimeField(auto_now=True, blank=True, null=True, verbose_name="Дата редактирования")
@@ -118,7 +116,7 @@ class Result(models.Model):
         (NO_ANSWER, 'Без ответа')
     )
 
-    session = models.ForeignKey(Session, on_delete=models.CASCADE, related_name='session_results')
+    session = models.ForeignKey(Session, on_delete=models.PROTECT, related_name='session_results')
     skill = models.ForeignKey(Skill, on_delete=models.PROTECT, related_name='skills_results')
     status = models.CharField(max_length=255, default=NO_ANSWER,
                               choices=STATUS_CHOICES, verbose_name="Статус результата")
