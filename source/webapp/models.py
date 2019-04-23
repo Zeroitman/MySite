@@ -77,8 +77,7 @@ class Program(models.Model):
 
 
 class Session(models.Model):
-    program = models.ForeignKey(Program, verbose_name='Программа',
-                                on_delete=models.PROTECT, related_name='session_program')
+    program = models.ManyToManyField(Program, verbose_name='Программа', related_name='session_program')
     child = models.ForeignKey(Child, on_delete=models.PROTECT, related_name="session_child", verbose_name='Имя ребенка')
     attending_therapist = models.ForeignKey(UserInfo, on_delete=models.PROTECT, related_name='attending_session')
     description = models.TextField(max_length=2000, blank=True, null=True, verbose_name="Описание сессии")
@@ -102,7 +101,7 @@ class Result(models.Model):
         (NO_ANSWER, 'Без ответа')
     )
 
-    session = models.ManyToManyField(Session, related_name='session_results')
+    session = models.ForeignKey(Session, on_delete=models.PROTECT, related_name='session_results')
     skill = models.ForeignKey(Skill, on_delete=models.PROTECT, related_name='skills_results')
     status = models.CharField(max_length=255, default=NO_ANSWER,
                               choices=STATUS_CHOICES, verbose_name="Статус результата")
