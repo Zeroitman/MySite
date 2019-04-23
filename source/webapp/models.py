@@ -102,7 +102,7 @@ class Result(models.Model):
         (NO_ANSWER, 'Без ответа')
     )
 
-    session = models.ForeignKey(Session, on_delete=models.CASCADE, related_name='session_results')
+    session = models.ManyToManyField(Session, related_name='session_results')
     skill = models.ForeignKey(Skill, on_delete=models.PROTECT, related_name='skills_results')
     status = models.CharField(max_length=255, default=NO_ANSWER,
                               choices=STATUS_CHOICES, verbose_name="Статус результата")
