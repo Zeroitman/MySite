@@ -20,7 +20,7 @@ class Categories(models.Model):
 class Skill(models.Model):
     code_skill = models.CharField(max_length=5, verbose_name='Код навыка')
     name = models.CharField(max_length=255, verbose_name='Название навыка')
-    category = models.ForeignKey(Categories, on_delete=models.PROTECT, related_name='skill')
+    category = models.ForeignKey(Categories, on_delete=models.PROTECT, related_name='skill', verbose_name='Категория')
     description = models.TextField(max_length=1000, null=True, blank=True, verbose_name='Описание навыка')
     criterion = models.TextField(max_length=1000, null=True, blank=True, verbose_name='Критерии')
     created_date = models.DateTimeField(auto_now_add=True, verbose_name='Время создания навыка')
@@ -58,7 +58,8 @@ class Child(models.Model):
     contacts = models.CharField(max_length=200, blank=True, null=True, verbose_name='Контакты ребенка')
     first_parent = models.ForeignKey(UserInfo, on_delete=models.PROTECT,
                                      related_name="fp_child", verbose_name='Родитель')
-    second_parent = models.ForeignKey(UserInfo, on_delete=models.PROTECT, blank=True, null=True, related_name='sp_child')
+    second_parent = models.ForeignKey(UserInfo, on_delete=models.PROTECT, blank=True, null=True,
+                                      related_name='sp_child', verbose_name='Второй родитель')
     created_date = models.DateTimeField(auto_now_add=True, verbose_name='Дата добавления ребенка')
     edited_date = models.DateTimeField(auto_now=True, null=True, blank=True, verbose_name='Дата редактирования')
     deleted_date = models.DateTimeField(null=True, blank=True, verbose_name='Дата удаления')
@@ -74,8 +75,8 @@ class Child(models.Model):
 class Program(models.Model):
     name = models.CharField(max_length=255, verbose_name="Название программы")
     description = models.TextField(max_length=2000, blank=True, null=True, verbose_name="Описание программы")
-    author_therapist = models.ForeignKey(UserInfo, on_delete=models.PROTECT, related_name='author_program')
-    skill = models.ManyToManyField(Skill, related_name='skill_program')
+    author_therapist = models.ForeignKey(UserInfo, on_delete=models.PROTECT, related_name='author_program', verbose_name ='Терапист')
+    skill = models.ManyToManyField(Skill, related_name='skill_program',verbose_name='Навыки')
     created_date = models.DateTimeField(auto_now_add=True, verbose_name="Дата создания")
     edited_date = models.DateTimeField(auto_now=True, blank=True, null=True, verbose_name="Дата редактирования")
     deleted_date = models.DateTimeField(blank=True, null=True, verbose_name="Дата удаления")
