@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+{% block title %} Создать сессию {% endblock %}
+{% block content %}
+    <h3>Создать сессию</h3>
+    <form action="{% url 'webapp:session_create' %}" method="post">
+        {% csrf_token %}
+        {% for field in form %}
+            <p>{{ field.label_tag }}</p>
+        {% endfor %}
+        <div>
+            <button type="submit" class="btn btn-primary">Сохранить</button>
+        </div>
+    </form>
+
+{% endblock %}
