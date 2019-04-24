@@ -5,7 +5,6 @@ from webapp.forms import SessionForm
 from django.urls import reverse
 
 
-
 class ProgramList(ListView):
     model = Program
     template_name = 'program_list.html'
@@ -33,3 +32,4 @@ class SessionCreateView(CreateView):
 
     def get_success_url(self):
         return reverse('webapp:session_view', kwargs={'pk': self.object.pk})
+
