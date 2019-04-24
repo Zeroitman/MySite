@@ -1,6 +1,9 @@
 from django.shortcuts import render
 from webapp.models import Program, Session
-from django.views.generic import ListView, DetailView, FormView
+from django.views.generic import ListView, DetailView, CreateView
+from webapp.forms import SessionForm
+from django.urls import reverse
+
 
 
 class ProgramList(ListView):
@@ -8,17 +11,9 @@ class ProgramList(ListView):
     template_name = 'program_list.html'
 
 
-def current_session(request, pk):
-    current_program = Program.objects.get(id=pk)
-    try:
-        session, created_session = Session.objects.get_or_create(program=current_program)
-        if created_session:
-            session.save()
-            return render(request, 'session_detail.html', {'program': current_program})
-        else:
-            return render(request, 'session_detail.html', {'program': current_program})
-    except Exception as error:
-        print("Error happened " + repr(error))
+class SessionList(ListView):
+    model = Session
+    template_name = 'session_list.html'
 
 
 class ProgramDetailView(DetailView):
@@ -26,17 +21,15 @@ class ProgramDetailView(DetailView):
     template_name = 'program_detail.html'
 
 
+class SessionDetailView(DetailView):
+    model = Session
+    template_name = 'session_detail.html'
 
-class ProgramListView(ListView):
-    model = Program
-    template_name = 'program_list.html'
 
-    #
-    # def get_queryset(self):
-    #     program_keywords = self.request.GET.get('program_keywords')
-    #     if program_keywords:
-    #         return self.model.objects.filter(title__icontains=program_keywords) \
-    #            | self.model.objects.filter(text__icontains=program_keywords)
-    #     else:
-    #         return self.model.objects.all()
+class SessionCreateView(CreateView):
+    form_class = SessionForm
+    template_name = 'session_create.html'
+    model = Session
 
+    def get_success_url(self):
+        return reverse('webapp:session_view', kwargs={'pk': self.object.pk})
