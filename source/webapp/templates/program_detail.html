@@ -17,6 +17,5 @@
             <p class="font-weight-bold">Дата последнего редактирования: <span class="font-weight-normal">{{ program.edited_date }}</span></p>
             <p class="font-weight-bold">Дата удаления: <span class="font-weight-normal">{{ program.deleted_date }}</span></p>
         </div>
-        <a class="btn btn-primary" role="button" href={% url 'webapp:session_view' program.pk %}>Начать сессию с программой</a>
     </div>
 {% endblock %}

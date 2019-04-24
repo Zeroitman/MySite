@@ -1,25 +1,20 @@
 {% extends 'base.html' %}
 {% block title %}Сессия{% endblock %}
 {% block content %}
-    <!DOCTYPE html>
-    <html lang="en">
-        <head>
-            <meta charset="UTF-8">
-            <title>Session View</title>
-        </head>
-        <body>
-            <div class="container">
-                <div>
-                    {% for session in program.session_program.all %}
-                        <h4>Сессия №: {{ session.id }}</h4>
-                    {% endfor %}
-                    {% for skills in program.skill.all %}
-                        <p>{{ skills.name }}</p>
-                        <button>Ответил сам</button>
-                        <button>Ответил с подсказкой</button>
-                    {% endfor %}
-                </div>
-            </div>
-        </body>
-    </html>
+    <div class="container">
+        <ul class="list-group">
+            {% for program in session.program.all %}
+                <h3 class="text-center mt-2">{{ program.name }}</h3>
+                {% for skill in program.skill.all %}
+                    <li class="list-group-item mt-3">
+                        <p class="text-center">{{ skill.name }}</p>
+                        <div class="d-flex justify-content-around">
+                            <button class="btn btn-primary w-25">Ответил сам</button>
+                            <button class="btn btn-success w-25">Ответил с подсказкой</button>
+                        </div>
+                    </li>
+                {% endfor %}
+            {% endfor %}
+        </ul>
+    </div>
 {% endblock %}

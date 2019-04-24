@@ -8,6 +8,7 @@ class ResultModelAdmin(admin.ModelAdmin):
     list_display = ['session_id', 'code_skill']
     search_fields = ['session_id', 'code_skill']
     list_filter = ['created_date', 'edited_date']
+    exclude = ('deleted_date',)
 
     def session_id(self, obj):
         return obj.session.pk
@@ -22,6 +23,7 @@ class SessionModelAdmin(admin.ModelAdmin):
     list_display = ['id', 'program_name', 'created_date', 'child_name']
     search_fields = ['program_name', 'child_name']
     list_filter = ['created_date', 'edited_date']
+    exclude = ('deleted_date',)
 
     def child_name(self, obj):
         return obj.child.first_name
@@ -37,24 +39,28 @@ class ProgramModelAdmin(admin.ModelAdmin):
     search_fields = ['name']
     list_filter = ['created_date', 'edited_date']
     filter_horizontal = ('skill',)
+    exclude = ('deleted_date',)
 
 
 class SkillModelAdmin(admin.ModelAdmin):
     list_display = ['name', 'code_skill']
     search_fields = ['name', 'code_skill']
     list_filter = ['created_date', 'updated_date']
+    exclude = ('deleted_date',)
 
 
 class CategoryModelAdmin(admin.ModelAdmin):
     list_display = ['name', 'code_category']
     search_fields = ['name']
     list_filter = ['created_date', 'edited_date', 'code_category']
+    exclude = ('deleted_date',)
 
 
 class ChildrenModelAdmin(admin.ModelAdmin):
     list_display = ["first_name", "last_name", "age", "first_parent"]
     search_fields = ["first_name"]
     list_filter = ['created_date', 'edited_date']
+    exclude = ('deleted_date',)
 
 
 class InlineUser(admin.StackedInline):
