@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from webapp.models import Program, Session
-from django.views.generic import ListView, DetailView
+from django.views.generic import ListView, DetailView, FormView
 
 
 class ProgramList(ListView):
@@ -24,3 +24,19 @@ def current_session(request, pk):
 class ProgramDetailView(DetailView):
     model = Program
     template_name = 'program_detail.html'
+
+
+
+class ProgramListView(ListView):
+    model = Program
+    template_name = 'program_list.html'
+
+    #
+    # def get_queryset(self):
+    #     program_keywords = self.request.GET.get('program_keywords')
+    #     if program_keywords:
+    #         return self.model.objects.filter(title__icontains=program_keywords) \
+    #            | self.model.objects.filter(text__icontains=program_keywords)
+    #     else:
+    #         return self.model.objects.all()
+
