@@ -10,7 +10,6 @@ urlpatterns = [
     path('program/<int:pk>', ProgramDetailView.as_view(), name='program_detail'),
     path('session_create', SessionCreateView.as_view(), name='session_create'),
     path('current_session/<int:pk>', SessionDetailView.as_view(), name='session_view'),
-    path('program/<int:pk>', ProgramDetailView.as_view(), name='program_detail')
 ]
 
 
