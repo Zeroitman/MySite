@@ -2,17 +2,50 @@
 {% block title %}Детали программы{% endblock %}
 {% block content %}
     <div class="container">
+        {% if program.status == True %}
+            <h2 class="text-center">Программа действующая</h2>
+        {% else %}
+            <h2 class="text-center">Программа закрыта</h2>
+        {% endif %}
         <div class="description w-50">
-            <p class="font-weight-bold">Программа: <span class="font-weight-normal">{{ program.name }}</span></p>
-            {% if program.description   %}<p class="font-weight-bold">Описание: <span
-                    class="font-weight-normal">{{ program.description }}</span></p>
-            {% else %} <p class="font-weight-bold">Описание: <span
-                    class="font-weight-normal">Описание отсутствует</span></p>{% endif %}
-            <p class="font-weight-bold">Автор: <span class="font-weight-normal">{{ program.author_therapist.user }}</span>
+            {% if program.name %}
+                <p class="font-weight-bold">Программа: <span class="font-weight-normal">{{ program.name }}</span></p>
+            {% else %}
+                <p class="font-weight-bold">Программа: <span
+                        class="font-weight-normal">Название программы отсутствует</span></p>
+            {% endif %}
+
+            {% if program.description %}
+                <p class="font-weight-bold">Описание: <span class="font-weight-normal">{{ program.description }}</span>
+                </p>
+            {% else %}
+                <p class="font-weight-bold">Описание: <span
+                        class="font-weight-normal">Описание программы отсутствует</span></p>
+            {% endif %}
+
+            <p class="font-weight-bold">Ребенок: <span
+                    class="font-weight-normal">{{ program.child.last_name }} {{ program.child.first_name }}</span></p>
+
+            <p class="font-weight-bold">Автор: <span
+                    class="font-weight-normal">{{ program.author_therapist.user }}</span>
             </p>
-            <ul class="font-weight-bold">Навыки:
-                {% for program_skill in program.skill.all %}
-                    <li class="font-weight-normal p-2">{{ program_skill.name }}</li>
+
+            <ul class="font-weight-bold"> Выполненные навыки:
+                <p id=01 class="text-dark font-weight-normal"></p>
+                {% for program_skill in program.related_to_program.all %}
+                    {% if program_skill.status == False %}
+                        <li id=001 class="font-weight-normal">{{ program_skill.skill.name }}</li>
+                    {% else %}
+                    {% endif %}
+                {% endfor %}
+            </ul>
+
+            <ul class="font-weight-bold">Невыполненные навыки:
+                <p id=02 class="text-dark font-weight-normal"></p>
+                {% for program_skill in program.related_to_program.all %}
+                    {% if program_skill.status != False %}
+                        <li id=002 class="font-weight-normal">{{ program_skill.skill.name }}</li>
+                    {% endif %}
                 {% endfor %}
             </ul>
             <p class="font-weight-bold">Дата создания: <span
@@ -21,4 +54,7 @@
                     class="font-weight-normal">{{ program.edited_date }}</span></p>
         </div>
     </div>
+{% endblock %}
+{% block scripts %}
+    <script src=../static/js/main.js></script>
 {% endblock %}
