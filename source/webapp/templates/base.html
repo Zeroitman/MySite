@@ -28,12 +28,12 @@
         </button>
         <div class="collapse navbar-collapse" id="navbarNav">
             {% if user.is_authenticated %}
-                <ul class="navbar-nav mr-auto">
-                    <li class="nav-item active ml-3">
-                        <a href="{% url 'webapp:program_list' %}" class="nav-link text-dark">Программы<span
-                                class="sr-only">(current)</span></a>
-                    </li>
-                </ul>
+{#                <ul class="navbar-nav mr-auto">#}
+{#                    <li class="nav-item active ml-3">#}
+{#                        <a href="" class="nav-link text-dark">Программы<span#}
+{#                                class="sr-only">(current)</span></a>#}
+{#                    </li>#}
+{#                </ul>#}
                 <ul class="navbar-nav ml-auto ">
                     <li class="nav-item navbar-text text-dark">Привет, {{ user.username }}!</li>
                     <li class="nav-item"><a href="{% url 'logout' %}" class="nav-link text-dark">Выход</a></li>
