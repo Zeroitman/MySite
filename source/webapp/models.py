@@ -89,7 +89,7 @@ class Program(models.Model):
                               verbose_name='Ребенок')
     author_therapist = models.ForeignKey(UserInfo, on_delete=models.PROTECT, related_name='author_program',
                                          verbose_name='Терапист')
-    skills = models.ManyToManyField('SkillsInProgram', related_name='skills_program', verbose_name='Навыки')
+    skills = models.ManyToManyField('Skill', through='SkillsInProgram', verbose_name='Навыки')
     status = models.BooleanField(default=True, verbose_name='Статус')
     created_date = models.DateTimeField(auto_now_add=True, verbose_name="Дата создания")
     edited_date = models.DateTimeField(auto_now=True, blank=True, null=True, verbose_name="Дата редактирования")

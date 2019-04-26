@@ -283,108 +283,6 @@
   }
 },
 {
-  "model": "webapp.skillsinprogram",
-  "pk": 1,
-  "fields": {
-    "program": 1,
-    "skill": 1,
-    "status": true
-  }
-},
-{
-  "model": "webapp.skillsinprogram",
-  "pk": 2,
-  "fields": {
-    "program": 1,
-    "skill": 2,
-    "status": true
-  }
-},
-{
-  "model": "webapp.skillsinprogram",
-  "pk": 3,
-  "fields": {
-    "program": 1,
-    "skill": 3,
-    "status": true
-  }
-},
-{
-  "model": "webapp.skillsinprogram",
-  "pk": 4,
-  "fields": {
-    "program": 1,
-    "skill": 4,
-    "status": true
-  }
-},
-{
-  "model": "webapp.skillsinprogram",
-  "pk": 5,
-  "fields": {
-    "program": 2,
-    "skill": 1,
-    "status": true
-  }
-},
-{
-  "model": "webapp.skillsinprogram",
-  "pk": 6,
-  "fields": {
-    "program": 2,
-    "skill": 6,
-    "status": true
-  }
-},
-{
-  "model": "webapp.skillsinprogram",
-  "pk": 7,
-  "fields": {
-    "program": 2,
-    "skill": 11,
-    "status": true
-  }
-},
-{
-  "model": "webapp.skillsinprogram",
-  "pk": 8,
-  "fields": {
-    "program": 2,
-    "skill": 15,
-    "status": true
-  }
-},
-{
-  "model": "webapp.program",
-  "pk": 1,
-  "fields": {
-    "name": "\u041f\u0440\u043e\u0433\u0440\u0430\u043c\u043c\u0430 1",
-    "description": "",
-    "child": 1,
-    "author_therapist": 1,
-    "status": true,
-    "created_date": "2019-04-25T16:25:29.583Z",
-    "edited_date": "2019-04-25T16:28:53.856Z",
-    "deleted_date": null,
-    "skills": []
-  }
-},
-{
-  "model": "webapp.program",
-  "pk": 2,
-  "fields": {
-    "name": "\u041f\u0440\u043e\u0433\u0440\u0430\u043c\u043c\u0430 2",
-    "description": "",
-    "child": 2,
-    "author_therapist": 2,
-    "status": true,
-    "created_date": "2019-04-25T16:28:46.702Z",
-    "edited_date": "2019-04-25T16:28:46.702Z",
-    "deleted_date": null,
-    "skills": []
-  }
-},
-{
   "model": "webapp.session",
   "pk": 2,
   "fields": {
@@ -550,6 +448,115 @@
     "child": [
       2
     ]
+  }
+},
+  {
+  "model": "webapp.program",
+  "pk": 1,
+  "fields": {
+    "name": "\u041f\u0440\u043e\u0433\u0440\u0430\u043c\u043c\u0430 1",
+    "description": "",
+    "child": 1,
+    "author_therapist": 1,
+    "status": true,
+    "created_date": "2019-04-26T07:15:39.065Z",
+    "edited_date": "2019-04-26T07:15:39.065Z",
+    "deleted_date": null
+  }
+},
+{
+  "model": "webapp.program",
+  "pk": 2,
+  "fields": {
+    "name": "\u041f\u0440\u043e\u0433\u0440\u0430\u043c\u043c\u0430 2",
+    "description": "",
+    "child": 2,
+    "author_therapist": 2,
+    "status": true,
+    "created_date": "2019-04-26T07:19:15.736Z",
+    "edited_date": "2019-04-26T07:19:15.736Z",
+    "deleted_date": null
+  }
+},
+{
+  "model": "webapp.skillsinprogram",
+  "pk": 1,
+  "fields": {
+    "program": 1,
+    "skill": 1,
+    "status": true
+  }
+},
+{
+  "model": "webapp.skillsinprogram",
+  "pk": 2,
+  "fields": {
+    "program": 1,
+    "skill": 2,
+    "status": true
+  }
+},
+{
+  "model": "webapp.skillsinprogram",
+  "pk": 3,
+  "fields": {
+    "program": 1,
+    "skill": 3,
+    "status": true
+  }
+},
+{
+  "model": "webapp.skillsinprogram",
+  "pk": 4,
+  "fields": {
+    "program": 1,
+    "skill": 4,
+    "status": true
+  }
+},
+{
+  "model": "webapp.skillsinprogram",
+  "pk": 5,
+  "fields": {
+    "program": 1,
+    "skill": 5,
+    "status": true
+  }
+},
+{
+  "model": "webapp.skillsinprogram",
+  "pk": 6,
+  "fields": {
+    "program": 2,
+    "skill": 6,
+    "status": true
+  }
+},
+{
+  "model": "webapp.skillsinprogram",
+  "pk": 7,
+  "fields": {
+    "program": 2,
+    "skill": 7,
+    "status": true
+  }
+},
+{
+  "model": "webapp.skillsinprogram",
+  "pk": 8,
+  "fields": {
+    "program": 2,
+    "skill": 8,
+    "status": true
+  }
+},
+{
+  "model": "webapp.skillsinprogram",
+  "pk": 9,
+  "fields": {
+    "program": 2,
+    "skill": 9,
+    "status": false
   }
 }
 ]
