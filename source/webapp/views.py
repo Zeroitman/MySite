@@ -1,39 +1,32 @@
-from django.shortcuts import render
 from webapp.models import Program, Session, Result
-from django.views.generic import ListView, DetailView, CreateView
-from webapp.forms import SessionForm
-from django.urls import reverse
+from django.views.generic import ListView, DetailView
 
 
+# ChildList - главная страница с выводом детей
+class ChildList(ListView):
+    model = Program
+    template_name = 'child_list.html'
+
+
+# ProgramList - страница вывода всех программ
 class ProgramList(ListView):
     model = Program
     template_name = 'program_list.html'
 
 
-class SessionList(ListView):
-    model = Session
-    template_name = 'session_list.html'
-
-
+# ResultList - страница вывода результатов сессий
 class ResultList(ListView):
     model = Result
     template_name = 'session_result.html'
 
 
+# ProgramDetail - страница просмотра деталей определенной программы
 class ProgramDetailView(DetailView):
     model = Program
     template_name = 'program_detail.html'
 
 
+# SessionDetailView - страница просмотра делатей
 class SessionDetailView(DetailView):
     model = Session
     template_name = 'session_detail.html'
-
-
-class SessionCreateView(CreateView):
-    form_class = SessionForm
-    template_name = 'session_create.html'
-    model = Session
-
-    def get_success_url(self):
-        return reverse('webapp:session_view', kwargs={'pk': self.object.pk})

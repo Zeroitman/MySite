@@ -2,40 +2,6 @@ from django.db import models
 from django.contrib.auth.models import User
 
 
-class Categories(models.Model):
-    name = models.CharField(max_length=255, verbose_name='Название категории')
-    code_category = models.CharField(max_length=50, null=True, blank=True, verbose_name='Код категории')
-    created_date = models.DateTimeField(auto_now_add=True, verbose_name='Время добавления')
-    edited_date = models.DateTimeField(auto_now=True, null=True, blank=True, verbose_name='Время редактирования')
-    deleted_date = models.DateTimeField(null=True, blank=True, verbose_name='Время удаления')
-
-    def __str__(self):
-        return "%s. %s" % (self.code_category, self.name)
-
-    class Meta:
-        verbose_name = 'Категории'
-        verbose_name_plural = 'Категории'
-
-
-class Skill(models.Model):
-    code_skill = models.CharField(max_length=5, verbose_name='Код навыка')
-    name = models.CharField(max_length=255, verbose_name='Название навыка')
-    category = models.ForeignKey(Categories, on_delete=models.PROTECT, related_name='skill', verbose_name='Категория')
-    description = models.TextField(max_length=1000, null=True, blank=True, verbose_name='Описание навыка')
-    criterion = models.TextField(max_length=1000, null=True, blank=True, verbose_name='Критерии')
-    created_date = models.DateTimeField(auto_now_add=True, verbose_name='Время создания навыка')
-    updated_date = models.DateTimeField(auto_now=True, null=True, blank=True,
-                                        verbose_name='Время редактирование навыка')
-    deleted_date = models.DateTimeField(null=True, blank=True, verbose_name='Время удаления навыка')
-
-    def __str__(self):
-        return "%s. %s" % (self.code_skill, self.name)
-
-    class Meta:
-        verbose_name = 'Навык'
-        verbose_name_plural = 'Навыки'
-
-
 class UserInfo(models.Model):
     user = models.OneToOneField(User, on_delete=models.PROTECT, related_name='client', verbose_name='Пользователь')
     phone = models.CharField(max_length=50, verbose_name='Телефон пользователя')
@@ -71,6 +37,40 @@ class Child(models.Model):
         verbose_name_plural = 'Дети'
 
 
+class Categories(models.Model):
+    name = models.CharField(max_length=255, verbose_name='Название категории')
+    code_category = models.CharField(max_length=50, null=True, blank=True, verbose_name='Код категории')
+    created_date = models.DateTimeField(auto_now_add=True, verbose_name='Время добавления')
+    edited_date = models.DateTimeField(auto_now=True, null=True, blank=True, verbose_name='Время редактирования')
+    deleted_date = models.DateTimeField(null=True, blank=True, verbose_name='Время удаления')
+
+    def __str__(self):
+        return "%s. %s" % (self.code_category, self.name)
+
+    class Meta:
+        verbose_name = 'Категории'
+        verbose_name_plural = 'Категории'
+
+
+class Skill(models.Model):
+    code_skill = models.CharField(max_length=5, verbose_name='Код навыка')
+    name = models.CharField(max_length=255, verbose_name='Название навыка')
+    category = models.ForeignKey(Categories, on_delete=models.PROTECT, related_name='skill', verbose_name='Категория')
+    description = models.TextField(max_length=1000, null=True, blank=True, verbose_name='Описание навыка')
+    criterion = models.TextField(max_length=1000, null=True, blank=True, verbose_name='Критерии')
+    created_date = models.DateTimeField(auto_now_add=True, verbose_name='Время создания навыка')
+    updated_date = models.DateTimeField(auto_now=True, null=True, blank=True,
+                                        verbose_name='Время редактирование навыка')
+    deleted_date = models.DateTimeField(null=True, blank=True, verbose_name='Время удаления навыка')
+
+    def __str__(self):
+        return "%s. %s" % (self.code_skill, self.name)
+
+    class Meta:
+        verbose_name = 'Навык'
+        verbose_name_plural = 'Навыки'
+
+
 class SkillsInProgram(models.Model):
     program = models.ForeignKey('Program', related_name='related_to_program', on_delete=models.PROTECT,
                                 verbose_name='Программа')
@@ -79,7 +79,7 @@ class SkillsInProgram(models.Model):
     status = models.BooleanField(default=True, verbose_name='Статус')
 
     def __str__(self):
-        return "Навык %s" % (self.id)
+        return "Навык %s" % self.id
 
 
 class Program(models.Model):
