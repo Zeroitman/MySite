@@ -27,6 +27,10 @@ class SessionForm(forms.ModelForm):
         }
 
 
+class ChildForm(forms.ModelForm):
+    class Meta:
+        model = Child
+        exclude = ["created_date", "edited_date", "deleted_date"]
 
 
 

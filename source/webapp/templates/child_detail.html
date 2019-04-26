@@ -62,8 +62,11 @@
         <p class="font-weight-bold">Дата последнего редактирования профиля ребенка: <span
                 class="font-weight-normal">{{ child.edited_date }}</span></p>
         <div class="text-center">
-            <button class="btn btn-success px-2 py-0 m-2">Редактировать профиль</button>
-            <button class="btn btn-danger px-2 py-0 m-2">Удалить профиль</button>
+            <a role="button" class="btn btn-success px-2 py-0 m-2" href={% url 'webapp:child_update' child.pk %}>Редактировать
+                профиль</a>
+            <a href="#" data-toggle="modal" data-target="#deleteModal"
+               data-delete-url="{% url 'webapp:child_delete' child.pk %}"
+               class="btn btn-danger px-2 py-0 m-2">Удалить профиль</a>
         </div>
         <h3 class="text-center mt-4">Программы ребёнка</h3>
 
@@ -71,7 +74,7 @@
             <p id=01 class="text-dark font-weight-normal"></p>
             {% for program in child.child_in_program.all %}
                 {% if program.status == True %}
-                    <a id=001 class="font-weight-normal"
+                    <a id=001 class="font-weight-normal ml-4"
                        href={% url 'webapp:program_detail' program.pk %}>{{ program.name }}</a>
                 {% else %}
                 {% endif %}
@@ -82,14 +85,35 @@
             <p id=02 class="text-dark font-weight-normal"></p>
             {% for program in child.child_in_program.all %}
                 {% if program.status != True %}
-                    <a id=002 class="font-weight-normal"
-                       href={% url 'webapp:program_detail' program.pk %}>{{ program.name }}</a>
+                    <a id=002 class="font-weight-normal ml-4"
+                           href={% url 'webapp:program_detail' program.pk %}>{{ program.name }}</a>
                 {% else %}
                 {% endif %}
             {% endfor %}
         </ul>
     </div>
-{% endblock %}
-{% block scripts %}
-    <script src=../static/js/child_detail/check_program.js></script>
+
+    <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+         aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Вы уверены что хотите удалить ребёнка из базы
+                        данных?</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form action="{% url 'webapp:child_delete' child.pk %}" method="POST">
+                        {% csrf_token %}
+                        <div class="text-center">
+                            <button class="btn btn-danger m-2">Удалить</button>
+                            <a href="#" class="btn btn-secondary m-2" data-dismiss="modal">Закрыть</a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
 {% endblock %}
