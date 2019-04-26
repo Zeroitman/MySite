@@ -1,9 +1,8 @@
 from django.shortcuts import render
-from webapp.models import Program, Session
+from webapp.models import Program, Session, Result
 from django.views.generic import ListView, DetailView, CreateView
 from webapp.forms import SessionForm
 from django.urls import reverse
-
 
 
 class ProgramList(ListView):
@@ -14,6 +13,11 @@ class ProgramList(ListView):
 class SessionList(ListView):
     model = Session
     template_name = 'session_list.html'
+
+
+class ResultList(ListView):
+    model = Result
+    template_name = 'session_result.html'
 
 
 class ProgramDetailView(DetailView):
