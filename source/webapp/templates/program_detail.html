@@ -23,8 +23,16 @@
                         class="font-weight-normal">Описание программы отсутствует</span></p>
             {% endif %}
 
-            <p class="font-weight-bold">Ребенок: <span
-                    class="font-weight-normal">{{ program.child.last_name }} {{ program.child.first_name }}</span></p>
+
+            {% if program.child.third_name %}
+                <p class="font-weight-bold">Ребенок: <span
+                        class="font-weight-normal">{{ program.child.last_name }} {{ program.child.first_name }} {{ program.child.third_name }}</span>
+                </p>
+            {% else %}
+                <p class="font-weight-bold">Ребенок: <span
+                        class="font-weight-normal">{{ program.child.last_name }} {{ program.child.first_name }}</span>
+                </p>
+            {% endif %}
 
             <p class="font-weight-bold">Автор: <span
                     class="font-weight-normal">{{ program.author_therapist.user }}</span>
