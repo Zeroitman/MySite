@@ -1,4 +1,4 @@
-from webapp.models import Session, Child, UserInfo, Program
+from webapp.models import Session, Child, UserInfo, Program, Result
 from django import forms
 
 
@@ -16,7 +16,7 @@ class SessionForm(forms.ModelForm):
 
     program = forms.ModelMultipleChoiceField(queryset=Program.objects.all(),
                                              widget=forms.CheckboxSelectMultiple
-                                             (attrs={'class': 'list-unstyled',}),
+                                             (attrs={'class': 'list-unstyled', }),
                                              label='Программы')
 
     class Meta:
@@ -33,5 +33,7 @@ class ChildForm(forms.ModelForm):
         exclude = ["created_date", "edited_date", "deleted_date"]
 
 
-
-
+class ResultForm(forms.ModelForm):
+    class Meta:
+        model = Result
+        fields = ["done", "done_with_hint"]

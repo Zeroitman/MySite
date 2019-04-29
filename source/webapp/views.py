@@ -1,7 +1,7 @@
 from webapp.models import Program, Session, Result, Child
 from django.views.generic import ListView, DetailView, UpdateView, CreateView, DeleteView
 from django.shortcuts import reverse
-from webapp.forms import ChildForm
+from webapp.forms import ChildForm, ResultForm
 from django.urls import reverse_lazy
 
 
@@ -37,7 +37,7 @@ class ChildCreateView(CreateView):
         return reverse('webapp:child_detail', kwargs={'pk': self.object.pk})
 
 
-# ChildDeleteView- страница добавления ребенка
+# ChildDeleteView- страница удаления ребенка
 class ChildDeleteView(DeleteView):
     model = Child
     success_url = reverse_lazy('webapp:child_list')
@@ -59,6 +59,18 @@ class ProgramDetailView(DetailView):
 class ResultListView(ListView):
     model = Result
     template_name = 'session_result.html'
+
+
+# ResultUpdateView - страница изменения результатов сессий
+class ResultUpdateView(UpdateView):
+    model = Result
+    template_name = 'result_update.html'
+    form_class = ResultForm
+
+    # success_url = reverse_lazy('webapp:child_list')
+
+    def get_success_url(self):
+        return reverse('webapp:session_result_view', kwargs={'pk': self.object.pk})
 
 
 # SessionDetailView - страница просмотра делатей
