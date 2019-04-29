@@ -1,4 +1,4 @@
-from webapp.models import Program, Session, Result, Child
+from webapp.models import Program, Session, Result, Child, Categories
 from django.views.generic import ListView, DetailView, UpdateView, CreateView, DeleteView
 from django.shortcuts import reverse
 from webapp.forms import ChildForm
@@ -65,3 +65,8 @@ class ResultListView(ListView):
 class SessionDetailView(DetailView):
     model = Session
     template_name = 'session_detail.html'
+
+
+class CategoriesListView(ListView):
+    model = Categories
+    template_name = 'categories_list.html'

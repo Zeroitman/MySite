@@ -1,6 +1,6 @@
 from django.urls import path
 from webapp.views import ProgramDetailView, SessionDetailView, ProgramListView, ResultListView, \
-    ChildListView, ChildDetailView, ChildUpdateView, ChildCreateView, ChildDeleteView
+    ChildListView, ChildDetailView, ChildUpdateView, ChildCreateView, ChildDeleteView, CategoriesListView
 
 app_name = 'webapp'
 
@@ -14,4 +14,5 @@ urlpatterns = [
     path('program/<int:pk>', ProgramDetailView.as_view(), name='program_detail'),
     path('current_session/<int:pk>', SessionDetailView.as_view(), name='session_view'),
     path('session_result/<int:pk>', ResultListView.as_view(), name='session_result_view'),
+    path('categories/', CategoriesListView.as_view(), name='categories_list'),
 ]
