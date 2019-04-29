@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+{% block title %} Редактирование навыка {% endblock %}
+{% block content %}
+    <div class="container">
+        <h3 class="text-center">Редактирование навыка</h3>
+        <form action="{% url 'webapp:skill_update' form.instance.pk%}" method="post" enctype="multipart/form-data">
+            {% include 'skill_views/skill_form.html' %}
+            <a href="{% url 'webapp:skill_detail' form.instance.pk%}" class="btn btn-primary btn-block" >Отмена</a>
+        </form>
+
+    </div>
+{% endblock %}

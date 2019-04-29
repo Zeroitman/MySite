@@ -1,8 +1,47 @@
-from webapp.models import Program, Session, Result, Child
-from django.views.generic import ListView, DetailView, UpdateView, CreateView, DeleteView
-from django.shortcuts import reverse
-from webapp.forms import ChildForm, ResultForm
-from django.urls import reverse_lazy
+from django.shortcuts import get_object_or_404, redirect
+from webapp.models import Program, Session, Result, Skill, Child
+from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
+from webapp.forms import SkillForm, ChildForm, ResultForm
+from django.urls import reverse, reverse_lazy
+
+
+# SkillCreateView - страница со списком навыков
+class SkillList(ListView):
+    model = Skill
+    template_name = 'skill_views/skill_list.html'
+
+
+# SkillCreateView - страница деталей навыка
+class SkillDetailView(DetailView):
+    model = Skill
+    template_name = 'skill_views/skill_detail.html'
+
+
+# SkillCreateView - страница создания навыка
+class SkillCreateView(CreateView):
+    model = Skill
+    form_class = SkillForm
+    template_name = 'skill_views/skill_create.html'
+
+    def get_success_url(self):
+        return reverse('webapp:skill_detail', kwargs={'pk': self.object.pk})
+
+
+# SkillUpdateView - страница редактирования навыка
+class SkillUpdateView(UpdateView):
+    model = Skill
+    form_class = SkillForm
+    template_name = 'skill_views/skill_create.html'
+
+    def get_success_url(self):
+        return reverse('webapp:skill_detail', kwargs={'pk': self.object.pk})
+
+
+# SkillDeleteView - удаление навыка
+def delete_skill(request, pk):
+    skill = get_object_or_404(Skill, pk=pk)
+    skill.delete()
+    return redirect('webapp:skill_list')
 
 
 # ChildListView - главная страница с выводом детей

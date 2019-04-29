@@ -1,5 +1,4 @@
 {% load staticfiles %}
-<!doctype html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -33,8 +32,10 @@
             {% if user.is_authenticated %}
                 <ul class="navbar-nav mr-auto">
                     <li class="nav-item active ml-3">
-                        <a href="{% url 'webapp:child_create' %}" class="nav-link text-dark">Добавить ребенка<span
-                                class="sr-only">(current)</span></a>
+                        <a href="{% url 'webapp:child_create' %}" class="nav-link text-dark">Добавить ребенка</a>
+                    </li>
+                    <li>
+                        <a href="{% url 'webapp:skill_list' %}" class="nav-link text-dark">Навыки</a>
                     </li>
                 </ul>
                 <ul class="navbar-nav ml-auto ">
@@ -51,6 +52,7 @@
 </nav>
 {% block content %}{% endblock %}
 <div class="class mt-4"></div>
+<script src="{% static 'js/jquery.min.js' %}"></script>
 <script src="{% static 'js/popper.min.js' %}"></script>
 <script src="{% static 'js/bootstrap.min.js' %}"></script>
 {% block scripts %}{% endblock %}
