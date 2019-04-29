@@ -1,33 +1,14 @@
-from webapp.models import Session, Child, UserInfo, Program
+from webapp.models import Session, Child, UserInfo, Program, Skill
 from django import forms
 
 
-class SessionForm(forms.ModelForm):
-    child = forms.ModelChoiceField(queryset=Child.objects.all(),
-                                   empty_label='Не выбрано',
-                                   widget=forms.Select(attrs={'class': 'form-control', 'required': True}),
-                                   label='Ребенок')
-
-    attending_therapist = forms.ModelChoiceField(queryset=UserInfo.objects.all(),
-                                                 empty_label='Не выбрано',
-                                                 widget=forms.Select
-                                                 (attrs={'class': 'form-control', 'required': True}),
-                                                 label='Терапист')
-
-    program = forms.ModelMultipleChoiceField(queryset=Program.objects.all(),
-                                             widget=forms.CheckboxSelectMultiple
-                                             (attrs={'class': 'list-unstyled',}),
-                                             label='Программы')
-
+class SkillForm(forms.ModelForm):
     class Meta:
-        model = Session
-        fields = ['program', 'child', 'attending_therapist', 'description']
+        model = Skill
+        exclude = ['created_date', 'updated_date', 'deleted_date']
         widgets = {
-            'description': forms.Textarea(attrs={'class': 'form-control', 'rows': '3'})
+            'code_skill': forms.TextInput(attrs={'class': 'form-control col-sm-10'}),
+            'name': forms.TextInput(attrs={'class': 'form-control col-sm-10'}),
+            'description': forms.Textarea(attrs={'class': 'form-control col-sm-10'}),
+            'criterion': forms.Textarea(attrs={'class': 'form-control col-sm-10'}),
         }
-
-
-
-
-
-
