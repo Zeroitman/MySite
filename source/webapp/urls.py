@@ -3,13 +3,13 @@ from webapp.views import ProgramDetailView, ProgramListView, \
     SessionDetailView, \
     ChildList, ChildSearchView, ChildListView, ChildDetailView, ChildUpdateView, ChildCreateView, ChildDeleteView, \
     SkillList, SkillDetailView, SkillUpdateView, SkillCreateView, delete_skill, \
-    ResultUpdateView, ResultListView
+    ResultUpdateView, ResultListView, CategoriesListView
+
 
 # Название приложения, ссылки расставляются в виде webapp:{название шалона}
 app_name = 'webapp'
 
 urlpatterns = [
-    # child urls
     path('', ChildListView.as_view(), name='child_program_list'),
     path('child/', ChildList.as_view(), name='child_list'),
     path('search/', ChildSearchView.as_view(), name='search_view'),
@@ -20,6 +20,9 @@ urlpatterns = [
     # program urls
     path('program/', ProgramListView.as_view(), name='program_list'),
     path('program/<int:pk>', ProgramDetailView.as_view(), name='program_detail'),
+    path('current_session/<int:pk>', SessionDetailView.as_view(), name='session_view'),
+    path('session_result/<int:pk>', ResultListView.as_view(), name='session_result_view'),
+    path('categories/', CategoriesListView.as_view(), name='categories_list'),
     # session urls
     path('session/<int:pk>', SessionDetailView.as_view(), name='session_view'),
     path('session/result/<int:pk>', ResultListView.as_view(), name='session_result_view'),

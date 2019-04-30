@@ -1,5 +1,5 @@
 from django.shortcuts import get_object_or_404, redirect, render
-from webapp.models import Program, Session, Result, Skill, Child
+from webapp.models import Program, Session, Result, Skill, Child, Categories
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView, View
 from webapp.forms import SkillForm, ChildForm, ResultForm
 from django.urls import reverse, reverse_lazy
@@ -118,6 +118,11 @@ class SessionDetailView(DetailView):
     model = Session
     template_name = 'session_detail.html'
 
+
+
+class CategoriesListView(ListView):
+    model = Categories
+    template_name = 'categories_list.html'
 
 # ChildList - страница выводящая список всех детей, без привязки к программе
 class ChildList(ListView):

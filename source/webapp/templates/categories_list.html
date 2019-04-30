@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+{% block title %}Список категорий{% endblock %}
+{% block content %}
+    <div class="container">
+        <h2 class="text-center">Список категорий: </h2>
+        {% for categories in categories_list %}
+            <a href="{% url 'webapp:categories_list' %}" class="list-group-item list-group-item-action m-2">
+                <div class="d-flex w-75 justify-content-between">
+                    <h5 class="mb-1">{{ categories.name }}</h5>
+                    <small>Дата создания: {{ categories.created_date }}</small>
+                </div>
+                <p class="mb-1">{{ categories.code_category }}</p>
+            </a>
+        {% endfor %}
+    </div>
+{% endblock %}
