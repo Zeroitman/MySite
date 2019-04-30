@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+{% block content %}
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12">
+                <h3 class="mb-4 d-block">Найденных результатов: {{ searched_child.count }}</h3>
+            {% if searched_child.count == 0 %}
+                <p class="font-weight-normal">Поиск не дал никаких результатов. Поиск позволяет искать не только по ФИО,
+                но и по ключевым словам характеристик ребенка.</p>
+                <a href="{% url 'webapp:child_list' %}"><button class="btn btn-outline-dark" type="button">Искать снова</button></a>
+                {% else %}
+                {% for child in searched_child %}
+                    <a href="{{ child.get_absolute_url }}" class="list-group-item list-group-item-action m-1">
+                        <div class="d-flex w-100 justify-content-between">
+                            <h5 class="font-weight-bolder">{{ child.first_name }} {{ child.last_name }}</h5>
+                            <small>Возраст: {{ child.age }}</small>
+                        </div>
+                        {% if child.characteristic %}
+                            <p class="font-weight-normal d-block">Характеристика: {{ child.characteristic }}</p>
+                        {% else %} <p class="font-weight-normal d-block">Характеристики к данному ребенку не выданы</p>
+                        {% endif %}
+                        <small class="d-block">Родитель: {{ child.first_parent }}</small>
+                        <small class="d-block">Начало лечения: {{ child.created_date.date }}</small>
+                    </a>
+                {% endfor %}
+            {% endif %}
+            </div>
+        </div>
+    </div>
+{% endblock %}
