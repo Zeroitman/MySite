@@ -1,8 +1,12 @@
 {% extends 'base.html' %}
 {% block content %}
+    <div class="container">
+    <h2 class="text-center">Добавление профиля ребёнка</h2>
     <form action="{% url 'webapp:child_create' %}" method="post" enctype="multipart/form-data">
         {% csrf_token %}
         {{ form.as_p }}
-        <button type="submit" class="btn btn-primary">Сохранить</button>
-        </form>
+        <button type="submit" class="btn btn-success px-2 py-0 m-2" style="width: 15%">Сохранить</button>
+        <a role="button" class="btn btn-primary px-2 py-0 m-2" href="{{ request.META.HTTP_REFERER }}" style="width: 15%">Назад</a>
+    </form>
+    </div>
 {% endblock %}

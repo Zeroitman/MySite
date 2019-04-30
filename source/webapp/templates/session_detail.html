@@ -15,6 +15,7 @@
                     </li>
                 {% endfor %}
             {% endfor %}
+        <a class="text-dark font-weight-bolder" href={% url 'webapp:session_result_view' session.pk %}>далее </a>
         </ul>
     </div>
 {% endblock %}

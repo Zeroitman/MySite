@@ -125,8 +125,8 @@ class Result(models.Model):
     skill = models.ForeignKey(Skill, on_delete=models.PROTECT, related_name='skills_results')
     done = models.PositiveSmallIntegerField(default=0, verbose_name="Ответил сам")
     done_with_hint = models.PositiveSmallIntegerField(default=0, verbose_name="Ответил с подсказкой")
-    total = models.IntegerField()
-    percent = models.DecimalField(max_digits=4, decimal_places=2, default=0)
+    total = models.IntegerField(default=0)
+    percent = models.IntegerField(default=0)
     created_date = models.DateTimeField(auto_now_add=True, verbose_name="Дата создания")
     edited_date = models.DateTimeField(auto_now=True, blank=True, null=True, verbose_name="Дата редактирования")
     deleted_date = models.DateTimeField(blank=True, null=True, verbose_name="Дата удаления")
@@ -142,7 +142,10 @@ class Result(models.Model):
         return self.done + self.done_with_hint
 
     def get_percent(self):
-        self.percent = 100 / self.get_total() * self.done
+        if (self.done == 0):
+            self.percent = 0
+        else:
+            self.percent = 100 / self.get_total() * self.done
         return self.percent
 
     def save(self, *args, **kwargs):

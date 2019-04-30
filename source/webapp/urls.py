@@ -25,7 +25,7 @@ urlpatterns = [
     path('categories/', CategoriesListView.as_view(), name='categories_list'),
     # session urls
     path('session/<int:pk>', SessionDetailView.as_view(), name='session_view'),
-    path('session/result/<int:pk>', ResultListView.as_view(), name='session_result_view'),
+    path('session/<int:pk>/result', ResultListView.as_view(), name='session_result_view'),
     path('session/result/<int:pk>/update', ResultUpdateView.as_view(), name='session_result_update'),
     # skill urls
     path('skill/', SkillList.as_view(), name='skill_list'),

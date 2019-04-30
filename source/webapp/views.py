@@ -100,6 +100,14 @@ class ResultListView(ListView):
     model = Result
     template_name = 'session_result.html'
 
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['session_pk'] = self.kwargs.get('pk')
+        return context
+
+    def get_queryset(self):
+        return Result.objects.filter(session=self.kwargs['pk'])
+
 
 # ResultUpdateView - страница изменения результатов сессий
 class ResultUpdateView(UpdateView):
@@ -107,10 +115,9 @@ class ResultUpdateView(UpdateView):
     template_name = 'result_update.html'
     form_class = ResultForm
 
-    # success_url = reverse_lazy('webapp:child_list')
-
     def get_success_url(self):
-        return reverse('webapp:session_result_view', kwargs={'pk': self.object.pk})
+        return reverse('webapp:session_result_view',
+                       kwargs={'pk': get_object_or_404(Result, pk=self.kwargs.get('pk')).session.pk})
 
 
 # SessionDetailView - страница просмотра делатей
@@ -119,10 +126,10 @@ class SessionDetailView(DetailView):
     template_name = 'session_detail.html'
 
 
-
 class CategoriesListView(ListView):
     model = Categories
     template_name = 'categories_list.html'
+
 
 # ChildList - страница выводящая список всех детей, без привязки к программе
 class ChildList(ListView):

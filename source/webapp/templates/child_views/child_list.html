@@ -13,6 +13,8 @@
                    aria-label="Search">
             <button class="btn btn-outline-dark" type="submit">Поиск</button>
         </form>
+        <a href="{% url 'webapp:child_create' %}" class="btn btn-primary btn-block d-block mt-3 mb-3 w-25">Добавить
+            ребёнка</a>
         {#  Вывод всех детей  #}
         <div class="list-group mt-3">
             {% for c in child_list %}
