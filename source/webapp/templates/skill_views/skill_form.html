@@ -1,0 +1,38 @@
+<div class="form-group row">
+    {% csrf_token %}
+    <label class="col-sm-2 col-form-label">Код навыка:</label>
+    <div class="col-sm-4">
+          {{ form.code_skill }}
+    </div>
+</div>
+<div class="form-group row">
+    {% csrf_token %}
+    <label class="col-sm-2 col-form-label">Название:</label>
+    <div class="col-sm-4">
+          {{ form.name }}
+    </div>
+</div>
+<div class="form-group row">
+    <label class="col-sm-2 col-form-label">Описание:</label>
+    <div class="col-sm-4">
+        {{ form.description }}
+    </div>
+</div>
+<div class="form-group row">
+    <label class="col-sm-2 col-form-label">Категория:</label>
+    <div class="col-sm-4">
+        {{ form.category }}
+    </div>
+</div>
+<div class="form-group row">
+    <label class="col-sm-2 col-form-label">Критерии:</label>
+    <div class="col-sm-4">
+        {{ form.criterion }}
+    </div>
+</div>
+<div class="form-group row">
+<label class="col-sm-2 col-form-label"></label>
+    <div class="col-sm-4  mt-2">
+      <button type="submit" class="btn btn-primary">Сохранить</button>
+    </div>
+</div>
