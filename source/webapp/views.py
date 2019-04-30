@@ -53,13 +53,13 @@ class ChildListView(ListView):
 # ChildDetailView - страница просмотра профиля определенного ребенка
 class ChildDetailView(DetailView):
     model = Child
-    template_name = 'child_detail.html'
+    template_name = 'child_views/child_detail.html'
 
 
 # ChildUpdateView - страница редактирования профиля ребенка
 class ChildUpdateView(UpdateView):
     model = Child
-    template_name = 'child_update.html'
+    template_name = 'child_views/child_update.html'
     form_class = ChildForm
 
     def get_success_url(self):
@@ -69,7 +69,7 @@ class ChildUpdateView(UpdateView):
 # ChildCreateView - страница добавления ребенка
 class ChildCreateView(CreateView):
     model = Child
-    template_name = 'child_create.html'
+    template_name = 'child_views/child_create.html'
     form_class = ChildForm
 
     def get_success_url(self):

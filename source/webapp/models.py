@@ -23,7 +23,7 @@ class Child(models.Model):
     characteristic = models.CharField(max_length=1000, blank=True, null=True, verbose_name='Характеристика на ребенка')
     preferences = models.CharField(max_length=1000, blank=True, null=True, verbose_name='Предпочтения ребенка')
     first_parent = models.CharField(max_length=255, verbose_name='Родитель')
-    second_parent = models.CharField(max_length=255, blank=True, null=True, verbose_name='Родитель')
+    second_parent = models.CharField(max_length=255, blank=True, null=True, verbose_name='Второй родитель')
     contacts = models.CharField(max_length=200, blank=True, null=True, verbose_name='Контакты ребенка')
     created_date = models.DateTimeField(auto_now_add=True, verbose_name='Дата добавления ребенка')
     edited_date = models.DateTimeField(auto_now=True, null=True, blank=True, verbose_name='Дата редактирования')
