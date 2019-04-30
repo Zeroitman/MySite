@@ -3,11 +3,11 @@
 {% block content %}
     <div class="container">
         <h2 class="text-center">Список навыков</h2>
-        <a href="{% url 'webapp:skill_create' %}" class="btn btn-primary btn-block float-right mb-2" >Добавить навык</a>
+        <a href="{% url 'webapp:skill_create' %}" class="btn btn-primary btn-block d-block mb-3 w-25" >Добавить навык</a>
         {% for skill in skill_list %}
-        <div class="">
-            <a href="{% url 'webapp:skill_detail' skill.pk %}" >
-                <p>{{ skill.name }}</p>
+        <div class="border-bottom w-75">
+            <a href="{% url 'webapp:skill_detail' skill.pk %}" class="text-decoration-none text-dark">
+                <p class="d-inline-block text-wrap">{{ skill.pk }}. {{ skill.name }}</p>
             </a>
         </div>
         {% endfor %}

@@ -122,14 +122,14 @@ class SessionDetailView(DetailView):
 # ChildList - страница выводящая список всех детей, без привязки к программе
 class ChildList(ListView):
     model = Child
-    template_name = 'child_list.html'
+    template_name = 'child_views/child_list.html'
 
 
 # ChildSearch - метод поиска по детям на странице детей, после отправки формы с именем либо фамилией ребенка
 # Перекидывает на страницу child_search_results где подсчитывается количество результатов
 # И все результаты в виде ListGroup(Bootstrap)
 class ChildSearchView(View):
-    template_name = 'child_search_results.html'
+    template_name = 'child_views/child_search_results.html'
 
     def get(self, request, *args, **kwargs):
         query = self.request.GET.get('q')

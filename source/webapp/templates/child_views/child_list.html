@@ -13,9 +13,10 @@
                    aria-label="Search">
             <button class="btn btn-outline-dark" type="submit">Поиск</button>
         </form>
+        {#  Вывод всех детей  #}
         <div class="list-group mt-3">
             {% for c in child_list %}
-                <a href="#" class="list-group-item list-group-item-action m-1">
+                <a href="{% url 'webapp:child_detail' c.pk %}" class="list-group-item list-group-item-action m-1">
                     <div class="d-flex w-100 justify-content-between">
                         <h5 class="font-weight-bolder">{{ c.first_name }} {{ c.last_name }}</h5>
                         <small>Возраст: {{ c.age }}</small>

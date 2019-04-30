@@ -10,7 +10,7 @@
                 <a href="{% url 'webapp:child_list' %}"><button class="btn btn-outline-dark" type="button">Искать снова</button></a>
                 {% else %}
                 {% for child in searched_child %}
-                    <a href="{{ child.get_absolute_url }}" class="list-group-item list-group-item-action m-1">
+                    <a href="{% url 'webapp:child_detail' child.pk %}" class="list-group-item list-group-item-action m-1">
                         <div class="d-flex w-100 justify-content-between">
                             <h5 class="font-weight-bolder">{{ child.first_name }} {{ child.last_name }}</h5>
                             <small>Возраст: {{ child.age }}</small>

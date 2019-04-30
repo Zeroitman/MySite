@@ -45,9 +45,9 @@
 
 
             <p class="font-weight-bold">Дата создания: <span
-                    class="font-weight-normal">{{ skill.created_date }}</span></p>
+                    class="font-weight-normal">{{ skill.created_date.date }}</span></p>
             <p class="font-weight-bold">Дата последнего редактирования: <span
-                    class="font-weight-normal">{{ skill.updated_date }}</span></p>
+                    class="font-weight-normal">{{ skill.updated_date.date }}</span></p>
             <button type="button" class="btn btn-dark float-right" data-toggle="modal" data-placement="top" title="Удалить" data-target="#Modal_{{ skill.pk }}">Удалить</button>
 
             <a href="{% url 'webapp:skill_update' skill.pk %}" class="btn btn-primary btn-block" >Редактировать</a>
