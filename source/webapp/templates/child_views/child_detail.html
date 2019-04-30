@@ -12,7 +12,7 @@
                     class="font-weight-normal">{{ child.last_name }} {{ child.first_name }}</span></p>
         {% endif %}
 
-        {% if child.third_name %}
+        {% if child.birthday %}
             <p class="font-weight-bold">Год рождения: <span class="font-weight-normal">{{ child.birthday }}</span></p>
         {% else %}
             <p class="font-weight-bold">Год рождения: <span class="font-weight-normal">Год рождения не указан</span></p>
@@ -76,7 +76,6 @@
                 {% if program.status == True %}
                     <a id=001 class="font-weight-normal ml-4"
                        href={% url 'webapp:program_detail' program.pk %}>{{ program.name }}</a>
-                {% else %}
                 {% endif %}
             {% endfor %}
         </ul>
@@ -87,7 +86,6 @@
                 {% if program.status != True %}
                     <a id=002 class="font-weight-normal ml-4"
                            href={% url 'webapp:program_detail' program.pk %}>{{ program.name }}</a>
-                {% else %}
                 {% endif %}
             {% endfor %}
         </ul>
@@ -116,4 +114,7 @@
             </div>
         </div>
     </div>
+{% endblock %}
+{% block scripts %}
+    <script src=../../static/js/child_detail/check_program.js></script>
 {% endblock %}

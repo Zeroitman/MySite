@@ -2,12 +2,71 @@
 {% block title %}Результат сессии{% endblock %}
 {% block content %}
     <div class="container">
-        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aspernatur debitis ducimus, error expedita fugit
-        labore maiores omnis pariatur quidem voluptatem. Assumenda ducimus earum libero maiores officia possimus
-        praesentium reiciendis rerum!
+        <table class="table table-bordered table-sm">
+            <thead>
+            <tr class="text-center">
+                <th scope="col">№</th>
+                <th scope="col">Код</th>
+                <th scope="col">Название навыка</th>
+                <th scope="col">Без подсказки <br>(кол-во)</th>
+                <th scope="col">C подсказкой <br>(кол-во)</th>
+                <th scope="col">Количество ответов<br>(кол-во)</th>
+                <th scope="col">Процент успешности <br>(%)</th>
+                <th scope="col">Выполнено <br></th>
+                <th scope="col">Редакт.<br>ответы</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for result in result_list %}
+                <tr id="01" class="text-center" >
+                    <td >{{ result.pk }}</td>
+                    <td>{{ result.skill.code_skill }}</td>
+                    <td class="text-left">{{ result.skill.name }}</td>
+                    <td>{{ result.done }}</td>
+                    <td>{{ result.done_with_hint }}</td>
+                    <td id="001">{{ result.total }}</td>
+                    <td>{{ result.percent }}</td>
+                    <td> {% if result.percent >= 80 %}
+                        <i class="fas fa-check-circle" ></i>
+                    {% endif %}
+                    </td>
+                    <td><a role="button" class="btn btn-primary"
+                           href="{% url 'webapp:session_result_update' result.pk %}"><i class="fas fa-edit"></i></a>
+                    </td>
+                    {#                                        <td><a href="#" data-toggle="modal" data-target="#deleteModal"#}
+                    {#                                               data-delete-url="{% url 'webapp:session_result_update' result.pk %}"#}
+                    {#                                               class="btn btn-danger"><i class="fas fa-edit"></i></a>#}
+                    {#                                        </td>#}
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
         <div class="text-center mt-3">
-            <a role="button" class="btn btn-primary m-2" href="#" style="width: 100%">Редактировать результаты</a><br>
-            <a role="button" class="btn btn-success m-2" href="#" style="width: 100%">Сохранить результаты</a>
+            <a role="button" class="btn btn-success m-2" href="{% url 'webapp:child_list' %}" style="width: 100%">Продолжить</a>
+        </div>
+        <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+             aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title text-center" id="exampleModalLabel">Страница редактирования</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        {% for result in result_list %}
+                            <form action="{% url 'webapp:session_result_update' result.skill.pk %}" method="post"
+                                  enctype="multipart/form-data">
+                                {% csrf_token %}
+                                <input type="number" name="title" value="{{ result.done }}"/>
+                                <input type="number" name="title" value="{{ result.done_with_hint }}"/>
+                                <input type="submit" value="Send"/>
+                            </form>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 {% endblock %}

@@ -1,19 +1,34 @@
 {% extends 'base.html' %}
-{% block title %}{% endblock %}
+{% block title %}Дети{% endblock %}
 {% block content %}
     <div class="container">
-        <h2 class="text-center">Список детей: </h2>
-        <ul class="list-group">
-            {% for var in program_list %}
-                <div class="text-center mt-5">
-                    <a class="text-dark font-weight-bolder" data-toggle="tooltip"
-                       href={% url 'webapp:child_detail' var.pk %}>{{ var.child.first_name }} {{ var.child.last_name }} - </a>
-                    <a role="button" class="btn btn-primary w-25" href={% url 'webapp:program_detail' var.pk %}>Программа</a>
-                    <a role="button" class="btn btn-primary w-25" href="#">Создать
-                        сессию</a>
-                </div>
+        {#  Форма поиска детей  #}
+        <form action='{% url 'webapp:search_view' %}' method="GET" accept-charset="utf-8"
+              class="form-inline my-2 my-lg-0">
+            <input class="form-control mr-sm-2 shadow-none"
+                   name="q"
+                   value="{{ request.GET.q }}"
+                   type="text"
+                   placeholder="Search"
+                   aria-label="Search">
+            <button class="btn btn-outline-dark" type="submit">Поиск</button>
+        </form>
+        <div class="list-group mt-3">
+            {% for c in child_list %}
+                <a href="#" class="list-group-item list-group-item-action m-1">
+                    <div class="d-flex w-100 justify-content-between">
+                        <h5 class="font-weight-bolder">{{ c.first_name }} {{ c.last_name }}</h5>
+                        <small>Возраст: {{ c.age }}</small>
+                    </div>
+                    {% if c.characteristic %}
+                        <p class="font-weight-normal d-block">Характеристика: {{ c.characteristic }}</p>
+                    {% else %} <p class="font-weight-normal">Характеристики к данному ребенку не выданы</p>
+                    {% endif %}
+                    <small class="d-block">Родитель: {{ c.first_parent }}</small>
+                    <small class="d-block">Начало лечения: {{ c.created_date.date }}</small>
+                </a>
             {% endfor %}
-        </ul>
+        </div>
     </div>
 {% endblock %}
 {% block scripts %}{% endblock %}
