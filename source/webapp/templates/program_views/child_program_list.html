@@ -6,7 +6,7 @@
         {% for var in program_list %}
             <div class="card d-inline-flex ml-3" style="width: 18rem; height: 11rem;">
                 <div class="card-body">
-                    <h5 class="card-title mb-0">{{ var.child.first_name }} {{ var.child.last_name }}</h5>
+                    <h5 class="card-title mb-0 text-truncate" style="height: 1.5rem">{{ var.child.first_name }} {{ var.child.last_name }}</h5>
                     {% if var.child.age %}
                         <p class="card-text mb-0 text-muted" style="width: 10rem; height: 1rem;">
                             Возраст: {{ var.child.age }}</p>
