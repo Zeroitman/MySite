@@ -1,9 +1,9 @@
 function counterDone(id, event) {
     event.preventDefault();
+
     let elem = $('#' + id);
     let num = parseInt(elem.text()) + 1;
     elem.empty().append(num);
-
 
     let form_elem = $('#form-' + id);
     let url = form_elem.attr('action');

@@ -1,0 +1,79 @@
+{% extends 'base.html' %}
+{% block title %}Детали навыка{% endblock %}
+{% block content %}
+    <div class="container">
+        <h2 class="text-center">Страница просмотра навыка</h2>
+        {% if skill.code_skill %}
+            <p class="font-weight-bold">Код: <span class="font-weight-normal">{{ skill.code_skill }}</span></p>
+        {% else %}
+            <p class="font-weight-bold">Код: <span
+                    class="font-weight-normal">Код навыка отсутствует</span></p>
+        {% endif %}
+
+        {% if skill.name %}
+            <p class="font-weight-bold">Навык: <span class="font-weight-normal">{{ skill.name }}</span></p>
+        {% else %}
+            <p class="font-weight-bold">Навык: <span
+                    class="font-weight-normal">Название навыка отсутствует</span></p>
+        {% endif %}
+
+        {% if skill.category %}
+            <p class="font-weight-bold">Категория: <span class="font-weight-normal">{{ skill.category }}</span>
+            </p>
+        {% else %}
+            <p class="font-weight-bold">Категория: <span
+                    class="font-weight-normal">Категория навыка отсутствует</span></p>
+        {% endif %}
+
+        {% if skill.description %}
+            <p class="font-weight-bold">Описание: <span class="font-weight-normal">{{ skill.description }}</span>
+            </p>
+        {% else %}
+            <p class="font-weight-bold">Описание: <span
+                    class="font-weight-normal">Описание навыка отсутствует</span></p>
+        {% endif %}
+
+        {% if skill.criterion %}
+            <p class="font-weight-bold">Критерии: <span class="font-weight-normal">{{ skill.criterion }}</span>
+            </p>
+        {% else %}
+            <p class="font-weight-bold">Критерии: <span
+                    class="font-weight-normal">Критерии навыка отсутствуют</span></p>
+        {% endif %}
+
+
+        <p class="font-weight-bold">Дата создания: <span
+                class="font-weight-normal">{{ skill.created_date.date }}</span></p>
+        <p class="font-weight-bold">Дата последнего редактирования: <span
+                class="font-weight-normal">{{ skill.updated_date.date }}</span></p>
+
+        <div class="text-center">
+            <a role="button" class="btn btn-success px-2 py-0 m-2" href="{% url 'webapp:skill_update' skill.pk %}"
+               style="width: 15%">Редактировать</a>
+            <button type="button" class="btn btn-danger px-2 py-0 m-2" style="width: 15%" data-toggle="modal" data-placement="top"
+                    title="Удалить" data-target="#Modal_{{ skill.pk }}">Удалить
+            </button>
+            <a role="button" class="btn btn-primary px-2 py-0 m-2" href="{% url 'webapp:skill_list' %}" style="width: 15%">Назад</a>
+        </div>
+    </div>
+
+    <div class="modal fade" id="Modal_{{ skill.pk }}" tabindex="-1" role="dialog"
+         aria-labelledby="Modal_{{ skill.pk }}Label" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content text-center">
+                <div class="modal-header">
+                    <h3 class="modal-title" id="Modal_{{ skill.pk }}Label">Вы уверены?</h3>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <a class="btn btn-primary modal_btn" href="{% url 'webapp:skill_delete' skill.pk %}">Да</a>
+                    <a class="btn btn-secondary modal_btn" href="{% url 'webapp:skill_detail' skill.pk %}">Нет</a>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+{% block scripts %}
+{% endblock %}

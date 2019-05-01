@@ -2,6 +2,41 @@ from django.db import models
 from django.contrib.auth.models import User
 
 
+class UserInfo(models.Model):
+    user = models.OneToOneField(User, on_delete=models.PROTECT, related_name='client', verbose_name='Пользователь')
+    phone = models.CharField(max_length=50, verbose_name='Телефон пользователя')
+    child = models.ManyToManyField('Child', related_name='user_child', verbose_name='Ребенок')
+    deleted_date = models.DateTimeField(null=True, blank=True, verbose_name='Дата удаления')
+    edited_date = models.DateTimeField(auto_now=True, blank=True, null=True, verbose_name='Дата редактирования')
+
+    def __str__(self):
+        return "%s. %s %s" % (self.user.id, self.user.first_name, self.user.last_name)
+
+
+class Child(models.Model):
+    first_name = models.CharField(max_length=100, verbose_name='Имя ребенка')
+    last_name = models.CharField(max_length=100, verbose_name='Фамилия ребенка')
+    third_name = models.CharField(max_length=100, blank=True, null=True, verbose_name='Отчество ребенка')
+    birthday = models.DateField(null=True, blank=True, verbose_name='Дата рождения')
+    age = models.CharField(max_length=100, verbose_name='Возраст')
+    address = models.TextField(max_length=1000, blank=True, null=True, verbose_name='Адрес проживания')
+    characteristic = models.CharField(max_length=1000, blank=True, null=True, verbose_name='Характеристика на ребенка')
+    preferences = models.CharField(max_length=1000, blank=True, null=True, verbose_name='Предпочтения ребенка')
+    first_parent = models.CharField(max_length=255, verbose_name='Родитель')
+    second_parent = models.CharField(max_length=255, blank=True, null=True, verbose_name='Второй родитель')
+    contacts = models.CharField(max_length=200, blank=True, null=True, verbose_name='Контакты ребенка')
+    created_date = models.DateTimeField(auto_now_add=True, verbose_name='Дата добавления ребенка')
+    edited_date = models.DateTimeField(auto_now=True, null=True, blank=True, verbose_name='Дата редактирования')
+    deleted_date = models.DateTimeField(null=True, blank=True, verbose_name='Дата удаления')
+
+    def __str__(self):
+        return "%s. %s %s" % (self.id, self.last_name, self.first_name)
+
+    class Meta:
+        verbose_name = 'Дети'
+        verbose_name_plural = 'Дети'
+
+
 class Categories(models.Model):
     name = models.CharField(max_length=255, verbose_name='Название категории')
     code_category = models.CharField(max_length=50, null=True, blank=True, verbose_name='Код категории')
@@ -34,41 +69,6 @@ class Skill(models.Model):
     class Meta:
         verbose_name = 'Навык'
         verbose_name_plural = 'Навыки'
-
-
-class UserInfo(models.Model):
-    user = models.OneToOneField(User, on_delete=models.PROTECT, related_name='client', verbose_name='Пользователь')
-    phone = models.CharField(max_length=50, verbose_name='Телефон пользователя')
-    child = models.ManyToManyField('Child', related_name='user_child', verbose_name='Ребенок')
-    deleted_date = models.DateTimeField(null=True, blank=True, verbose_name='Дата удаления')
-    edited_date = models.DateTimeField(auto_now=True, blank=True, null=True, verbose_name='Дата редактирования')
-
-    def __str__(self):
-        return "%s. %s %s" % (self.user.id, self.user.first_name, self.user.last_name)
-
-
-class Child(models.Model):
-    first_name = models.CharField(max_length=100, verbose_name='Имя ребенка')
-    last_name = models.CharField(max_length=100, verbose_name='Фамилия ребенка')
-    third_name = models.CharField(max_length=100, blank=True, null=True, verbose_name='Отчество ребенка')
-    birthday = models.DateField(null=True, blank=True, verbose_name='Дата рождения')
-    age = models.CharField(max_length=100, verbose_name='Возраст')
-    address = models.TextField(max_length=1000, blank=True, null=True, verbose_name='Адрес проживания')
-    characteristic = models.CharField(max_length=1000, blank=True, null=True, verbose_name='Характеристика на ребенка')
-    preferences = models.CharField(max_length=1000, blank=True, null=True, verbose_name='Предпочтения ребенка')
-    first_parent = models.CharField(max_length=255, verbose_name='Родитель')
-    second_parent = models.CharField(max_length=255, blank=True, null=True, verbose_name='Родитель')
-    contacts = models.CharField(max_length=200, blank=True, null=True, verbose_name='Контакты ребенка')
-    created_date = models.DateTimeField(auto_now_add=True, verbose_name='Дата добавления ребенка')
-    edited_date = models.DateTimeField(auto_now=True, null=True, blank=True, verbose_name='Дата редактирования')
-    deleted_date = models.DateTimeField(null=True, blank=True, verbose_name='Дата удаления')
-
-    def __str__(self):
-        return "%s. %s %s" % (self.id, self.last_name, self.first_name)
-
-    class Meta:
-        verbose_name = 'Дети'
-        verbose_name_plural = 'Дети'
 
 
 class SkillsInProgram(models.Model):
@@ -123,9 +123,10 @@ class Session(models.Model):
 class Result(models.Model):
     session = models.ForeignKey(Session, on_delete=models.PROTECT, related_name='session_results')
     skill = models.ForeignKey(Skill, on_delete=models.PROTECT, related_name='skills_results')
-    done = models.PositiveSmallIntegerField(default=0)
-    done_with_hint = models.PositiveSmallIntegerField(default=0)
-    total = models.DecimalField(max_digits=5, decimal_places=2, default=0)
+    done = models.PositiveSmallIntegerField(default=0, verbose_name="Ответил сам")
+    done_with_hint = models.PositiveSmallIntegerField(default=0, verbose_name="Ответил с подсказкой")
+    total = models.IntegerField(default=0)
+    percent = models.IntegerField(default=0)
     created_date = models.DateTimeField(auto_now_add=True, verbose_name="Дата создания")
     edited_date = models.DateTimeField(auto_now=True, blank=True, null=True, verbose_name="Дата редактирования")
     deleted_date = models.DateTimeField(blank=True, null=True, verbose_name="Дата удаления")
@@ -136,3 +137,18 @@ class Result(models.Model):
     class Meta:
         verbose_name = 'Результат'
         verbose_name_plural = 'Результаты'
+
+    def get_total(self):
+        return self.done + self.done_with_hint
+
+    def get_percent(self):
+        if self.done == 0:
+            self.percent = 0
+        else:
+            self.percent = 100 / self.get_total() * self.done
+        return self.percent
+
+    def save(self, *args, **kwargs):
+        self.total = self.get_total()
+        self.percent = self.get_percent()
+        super(Result, self).save(*args, **kwargs)

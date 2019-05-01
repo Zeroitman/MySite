@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+{% block title %}{% endblock %}
+{% block content %}
+    <div class="container">
+        <h2 class="text-center">Список детей: </h2>
+        <ul class="list-group">
+            {% for var in program_list %}
+                <div class="text-center mt-5">
+                    <a class="text-dark font-weight-bolder" data-toggle="tooltip"
+                       href={% url 'webapp:child_detail' var.pk %}>{{ var.child.first_name }} {{ var.child.last_name }} - </a>
+                    <a role="button" class="btn btn-primary w-25" href={% url 'webapp:program_detail' var.pk %}>Программа</a>
+                    <a role="button" class="btn btn-primary w-25" href="#">Создать
+                        сессию</a>
+                </div>
+            {% endfor %}
+        </ul>
+    </div>
+{% endblock %}
+{% block scripts %}{% endblock %}

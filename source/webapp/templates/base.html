@@ -1,5 +1,4 @@
 {% load staticfiles %}
-<!doctype html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -9,6 +8,8 @@
     <title>{% block title %}{% endblock %}</title>
     <link rel="stylesheet" href="{% static 'css/bootstrap.css' %}">
     <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/all.css"
+          integrity="sha384-hWVjflwFxL6sNzntih27bfxkr27PmbbK/iSvJ+a4+0owXq79v+lsFkW54bOGbiDQ" crossorigin="anonymous">
     <link href="https://fonts.googleapis.com/css?family=Arimo:400,700" rel="stylesheet">
     <script src="{% static 'js/jquery-3.3.1.min.js' %}"></script>
     {% block styles %}{% endblock %}
@@ -22,28 +23,38 @@
 <body>
 <nav class="navbar navbar-expand-lg navbar-dark bg-primary mb-3">
     <div class="container">
-        <a class="navbar-brand mr-auto" href={% url 'webapp:session_list' %}>ABA - THERAPY</a>
+        <a class="navbar-brand text-dark mr-4" href={% url 'webapp:child_program_list' %}>ABA - THERAPY</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
                 aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarNav">
-            {% if user.is_authenticated %}
-{#                <ul class="navbar-nav mr-auto">#}
-{#                    <li class="nav-item active ml-3">#}
-{#                        <a href="" class="nav-link text-dark">Программы<span#}
-{#                                class="sr-only">(current)</span></a>#}
-{#                    </li>#}
-{#                </ul>#}
-                <ul class="navbar-nav ml-auto ">
-                    <li class="nav-item navbar-text text-dark">Привет, {{ user.username }}!</li>
-                    <li class="nav-item"><a href="{% url 'logout' %}" class="nav-link text-dark">Выход</a></li>
-                </ul>
-            {% else %}
-                <ul class="navbar-nav ml-auto">
-                    <li class="nav-item"><a href="{% url 'login' %}" class="nav-link text-dark">Вход</a></li>
-                </ul>
-            {% endif %}
+            <ul class="navbar-nav">
+                {% if user.is_authenticated %}
+                    <ul class="navbar-nav mr-auto">
+                        <li class="nav-item">
+                            <a href="{% url 'webapp:child_list' %}" class="nav-link text-dark">Дети</a>
+                        </li>
+                        <li class="nav-item active">
+                            <a href="{% url 'webapp:categories_list' %}" class="nav-link text-dark">Категории<span
+                                    class="sr-only">(current)</span></a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{% url 'webapp:skill_list' %}" class="nav-link text-dark">Навыки</a>
+                        </li>
+                    </ul>
+                    </ul>
+                    <ul class="navbar-nav ml-auto ">
+                        <li class="nav-item navbar-text text-dark">Привет, {{ user.username }}!</li>
+                        <li class="nav-item"><a href="{% url 'logout' %}" class="nav-link text-dark">Выход</a></li>
+                        {% block menu %}
+                        {% endblock %}
+                    </ul>
+                {% else %}
+                    <ul class="navbar-nav ml-auto">
+                        <li class="nav-item"><a href="{% url 'login' %}" class="nav-link text-dark">Вход</a></li>
+                    </ul>
+                {% endif %}
         </div>
     </div>
 </nav>

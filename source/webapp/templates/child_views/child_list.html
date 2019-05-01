@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+{% block title %}Дети{% endblock %}
+{% block content %}
+    <div class="container">
+        {#  Форма поиска детей  #}
+        <form action='{% url 'webapp:search_view' %}' method="GET" accept-charset="utf-8"
+              class="form-inline my-2 my-lg-0">
+            <input class="form-control mr-sm-2 shadow-none"
+                   name="q"
+                   value="{{ request.GET.q }}"
+                   type="text"
+                   placeholder="Search"
+                   aria-label="Search">
+            <button class="btn btn-outline-dark" type="submit">Поиск</button>
+        </form>
+        <a href="{% url 'webapp:child_create' %}" class="btn btn-primary btn-block d-block mt-3 mb-3 w-25">Добавить
+            ребёнка</a>
+        {#  Вывод всех детей  #}
+        <div class="list-group mt-3">
+            {% for c in child_list %}
+                <a href="{% url 'webapp:child_detail' c.pk %}" class="list-group-item list-group-item-action m-1">
+                    <div class="d-flex w-100 justify-content-between">
+                        <h5 class="font-weight-bolder">{{ c.first_name }} {{ c.last_name }}</h5>
+                        <small>Возраст: {{ c.age }}</small>
+                    </div>
+                    {% if c.characteristic %}
+                        <p class="font-weight-normal d-block">Характеристика: {{ c.characteristic }}</p>
+                    {% else %} <p class="font-weight-normal">Характеристики к данному ребенку не выданы</p>
+                    {% endif %}
+                    <small class="d-block">Родитель: {{ c.first_parent }}</small>
+                    <small class="d-block">Начало лечения: {{ c.created_date.date }}</small>
+                </a>
+            {% endfor %}
+        </div>
+    </div>
+{% endblock %}
+{% block scripts %}{% endblock %}
