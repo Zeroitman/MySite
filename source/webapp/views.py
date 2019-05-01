@@ -119,10 +119,10 @@ class SessionDetailView(DetailView):
     template_name = 'session_detail.html'
 
 
-
 class CategoriesListView(ListView):
     model = Categories
     template_name = 'categories_list.html'
+
 
 # ChildList - страница выводящая список всех детей, без привязки к программе
 class ChildList(ListView):

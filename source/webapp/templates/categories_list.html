@@ -4,13 +4,12 @@
     <div class="container">
         <h2 class="text-center">Список категорий: </h2>
         {% for categories in categories_list %}
-            <a href="{% url 'webapp:categories_list' %}" class="list-group-item list-group-item-action m-2">
-                <div class="d-flex w-75 justify-content-between">
-                    <h5 class="mb-1">{{ categories.name }}</h5>
-                    <small>Дата создания: {{ categories.created_date }}</small>
-                </div>
-                <p class="mb-1">{{ categories.code_category }}</p>
-            </a>
+            <div class="border-bottom w-75 pb-2 mb-1">
+                <a href="#" class="text-decoration-none text-dark">
+                    <p class="text-wrap d-block mb-0">{{ categories.pk }}. {{ categories.name }}</p>
+                    <p class="d-block pb-0 mb-0 small font-weight-bold mt-1 ml-3">Код категории: <span class="badge badge-primary">{{ categories.code_category }}</span></p>
+                </a>
+            </div>
         {% endfor %}
     </div>
 {% endblock %}

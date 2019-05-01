@@ -42,12 +42,11 @@
                             <a href="{% url 'webapp:child_list' %}" class="nav-link text-dark">Дети</a>
                         </li>
                         <li class="nav-item active ml-3">
-                            <a href="{% url 'webapp:categories_list' %}" class="nav-link text-dark">Категории<span
-                                class="sr-only">(current)</span></a>
+                            <a href="{% url 'webapp:categories_list' %}" class="nav-link text-dark">Категории</a>
                         </li>
                     </ul>
                     </ul>
-                    <ul class="navbar-nav ml-auto ">
+                    <ul class="navbar-nav ml-auto">
                         <li class="nav-item navbar-text text-dark">Привет, {{ user.username }}!</li>
                         <li class="nav-item"><a href="{% url 'logout' %}" class="nav-link text-dark">Выход</a></li>
                         {% block menu %}
