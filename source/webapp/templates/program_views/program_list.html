@@ -2,15 +2,44 @@
 {% block title %}View{% endblock %}
 {% block content %}
     <div class="container">
-        <h2 class="text-center">Доступные программы</h2>
-        {% for program in program_list %}
-            <a href="{% url 'webapp:program_detail' program.pk %}" class="list-group-item list-group-item-action m-2">
-                <div class="d-flex w-75 justify-content-between">
-                    <h5 class="mb-1">{{ program.name }}</h5>
-                    <small>Дата создания: {{ program.created_date }}</small>
-                </div>
-                <p class="mb-1">{{ program.description }}</p>
-            </a>
-        {% endfor %}
+        {#  Форма поиска программ #}
+        <form action='{% url 'webapp:search_view_program' %}' method="GET" accept-charset="utf-8"
+              class="form-inline my-2 my-lg-0">
+            <div>
+                <input class="form-control mr-sm-2 shadow-none"
+                       name="q"
+                       id="field"
+                       value="{{ request.GET.q }}"
+                       type="text"
+                       placeholder="Найти..."
+                       aria-label="Найти...">
+                <button class="btn btn-outline-dark" type="submit">Поиск</button>
+            </div>
+        </form>
+        <a href="{% url 'webapp:program_create' %}" class="btn btn-primary btn-block d-block mt-3 mb-3 w-25">Добавить
+            программу</a>
+        <div class="list-group mt-3">
+            {% for program in program_list %}
+                <a href="{% url 'webapp:program_detail' program.pk %}"
+                   class="list-group-item list-group-item-action m-1">
+                    <div class="d-flex w-100 justify-content-between">
+                        <h5 class="font-weight-bolder">{{ program.name }} </h5>
+                    </div>
+                    {% if program.child.third_name %}
+                        <small class="d-block">
+                            Ребёнок: {{ program.child.last_name }} {{ program.child.first_name }} {{ program.child.third_name }}
+                        </small>
+                    {% else %}
+                        <small class="d-block">
+                            Ребёнок: {{ program.child.last_name }} {{ program.child.first_name }}
+                        </small>
+                    {% endif %}
+                    <small class="d-block">Дата создания программы: {{ program.created_date.date }}</small>
+                </a>
+            {% endfor %}
+        </div>
     </div>
+{% endblock %}
+{% block scripts %}
+    <script src=../../static/js/check_find_input_is_not_null/check_find_input_is_not_null.js></script>
 {% endblock %}

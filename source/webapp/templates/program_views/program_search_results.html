@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+{% block content %}
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12">
+                <h3 class="mb-4 d-block">Найденных результатов: {{ searched_program.count }}</h3>
+                {% if searched_program.count == 0 %}
+                    <p class="font-weight-normal">Поиск не дал никаких результатов</p>
+                    <a href="{% url 'webapp:program_list' %}">
+                        <button class="btn btn-outline-dark" type="button">Искать снова</button>
+                    </a>
+                {% else %}
+                    {% for program in searched_program %}
+                        <a href="{% url 'webapp:program_detail' program.pk %}"
+                           class="list-group-item list-group-item-action m-1">
+                            <div class="d-flex w-100 justify-content-between">
+                                <h5 class="font-weight-bolder">{{ program.name }}</h5>
+                            </div>
+                            <small class="d-block">Ребёнок: {{ program.child }}</small>
+                            <small class="d-block">Дата создания программы: {{ program.created_date.date }}</small>
+                        </a>
+                    {% endfor %}
+                {% endif %}
+            </div>
+        </div>
+    </div>
+{% endblock %}
