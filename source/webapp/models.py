@@ -79,7 +79,7 @@ class SkillsInProgram(models.Model):
     status = models.BooleanField(default=True, verbose_name='Статус')
 
     def __str__(self):
-        return "Навык %s" % (self.id)
+        return "Навык %s" % self.id
 
 
 class Program(models.Model):

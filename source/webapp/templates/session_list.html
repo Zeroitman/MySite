@@ -7,14 +7,11 @@
             <ul class="list-group">
                 {% for session in session_list %}
                     <a class="list-group-item list-group-item-action text-center"
-                       href={% url 'webapp:session_view' session.pk %}>Сессия {{ session.id }}</a>
+                       href={% url 'webapp:session_detail' session.pk %}>Сессия {{ session.id }}</a>
                 {% endfor %}
             </ul>
         {% else %}
             <p>Ваш список сессии пуст!</p>
         {% endif %}
-        <div class="text-center mt-5">
-            <a role="button" class="btn btn-primary w-25" href={% url 'webapp:session_create' %}>Создать сессию</a>
-        </div>
     </div>
 {% endblock %}

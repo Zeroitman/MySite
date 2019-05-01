@@ -1,7 +1,7 @@
-from django.shortcuts import render
+from django.http import JsonResponse
+from django.shortcuts import render, get_object_or_404
 from webapp.models import Program, Session, Result
 from django.views.generic import ListView, DetailView, CreateView
-from webapp.forms import SessionForm
 from django.urls import reverse
 
 
@@ -30,11 +30,20 @@ class SessionDetailView(DetailView):
     template_name = 'session_detail.html'
 
 
-class SessionCreateView(CreateView):
-    form_class = SessionForm
-    template_name = 'session_create.html'
-    model = Session
+# Вьюшки счетчика, сохранение результатов накликивания, связано с фронтендом
 
-    def get_success_url(self):
-        return reverse('webapp:session_view', kwargs={'pk': self.object.pk})
 
+def counter_done(request, pk):
+    result = get_object_or_404(Result, skill=pk)
+    counter = request.POST.get('counter', None)
+    result.done = counter
+    result.save()
+    return JsonResponse({'counter': result.done})
+
+
+def counter_done_with_hint(request, pk):
+    result = get_object_or_404(Result, skill=pk)
+    counter = request.POST.get('counter', None)
+    result.done_with_hint = counter
+    result.save()
+    return JsonResponse({'counter': result.done_with_hint})
