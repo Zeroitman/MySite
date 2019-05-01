@@ -33,7 +33,7 @@ class SkillCreateView(CreateView):
 class SkillUpdateView(UpdateView):
     model = Skill
     form_class = SkillForm
-    template_name = 'skill_views/skill_create.html'
+    template_name = 'skill_views/skill_update.html'
 
     def get_success_url(self):
         return reverse('webapp:skill_detail', kwargs={'pk': self.object.pk})
@@ -113,7 +113,6 @@ class ResultListView(ListView):
 # ResultUpdateView - страница изменения результатов сессий
 class ResultUpdateView(UpdateView):
     model = Result
-    template_name = 'result_update.html'
     form_class = ResultForm
 
     def get_success_url(self):

@@ -76,6 +76,8 @@ class SkillsInProgram(models.Model):
                                 verbose_name='Программа')
     skill = models.ForeignKey('Skill', related_name='skill_in_program', on_delete=models.PROTECT,
                               verbose_name='Навык')
+    # skill_name -> char field (заполняется или skill или это поле)
+    # parent_skill -> foreign key (skill in program)
     status = models.BooleanField(default=True, verbose_name='Статус')
 
     def __str__(self):
@@ -122,7 +124,7 @@ class Session(models.Model):
 
 class Result(models.Model):
     session = models.ForeignKey(Session, on_delete=models.PROTECT, related_name='session_results')
-    skill = models.ForeignKey(Skill, on_delete=models.PROTECT, related_name='skills_results')
+    skill = models.ForeignKey(Skill, on_delete=models.PROTECT, related_name='skills_results') # должен ссылаться на SkillInProgram
     done = models.PositiveSmallIntegerField(default=0, verbose_name="Ответил сам")
     done_with_hint = models.PositiveSmallIntegerField(default=0, verbose_name="Ответил с подсказкой")
     total = models.IntegerField(default=0)
