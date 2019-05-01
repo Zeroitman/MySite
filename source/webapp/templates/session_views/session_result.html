@@ -18,8 +18,8 @@
             </thead>
             <tbody>
             {% for result in result_list %}
-                <tr id="01" class="text-center" >
-                    <td >{{ result.pk }}</td>
+                <tr id="01" class="text-center">
+                    <td>{{ result.pk }}</td>
                     <td>{{ result.skill.code_skill }}</td>
                     <td class="text-left">{{ result.skill.name }}</td>
                     <td>{{ result.done }}</td>
@@ -27,7 +27,7 @@
                     <td id="001">{{ result.total }}</td>
                     <td>{{ result.percent }}</td>
                     <td> {% if result.percent >= 80 %}
-                        <i class="fas fa-check-circle" ></i>
+                        <i class="fas fa-check-circle"></i>
                     {% endif %}
                     </td>
                     <td><a role="button" class="btn btn-primary"
@@ -42,7 +42,8 @@
             </tbody>
         </table>
         <div class="text-center mt-3">
-            <a role="button" class="btn btn-success m-2" href="{% url 'webapp:child_list' %}" style="width: 100%">Продолжить</a>
+            <a role="button" class="btn btn-success m-2" href="{% url 'webapp:child_program_list' %}"
+               style="width: 100%">Продолжить</a>
         </div>
         <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
              aria-hidden="true">

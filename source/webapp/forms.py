@@ -1,23 +1,5 @@
-from webapp.models import Child, UserInfo, Program, Result, Skill
+from webapp.models import Child, Result, Skill
 from django import forms
-
-
-class SessionForm(forms.ModelForm):
-    child = forms.ModelChoiceField(queryset=Child.objects.all(),
-                                   empty_label='Не выбрано',
-                                   widget=forms.Select(attrs={'class': 'form-control', 'required': True}),
-                                   label='Ребенок')
-
-    attending_therapist = forms.ModelChoiceField(queryset=UserInfo.objects.all(),
-                                                 empty_label='Не выбрано',
-                                                 widget=forms.Select
-                                                 (attrs={'class': 'form-control', 'required': True}),
-                                                 label='Терапист')
-
-    program = forms.ModelMultipleChoiceField(queryset=Program.objects.all(),
-                                             widget=forms.CheckboxSelectMultiple
-                                             (attrs={'class': 'list-unstyled', }),
-                                             label='Программы')
 
 
 class SkillForm(forms.ModelForm):

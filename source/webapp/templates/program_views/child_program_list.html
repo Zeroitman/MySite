@@ -1,0 +1,32 @@
+{% extends 'base.html' %}
+{% block title %}{% endblock %}
+{% block content %}
+    <div class="container">
+        <h2 class="text-center">Список детей: </h2>
+        {% for var in program_list %}
+            <div class="card d-inline-flex ml-3" style="width: 18rem; height: 11rem;">
+                <div class="card-body">
+                    <h5 class="card-title mb-0">{{ var.child.first_name }} {{ var.child.last_name }}</h5>
+                    {% if var.child.age %}
+                        <p class="card-text mb-0 text-muted" style="width: 10rem; height: 1rem;">
+                            Возраст: {{ var.child.age }}</p>
+                    {% else %}
+                        <p class="card-text mb-2 text-muted" style="width: 10rem; height: 1rem;">Возраст: Не указан</p>
+                    {% endif %}
+                    {% if var.child.first_parent and var.child.second_parent == Null %}
+                        <p class="card-text small pt-2 mb-0" style="width: 18rem; height: 3rem;">
+                            Родитель: {{ var.child.first_parent }}</p>
+                    {% elif var.child.first_parent and var.child.second_parent %}
+                        <p class="card-text small pt-2" style="width: 17rem; height: 2rem;">
+                            Родители: {{ var.child.first_parent }}, {{ var.child.second_parent }}</p>
+                    {% endif %}
+                    <p class="card-text small mb-0 font-weight-light pb-1">Начало
+                        лечения: {{ var.child.created_date.date }}</p>
+                    <a href="{% url 'webapp:program_detail' var.pk %}" class="card-link">Программа</a>
+                    <a href="#" class="card-link">Начать сессию</a>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+{% endblock %}
+{% block scripts %}{% endblock %}

@@ -93,5 +93,5 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 LOGIN_URL = reverse_lazy('login')
-LOGIN_REDIRECT_URL = reverse_lazy('webapp:program_list')
+LOGIN_REDIRECT_URL = reverse_lazy('webapp:child_program_list')
 LOGOUT_REDIRECT_URL = reverse_lazy('login')

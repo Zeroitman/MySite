@@ -23,7 +23,7 @@
 <body>
 <nav class="navbar navbar-expand-lg navbar-dark bg-primary mb-3">
     <div class="container">
-        <a class="navbar-brand mr-auto text-dark" href={% url 'webapp:child_program_list' %}>ABA - THERAPY</a>
+        <a class="navbar-brand text-dark mr-4" href={% url 'webapp:child_program_list' %}>ABA - THERAPY</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
                 aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
@@ -32,17 +32,15 @@
             <ul class="navbar-nav">
                 {% if user.is_authenticated %}
                     <ul class="navbar-nav mr-auto">
-                        <li class="nav-item active ml-3">
-                            <a href="{% url 'webapp:child_create' %}" class="nav-link text-dark">Добавить ребенка</a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="{% url 'webapp:skill_list' %}" class="nav-link text-dark">Навыки</a>
-                        </li>
                         <li class="nav-item">
                             <a href="{% url 'webapp:child_list' %}" class="nav-link text-dark">Дети</a>
                         </li>
-                        <li class="nav-item active ml-3">
-                            <a href="{% url 'webapp:categories_list' %}" class="nav-link text-dark">Категории</a>
+                        <li class="nav-item active">
+                            <a href="{% url 'webapp:categories_list' %}" class="nav-link text-dark">Категории<span
+                                    class="sr-only">(current)</span></a>
+                        </li>
+                        <li class="nav-item">
+                            <a href="{% url 'webapp:skill_list' %}" class="nav-link text-dark">Навыки</a>
                         </li>
                     </ul>
                     </ul>
@@ -62,7 +60,6 @@
 </nav>
 {% block content %}{% endblock %}
 <div class="class mt-4"></div>
-<script src="{% static 'js/jquery.min.js' %}"></script>
 <script src="{% static 'js/popper.min.js' %}"></script>
 <script src="{% static 'js/bootstrap.min.js' %}"></script>
 {% block scripts %}{% endblock %}

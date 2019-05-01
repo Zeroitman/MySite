@@ -1,3 +1,4 @@
+from django.http import JsonResponse
 from django.shortcuts import get_object_or_404, redirect, render
 from webapp.models import Program, Session, Result, Skill, Child, Categories
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView, View
@@ -48,7 +49,7 @@ def delete_skill(request, pk):
 # ChildListView - главная страница с выводом детей
 class ChildListView(ListView):
     model = Program
-    template_name = 'child_program_list.html'
+    template_name = 'program_views/child_program_list.html'
 
 
 # ChildDetailView - страница просмотра профиля определенного ребенка
@@ -86,19 +87,27 @@ class ChildDeleteView(DeleteView):
 # ProgramListView - страница вывода всех программ
 class ProgramListView(ListView):
     model = Program
-    template_name = 'program_list.html'
+    template_name = 'program_views/program_list.html'
 
 
 # ProgramDetailView - страница просмотра деталей определенной программы
 class ProgramDetailView(DetailView):
     model = Program
-    template_name = 'program_detail.html'
+    template_name = 'program_views/program_detail.html'
 
 
 # ResultListView - страница вывода результатов сессий
 class ResultListView(ListView):
     model = Result
-    template_name = 'session_result.html'
+    template_name = 'session_views/session_result.html'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['session_pk'] = self.kwargs.get('pk')
+        return context
+
+    def get_queryset(self):
+        return Result.objects.filter(session=self.kwargs['pk'])
 
 
 # ResultUpdateView - страница изменения результатов сессий
@@ -107,18 +116,35 @@ class ResultUpdateView(UpdateView):
     template_name = 'result_update.html'
     form_class = ResultForm
 
-    # success_url = reverse_lazy('webapp:child_list')
-
     def get_success_url(self):
-        return reverse('webapp:session_result_view', kwargs={'pk': self.object.pk})
+        return reverse('webapp:session_result_view',
+                       kwargs={'pk': get_object_or_404(Result, pk=self.kwargs.get('pk')).session.pk})
 
 
 # SessionDetailView - страница просмотра делатей
 class SessionDetailView(DetailView):
     model = Session
-    template_name = 'session_detail.html'
+    template_name = 'session_views/session_detail.html'
 
 
+# Вьюшки счетчика, сохранение результатов накликивания, связано с фронтендом
+def counter_done(request, pk):
+    result = get_object_or_404(Result, skill=pk)
+    counter = request.POST.get('counter', None)
+    result.done = int(counter)
+    result.save()
+    return JsonResponse({'counter': result.done})
+
+
+def counter_done_with_hint(request, pk):
+    result = get_object_or_404(Result, skill=pk)
+    counter = request.POST.get('counter', None)
+    result.done_with_hint = int(counter)
+    result.save()
+    return JsonResponse({'counter': result.done_with_hint})
+
+
+# Список категорий
 class CategoriesListView(ListView):
     model = Categories
     template_name = 'categories_list.html'

@@ -2,14 +2,17 @@ from django.urls import path
 from webapp.views import ProgramDetailView, ProgramListView, \
     SessionDetailView, \
     ChildList, ChildSearchView, ChildListView, ChildDetailView, ChildUpdateView, ChildCreateView, ChildDeleteView, \
-    SkillList, SkillDetailView, SkillUpdateView, SkillCreateView, delete_skill, \
+    SkillList, SkillDetailView, SkillUpdateView, SkillCreateView, delete_skill, counter_done_with_hint, counter_done, \
     ResultUpdateView, ResultListView, CategoriesListView
-
 
 # Название приложения, ссылки расставляются в виде webapp:{название шалона}
 app_name = 'webapp'
 
 urlpatterns = [
+    # counter urls
+    path('skill_w_hint/<int:pk>', counter_done_with_hint, name='done_w_hint'),
+    path('skill_done/<int:pk>', counter_done, name='counter_done'),
+    # child urls
     path('', ChildListView.as_view(), name='child_program_list'),
     path('child/', ChildList.as_view(), name='child_list'),
     path('search/', ChildSearchView.as_view(), name='search_view'),
@@ -25,7 +28,7 @@ urlpatterns = [
     path('categories/', CategoriesListView.as_view(), name='categories_list'),
     # session urls
     path('session/<int:pk>', SessionDetailView.as_view(), name='session_view'),
-    path('session/result/<int:pk>', ResultListView.as_view(), name='session_result_view'),
+    path('session/<int:pk>/result', ResultListView.as_view(), name='session_result_view'),
     path('session/result/<int:pk>/update', ResultUpdateView.as_view(), name='session_result_update'),
     # skill urls
     path('skill/', SkillList.as_view(), name='skill_list'),
@@ -33,4 +36,5 @@ urlpatterns = [
     path('skill/create', SkillCreateView.as_view(), name='skill_create'),
     path('skill/<int:pk>/update', SkillUpdateView.as_view(), name='skill_update'),
     path('skill/<int:pk>/delete', delete_skill, name='skill_delete'),
+
 ]
