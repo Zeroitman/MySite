@@ -1,4 +1,4 @@
-from webapp.models import Child, Result, Skill, Program, UserInfo
+from webapp.models import Child, Result, Skill, Program, UserInfo, Categories
 from django import forms
 
 
@@ -63,4 +63,14 @@ class ProgramForm(forms.ModelForm):
         widgets = {
             'name': forms.TextInput(attrs={'class': 'form-control col-xs-12 col-sm-6 col-lg-4'}),
             'description': forms.Textarea(attrs={'class': 'form-control col-xs-12 col-sm-6 col-lg-4'}),
+        }
+
+
+class CategoryForm(forms.ModelForm):
+    class Meta:
+        model = Categories
+        exclude = ["created_date", "edited_date", "deleted_date"]
+        widgets = {
+            'name': forms.TextInput(attrs={'class': 'form-control col-xs-12 col-sm-6 col-lg-4'}),
+            'code_category': forms.TextInput(attrs={'class': 'form-control col-xs-12 col-sm-6 col-lg-4'}),
         }

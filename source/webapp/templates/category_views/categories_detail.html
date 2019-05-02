@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+{% block title %}Навыки{% endblock %}
+{% block content %}
+    <div class="container">
+        <h3 class="text-center mb-4">{{ categories.name }}</h3>
+        <a href="{% url 'webapp:skill_create' %}" class="btn btn-primary btn-block d-block mt-3 mb-3 w-25">Добавить
+            навык</a>
+        {% for skill in categories.skill.all %}
+            <div class="border-bottom w-50">
+                <a href="{% url 'webapp:skill_detail' skill.pk %}" class="text-decoration-none text-dark">
+                    <p class="d-inline-block text-wrap mb-1 font-weight-bold">{{ skill.pk }}. {{ skill.name }}</p>
+                </a>
+                <p class="text m-0 text-truncate font-weight-light ml-3" style="width: 40rem; height: 2rem">
+                    {{ skill.description }}
+                </p>
+                <p class="d-block pb-2 pt-0 mb-0 small font-weight-bold mt-0 ml-3">Код навыка: <span
+                        class="badge badge-primary">{{ skill.code_skill }}</span></p>
+            </div>
+        {% endfor %}
+    </div>
+{% endblock %}

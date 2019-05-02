@@ -2,15 +2,9 @@ from django.http import JsonResponse
 from django.shortcuts import get_object_or_404, redirect, render
 from webapp.models import Program, Session, Result, Skill, Child, Categories
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView, View
-from webapp.forms import SkillForm, ChildForm, ResultForm, ProgramForm
+from webapp.forms import SkillForm, ChildForm, ResultForm, ProgramForm, CategoryForm
 from django.urls import reverse, reverse_lazy
 from django.db.models import Q
-
-
-# SkillCreateView - страница со списком навыков
-class SkillList(ListView):
-    model = Skill
-    template_name = 'skill_views/skill_list.html'
 
 
 # SkillCreateView - страница деталей навыка
@@ -43,7 +37,7 @@ class SkillUpdateView(UpdateView):
 def delete_skill(request, pk):
     skill = get_object_or_404(Skill, pk=pk)
     skill.delete()
-    return redirect('webapp:skill_list')
+    return redirect('webapp:categories_list')
 
 
 # ChildList - страница выводящая список всех детей, без привязки к программе
@@ -143,7 +137,7 @@ class ProgramUpdateView(UpdateView):
         return reverse('webapp:program_detail', kwargs={'pk': self.object.pk})
 
 
-# ProgramSearch - метод поиска по программа на странице програм, после отправки формы с именем программы
+# ProgramSearch - метод поиска по программам на странице програм, после отправки формы с именем программы
 class ProgramSearchView(View):
     template_name = 'program_views/program_search_results.html'
 
@@ -206,4 +200,46 @@ def counter_done_with_hint(request, pk):
 # Список категорий
 class CategoriesListView(ListView):
     model = Categories
-    template_name = 'categories_list.html'
+    template_name = 'category_views/categories_list.html'
+
+
+# Детали категорий
+class CategoriesDetailView(DetailView):
+    model = Categories
+    template_name = 'category_views/categories_detail.html'
+
+
+class CategoriesCreateView(CreateView):
+    model = Categories
+    form_class = CategoryForm
+    template_name = 'category_views/categories_create.html'
+
+    def get_success_url(self):
+        return reverse('webapp:categories_list')
+
+
+class CategoriesUpdateView(UpdateView):
+    model = Categories
+    template_name = 'category_views/categories_update.html'
+    form_class = CategoryForm
+
+    def get_success_url(self):
+        return reverse('webapp:categories_list')
+
+
+def delete_category(request, pk):
+    category = get_object_or_404(Categories, pk=pk)
+    category.delete()
+    return redirect('webapp:categories_list')
+
+
+class SkillSearchView(View):
+    template_name = 'skill_views/skill_search_results.html'
+
+    def get(self, request):
+        query = self.request.GET.get('q')
+        searched_skills = Skill.objects.filter(Q(name__icontains=query))
+        context = {
+            'searched_skills': searched_skills
+        }
+        return render(self.request, self.template_name, context)

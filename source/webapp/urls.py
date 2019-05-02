@@ -3,8 +3,10 @@ from webapp.views import \
     ProgramDetailView, ProgramListView, ProgramCreateView, ProgramUpdateView, ProgramSearchView, ChildInProgramListView, \
     ChildList, ChildSearchView, ChildDetailView, ChildUpdateView, ChildCreateView, ChildDeleteView, \
     SessionDetailView, counter_done_with_hint, counter_done, \
-    SkillList, SkillDetailView, SkillUpdateView, SkillCreateView, delete_skill, \
-    ResultUpdateView, ResultListView, CategoriesListView
+    SkillDetailView, SkillUpdateView, SkillCreateView, delete_skill, \
+    ResultUpdateView, ResultListView, CategoriesListView, CategoriesDetailView, \
+    SkillSearchView, CategoriesCreateView, CategoriesUpdateView, delete_category
+
 
 # Название приложения, ссылки расставляются в виде webapp:{название шалона}
 app_name = 'webapp'
@@ -15,7 +17,7 @@ urlpatterns = [
     path('skill_done/<int:pk>', counter_done, name='counter_done'),
     # child urls
     path('child/', ChildList.as_view(), name='child_list'),
-    path('search/', ChildSearchView.as_view(), name='search_view'),
+    path('child_search/', ChildSearchView.as_view(), name='search_view'),
     path('child/<int:pk>', ChildDetailView.as_view(), name='child_detail'),
     path('child/create', ChildCreateView.as_view(), name='child_create'),
     path('child/<int:pk>/update', ChildUpdateView.as_view(), name='child_update'),
@@ -29,15 +31,19 @@ urlpatterns = [
     path('program/<int:pk>/update', ProgramUpdateView.as_view(), name='program_update'),
     # category urls
     path('categories/', CategoriesListView.as_view(), name='categories_list'),
+    path('categories/<int:pk>', CategoriesDetailView.as_view(), name='categories_detail'),
+    path('categories/create', CategoriesCreateView.as_view(), name='categories_create'),
+    path('categories/<int:pk>/update', CategoriesUpdateView.as_view(), name='categories_update'),
+    path('categories/<int:pk>/delete', delete_category, name='categories_delete'),
     # session_and_result_urls
     path('session/<int:pk>', SessionDetailView.as_view(), name='session_view'),
     path('session/<int:pk>/result', ResultListView.as_view(), name='session_result_view'),
     path('session/result/<int:pk>/update', ResultUpdateView.as_view(), name='session_result_update'),
     # skill urls
-    path('skill/', SkillList.as_view(), name='skill_list'),
     path('skill/<int:pk>', SkillDetailView.as_view(), name='skill_detail'),
     path('skill/create', SkillCreateView.as_view(), name='skill_create'),
     path('skill/<int:pk>/update', SkillUpdateView.as_view(), name='skill_update'),
     path('skill/<int:pk>/delete', delete_skill, name='skill_delete'),
+    path('skill/skill_search/', SkillSearchView.as_view(), name='search_view_skill')
 
 ]

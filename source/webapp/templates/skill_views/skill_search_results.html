@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+{% block content %}
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12">
+                <h3 class="mb-4 d-block">Найденных результатов: {{ searched_skills.count }}</h3>
+                {% if searched_skills.count == 0 %}
+                    <p class="font-weight-normal">Поиск не дал никаких результатов</p>
+                    <a href="{% url 'webapp:categories_list' %}">
+                        <button class="btn btn-outline-dark" type="button">Искать снова</button>
+                    </a>
+                {% else %}
+                    {% for skill in searched_skills %}
+                        <div class="border-bottom w-75">
+                            <a href="{% url 'webapp:skill_detail' skill.pk %}" class="text-decoration-none text-dark">
+                                <p class="d-inline-block text-wrap">{{ skill.pk }}. {{ skill.name }}</p>
+                            </a>
+                        </div>
+                    {% endfor %}
+                {% endif %}
+            </div>
+        </div>
+    </div>
+{% endblock %}
