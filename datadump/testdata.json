@@ -1,5 +1,45 @@
 [
 {
+  "model": "webapp.child",
+  "pk": 1,
+  "fields": {
+    "first_name": "\u0423\u0440\u043c\u0430\u0442",
+    "last_name": "\u0424\u0435\u0434\u043e\u0440\u043e\u0432",
+    "third_name": "\u0421\u0435\u0440\u0433\u0435\u0435\u0432\u0438\u0447",
+    "birthday": null,
+    "age": "12",
+    "address": "",
+    "characteristic": null,
+    "preferences": null,
+    "first_parent": "\u0424\u0435\u0434\u043e\u0440\u043e\u0432 \u0421\u0435\u0440\u0433\u0435\u0439 \u0412\u0430\u043b\u0435\u0440\u044c\u0435\u0432\u0438\u0447",
+    "second_parent": null,
+    "contacts": null,
+    "created_date": "2019-04-17T08:41:27.144Z",
+    "edited_date": "2019-04-30T13:12:13.433Z",
+    "deleted_date": null
+  }
+},
+{
+  "model": "webapp.child",
+  "pk": 2,
+  "fields": {
+    "first_name": "\u0412\u0430\u0441\u0438\u043b\u0438\u0439",
+    "last_name": "\u041a\u043e\u0448\u043a\u0438\u043d",
+    "third_name": "\u0412\u0438\u043a\u0442\u0438\u0440\u043e\u0432\u0438\u0447",
+    "birthday": "2010-04-01",
+    "age": "9",
+    "address": "\u0433. \u0411\u0438\u0448\u043a\u0435\u043a, 8-\u043c\u043a\u0440, \u0434\u043e\u043c  12,  \u043a\u0432. 35",
+    "characteristic": "\u041e\u0431\u044b\u0447\u043d\u0430\u044f \u0445\u0430\u0440\u0430\u043a\u0442\u0435\u0440\u0438\u0441\u0442\u0438\u043a\u0430",
+    "preferences": "\u041b\u044e\u0431\u0438\u0442 \u0438\u0433\u0440\u0430\u0442\u044c \u043d\u0430 \u0444\u043e\u0440\u0442\u0435\u043f\u0438\u0430\u043d\u043e",
+    "first_parent": "\u041a\u043e\u0448\u043a\u0438\u043d\u0430 \u0412\u0430\u043b\u0435\u0440\u0438\u044f \u042f\u043a\u043e\u0432\u043b\u0435\u0432\u043d\u0430",
+    "second_parent": "\u041a\u043e\u0448\u043a\u0438\u043d \u0421\u0435\u0440\u0433\u0435\u0439 \u0412\u0430\u0441\u0438\u043b\u044c\u0435\u0432\u0438\u0447",
+    "contacts": "0555478965",
+    "created_date": "2019-04-17T08:41:52.962Z",
+    "edited_date": "2019-04-26T15:28:18.540Z",
+    "deleted_date": null
+  }
+},
+{
   "model": "webapp.categories",
   "pk": 1,
   "fields": {
@@ -243,42 +283,125 @@
   }
 },
 {
-  "model": "webapp.child",
-  "pk": 1,
+  "model": "webapp.skill",
+  "pk": 16,
   "fields": {
-    "first_name": "Children1",
-    "last_name": "Test",
-    "third_name": null,
-    "birthday": null,
-    "age": "10",
-    "address": "\u041c\u043a\u0440 \u0410\u0441\u0430\u043d\u0431\u0430\u0439, \u0434\u043e\u043c 52 \u043a\u0432 10, \u0433. \u0411\u0438\u0448\u043a\u0435\u043a",
-    "characteristic": "\u041d\u043e\u0440\u043c",
-    "preferences": null,
-    "first_parent": "First Parent",
-    "second_parent": "Second Parent",
-    "contacts": null,
-    "created_date": "2019-04-17T08:41:27.144Z",
-    "edited_date": "2019-04-17T08:41:27.144Z",
+    "code_skill": "A11",
+    "name": "\u0411\u0440\u0430\u0442\u044c \u043f\u043e\u043e\u0449\u0440\u0435\u043d\u0438\u0435, \u043a\u043e\u0433\u0434\u0430 \u043f\u0440\u0435\u0434\u043b\u0430\u0433\u0430\u044e\u0442",
+    "category": 1,
+    "description": "\u041a\u043e\u0433\u0434\u0430 \u043f\u0440\u0435\u0434\u043b\u0430\u0433\u0430\u044e\u0442 \u0438\u0437\u0432\u0435\u0441\u0442\u043d\u044b\u0439 \u043f\u0440\u0435\u0434\u043c\u0435\u0442 \u043f\u043e\u043e\u0449\u0440\u0435\u043d\u0438\u0435 \u0438\u043b\u0438 \u0437\u0430\u043d\u044f\u0442\u0438\u0435, \u0443\u0447\u0430\u0449\u0438\u0439\u0441\u044f \u0432\u043e\u0437\u044c\u043c\u0435\u0442/\u0438\u0441\u043f\u043e\u043b\u044c\u0437\u0443\u0435\u0442 \u043f\u0440\u0435\u0434\u043c\u0435\u0442 \u0438\u043b\u0438 \u0437\u0430\u043d\u044f\u0442\u0438\u0435",
+    "criterion": "",
+    "created_date": "2019-04-30T10:53:18.114Z",
+    "updated_date": "2019-04-30T10:53:18.114Z",
     "deleted_date": null
   }
 },
 {
-  "model": "webapp.child",
+  "model": "webapp.skillsinprogram",
+  "pk": 1,
+  "fields": {
+    "program": 1,
+    "skill": 1,
+    "status": false
+  }
+},
+{
+  "model": "webapp.skillsinprogram",
   "pk": 2,
   "fields": {
-    "first_name": "Children2",
-    "last_name": "Test",
-    "third_name": null,
-    "birthday": null,
-    "age": "12",
-    "address": "",
-    "characteristic": "\u0421\u0440\u0435\u0434\u043d\u0435",
-    "preferences": null,
-    "first_parent": "First Parent",
-    "second_parent": "Second Parent",
-    "contacts": null,
-    "created_date": "2019-04-17T08:41:52.962Z",
-    "edited_date": "2019-04-17T08:41:52.962Z",
+    "program": 1,
+    "skill": 2,
+    "status": false
+  }
+},
+{
+  "model": "webapp.skillsinprogram",
+  "pk": 3,
+  "fields": {
+    "program": 1,
+    "skill": 3,
+    "status": false
+  }
+},
+{
+  "model": "webapp.skillsinprogram",
+  "pk": 4,
+  "fields": {
+    "program": 1,
+    "skill": 4,
+    "status": false
+  }
+},
+{
+  "model": "webapp.skillsinprogram",
+  "pk": 5,
+  "fields": {
+    "program": 1,
+    "skill": 5,
+    "status": false
+  }
+},
+{
+  "model": "webapp.skillsinprogram",
+  "pk": 6,
+  "fields": {
+    "program": 2,
+    "skill": 6,
+    "status": true
+  }
+},
+{
+  "model": "webapp.skillsinprogram",
+  "pk": 7,
+  "fields": {
+    "program": 2,
+    "skill": 7,
+    "status": true
+  }
+},
+{
+  "model": "webapp.skillsinprogram",
+  "pk": 8,
+  "fields": {
+    "program": 2,
+    "skill": 8,
+    "status": true
+  }
+},
+{
+  "model": "webapp.skillsinprogram",
+  "pk": 9,
+  "fields": {
+    "program": 2,
+    "skill": 9,
+    "status": false
+  }
+},
+{
+  "model": "webapp.program",
+  "pk": 1,
+  "fields": {
+    "name": "\u041f\u0440\u043e\u0433\u0440\u0430\u043c\u043c\u0430 1",
+    "description": "",
+    "child": 1,
+    "author_therapist": 1,
+    "status": false,
+    "created_date": "2019-04-26T07:15:39.065Z",
+    "edited_date": "2019-04-26T16:07:37.515Z",
+    "deleted_date": null
+  }
+},
+{
+  "model": "webapp.program",
+  "pk": 2,
+  "fields": {
+    "name": "\u041f\u0440\u043e\u0433\u0440\u0430\u043c\u043c\u0430 2",
+    "description": "",
+    "child": 2,
+    "author_therapist": 2,
+    "status": true,
+    "created_date": "2019-04-26T07:19:15.736Z",
+    "edited_date": "2019-04-26T07:19:15.736Z",
     "deleted_date": null
   }
 },
@@ -295,16 +418,29 @@
   }
 },
 {
+  "model": "webapp.session",
+  "pk": 3,
+  "fields": {
+    "program": 2,
+    "attending_therapist": 2,
+    "description": "",
+    "created_date": "2019-04-30T07:05:44.411Z",
+    "edited_date": "2019-04-30T07:05:44.411Z",
+    "deleted_date": null
+  }
+},
+{
   "model": "webapp.result",
   "pk": 1,
   "fields": {
     "session": 2,
     "skill": 1,
-    "done": 0,
-    "done_with_hint": 0,
-    "total": 0,
+    "done": 10,
+    "done_with_hint": 2,
+    "total": 12,
+    "percent": 83,
     "created_date": "2019-04-25T16:32:56.762Z",
-    "edited_date": "2019-04-25T16:32:56.762Z",
+    "edited_date": "2019-04-30T13:30:32.397Z",
     "deleted_date": null
   }
 },
@@ -314,11 +450,12 @@
   "fields": {
     "session": 2,
     "skill": 2,
-    "done": 0,
-    "done_with_hint": 0,
-    "total": 0,
+    "done": 4,
+    "done_with_hint": 1,
+    "total": 5,
+    "percent": 80,
     "created_date": "2019-04-25T16:33:09.980Z",
-    "edited_date": "2019-04-25T16:33:09.980Z",
+    "edited_date": "2019-04-30T12:23:16.757Z",
     "deleted_date": null
   }
 },
@@ -328,11 +465,12 @@
   "fields": {
     "session": 2,
     "skill": 3,
-    "done": 0,
+    "done": 4,
     "done_with_hint": 0,
-    "total": 0,
+    "total": 4,
+    "percent": 100,
     "created_date": "2019-04-25T16:33:16.322Z",
-    "edited_date": "2019-04-25T16:33:16.322Z",
+    "edited_date": "2019-04-30T12:36:20.143Z",
     "deleted_date": null
   }
 },
@@ -342,12 +480,36 @@
   "fields": {
     "session": 2,
     "skill": 4,
-    "done": 0,
+    "done": 1,
     "done_with_hint": 0,
-    "total": 0,
+    "total": 1,
+    "percent": 100,
     "created_date": "2019-04-25T16:33:32.885Z",
-    "edited_date": "2019-04-25T16:33:32.885Z",
+    "edited_date": "2019-05-01T06:37:18.264Z",
     "deleted_date": null
+  }
+},
+{
+  "model": "webapp.result",
+  "pk": 5,
+  "fields": {
+    "session": 3,
+    "skill": 2,
+    "done": 7,
+    "done_with_hint": 1,
+    "total": 8,
+    "percent": 87,
+    "created_date": "2019-04-25T16:33:32.885Z",
+    "edited_date": "2019-04-30T12:28:57.238Z",
+    "deleted_date": null
+  }
+},
+{
+  "model": "auth.group",
+  "pk": 1,
+  "fields": {
+    "name": "\u0420\u043e\u0434\u0438\u0442\u0435\u043b\u0438",
+    "permissions": []
   }
 },
 {
@@ -363,7 +525,7 @@
   "pk": 1,
   "fields": {
     "password": "pbkdf2_sha256$150000$7BqCker8HkA5$DrDaXumkEhBBDqcBYmpz3Ale+UQKitBgbyvaWBLSUMk=",
-    "last_login": "2019-04-17T08:08:22.573Z",
+    "last_login": "2019-04-30T10:58:38.240Z",
     "is_superuser": true,
     "username": "admin",
     "first_name": "",
@@ -372,6 +534,46 @@
     "is_staff": true,
     "is_active": true,
     "date_joined": "2019-04-17T08:08:16.963Z",
+    "groups": [],
+    "user_permissions": []
+  }
+},
+{
+  "model": "auth.user",
+  "pk": 2,
+  "fields": {
+    "password": "pbkdf2_sha256$150000$l78P3QPEGrdJ$rM1bl4T8WnR/KWoHo2zMGOkgejARxDddzD9GL41gSsQ=",
+    "last_login": null,
+    "is_superuser": false,
+    "username": "Parent1",
+    "first_name": "\u0420\u043e\u0434\u0438\u0442\u0435\u043b\u044c1",
+    "last_name": "\u0422\u0435\u0441\u0442",
+    "email": "",
+    "is_staff": false,
+    "is_active": true,
+    "date_joined": "2019-04-17T08:34:03Z",
+    "groups": [
+      [
+        "\u0420\u043e\u0434\u0438\u0442\u0435\u043b\u0438"
+      ]
+    ],
+    "user_permissions": []
+  }
+},
+{
+  "model": "auth.user",
+  "pk": 3,
+  "fields": {
+    "password": "pbkdf2_sha256$150000$rGfgWLn2ohbC$NNHTxWqQCK100By0g1gXFr2XrbrrU5jfx8iP7kjRYMg=",
+    "last_login": null,
+    "is_superuser": false,
+    "username": "Parent2",
+    "first_name": "\u0420\u043e\u0434\u0438\u0442\u0435\u043b\u044c2",
+    "last_name": "\u0422\u0435\u0441\u0442",
+    "email": "",
+    "is_staff": false,
+    "is_active": true,
+    "date_joined": "2019-04-17T08:34:26Z",
     "groups": [],
     "user_permissions": []
   }
@@ -421,6 +623,24 @@
   }
 },
 {
+  "model": "auth.user",
+  "pk": 6,
+  "fields": {
+    "password": "pbkdf2_sha256$150000$Owepxkb8L3W2$0S2aYFWWDXcVDIFXeEpv5o4T/i8+kzMlMoTkmi93zHQ=",
+    "last_login": null,
+    "is_superuser": false,
+    "username": "tera_1",
+    "first_name": "",
+    "last_name": "",
+    "email": "",
+    "is_staff": false,
+    "is_active": true,
+    "date_joined": "2019-04-25T17:33:52.243Z",
+    "groups": [],
+    "user_permissions": []
+  }
+},
+{
   "model": "webapp.userinfo",
   "pk": 1,
   "fields": {
@@ -448,115 +668,6 @@
     "child": [
       2
     ]
-  }
-},
-  {
-  "model": "webapp.program",
-  "pk": 1,
-  "fields": {
-    "name": "\u041f\u0440\u043e\u0433\u0440\u0430\u043c\u043c\u0430 1",
-    "description": "",
-    "child": 1,
-    "author_therapist": 1,
-    "status": true,
-    "created_date": "2019-04-26T07:15:39.065Z",
-    "edited_date": "2019-04-26T07:15:39.065Z",
-    "deleted_date": null
-  }
-},
-{
-  "model": "webapp.program",
-  "pk": 2,
-  "fields": {
-    "name": "\u041f\u0440\u043e\u0433\u0440\u0430\u043c\u043c\u0430 2",
-    "description": "",
-    "child": 2,
-    "author_therapist": 2,
-    "status": true,
-    "created_date": "2019-04-26T07:19:15.736Z",
-    "edited_date": "2019-04-26T07:19:15.736Z",
-    "deleted_date": null
-  }
-},
-{
-  "model": "webapp.skillsinprogram",
-  "pk": 1,
-  "fields": {
-    "program": 1,
-    "skill": 1,
-    "status": true
-  }
-},
-{
-  "model": "webapp.skillsinprogram",
-  "pk": 2,
-  "fields": {
-    "program": 1,
-    "skill": 2,
-    "status": true
-  }
-},
-{
-  "model": "webapp.skillsinprogram",
-  "pk": 3,
-  "fields": {
-    "program": 1,
-    "skill": 3,
-    "status": true
-  }
-},
-{
-  "model": "webapp.skillsinprogram",
-  "pk": 4,
-  "fields": {
-    "program": 1,
-    "skill": 4,
-    "status": true
-  }
-},
-{
-  "model": "webapp.skillsinprogram",
-  "pk": 5,
-  "fields": {
-    "program": 1,
-    "skill": 5,
-    "status": true
-  }
-},
-{
-  "model": "webapp.skillsinprogram",
-  "pk": 6,
-  "fields": {
-    "program": 2,
-    "skill": 6,
-    "status": true
-  }
-},
-{
-  "model": "webapp.skillsinprogram",
-  "pk": 7,
-  "fields": {
-    "program": 2,
-    "skill": 7,
-    "status": true
-  }
-},
-{
-  "model": "webapp.skillsinprogram",
-  "pk": 8,
-  "fields": {
-    "program": 2,
-    "skill": 8,
-    "status": true
-  }
-},
-{
-  "model": "webapp.skillsinprogram",
-  "pk": 9,
-  "fields": {
-    "program": 2,
-    "skill": 9,
-    "status": false
   }
 }
 ]

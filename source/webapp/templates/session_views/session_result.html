@@ -30,13 +30,15 @@
                         <i class="fas fa-check-circle"></i>
                     {% endif %}
                     </td>
-                    <td><a role="button" class="btn btn-primary"
-                           href="{% url 'webapp:session_result_update' result.pk %}"><i class="fas fa-edit"></i></a>
+                    <td><a href="#" onclick="getEl({{ result.pk }})" data-toggle="modal" id="modal"
+                           data-target="#deleteModal"
+                           name="data"
+                           data-update-url="{% url 'webapp:session_result_update' result.pk %}"
+                           data-ident="{{ result.pk }}"
+                           data-done-number="{{ result.done }}"
+                           data-done_with_hint-number="{{ result.done_with_hint }}"
+                           class="btn btn-danger"><i class="fas fa-edit"></i></a>
                     </td>
-                    {#                                        <td><a href="#" data-toggle="modal" data-target="#deleteModal"#}
-                    {#                                               data-delete-url="{% url 'webapp:session_result_update' result.pk %}"#}
-                    {#                                               class="btn btn-danger"><i class="fas fa-edit"></i></a>#}
-                    {#                                        </td>#}
                 </tr>
             {% endfor %}
             </tbody>
@@ -56,18 +58,19 @@
                         </button>
                     </div>
                     <div class="modal-body">
-                        {% for result in result_list %}
-                            <form action="{% url 'webapp:session_result_update' result.skill.pk %}" method="post"
-                                  enctype="multipart/form-data">
-                                {% csrf_token %}
-                                <input type="number" name="title" value="{{ result.done }}"/>
-                                <input type="number" name="title" value="{{ result.done_with_hint }}"/>
-                                <input type="submit" value="Send"/>
-                            </form>
-                        {% endfor %}
+                        <form name="link" action="" method="post" enctype="multipart/form-data">
+                            {% csrf_token %}
+                            <input type="number" name="done" value=""/>
+                            <input type="number" name="done_with_hint" value=""/>
+                            <input type="submit" value="Send"/>
+                        </form>
                     </div>
                 </div>
             </div>
         </div>
     </div>
 {% endblock %}
+{% block scripts %}
+    <script src=../../static/js/session_result/update_result_in_modal.js></script>
+{% endblock %}
+

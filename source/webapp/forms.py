@@ -1,23 +1,5 @@
-from webapp.models import Child, UserInfo, Program, Result, Skill
+from webapp.models import Child, Result, Skill, Program, UserInfo
 from django import forms
-
-
-class SessionForm(forms.ModelForm):
-    child = forms.ModelChoiceField(queryset=Child.objects.all(),
-                                   empty_label='Не выбрано',
-                                   widget=forms.Select(attrs={'class': 'form-control', 'required': True}),
-                                   label='Ребенок')
-
-    attending_therapist = forms.ModelChoiceField(queryset=UserInfo.objects.all(),
-                                                 empty_label='Не выбрано',
-                                                 widget=forms.Select
-                                                 (attrs={'class': 'form-control', 'required': True}),
-                                                 label='Терапист')
-
-    program = forms.ModelMultipleChoiceField(queryset=Program.objects.all(),
-                                             widget=forms.CheckboxSelectMultiple
-                                             (attrs={'class': 'list-unstyled', }),
-                                             label='Программы')
 
 
 class SkillForm(forms.ModelForm):
@@ -55,3 +37,30 @@ class ResultForm(forms.ModelForm):
     class Meta:
         model = Result
         fields = ["done", "done_with_hint"]
+
+
+class ProgramForm(forms.ModelForm):
+    CHOICES = (('1', 'First',), ('2', 'Second',)),
+    author_therapist = forms.ModelChoiceField(queryset=UserInfo.objects.all(),
+                                              empty_label='Не выбрано',
+                                              widget=forms.Select
+                                              (attrs={'class': 'form-control', 'required': True}),
+                                              label='Терапист')
+    child = forms.ModelChoiceField(queryset=Child.objects.all(),
+                                   empty_label='Не выбрано',
+                                   widget=forms.Select
+                                   (attrs={'class': 'form-control', 'required': True}),
+                                   label='Ребёнок')
+
+    skills = forms.ModelMultipleChoiceField(queryset=Skill.objects.all(),
+                                            widget=forms.SelectMultiple
+                                            (attrs={'class': 'form-control', 'required': True}),
+                                            label='Навыки'),
+
+    class Meta:
+        model = Program
+        exclude = ["created_date", "edited_date", "deleted_date"]
+        widgets = {
+            'name': forms.TextInput(attrs={'class': 'form-control col-xs-12 col-sm-6 col-lg-4'}),
+            'description': forms.Textarea(attrs={'class': 'form-control col-xs-12 col-sm-6 col-lg-4'}),
+        }
