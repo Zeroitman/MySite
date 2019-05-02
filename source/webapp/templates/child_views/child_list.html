@@ -3,19 +3,22 @@
 {% block content %}
     <div class="container">
         {#  Форма поиска детей  #}
-        <form action='{% url 'webapp:search_view' %}' method="GET" accept-charset="utf-8"
-              class="form-inline my-2 my-lg-0">
-            <input class="form-control mr-sm-2 shadow-none"
-                   name="q"
-                   id = "field"
-                   value="{{ request.GET.q }}"
-                   type="text"
-                   placeholder="Найти..."
-                   aria-label="Найти...">
-            <button class="btn btn-outline-dark" type="submit">Поиск</button>
-        </form>
-        <a href="{% url 'webapp:child_create' %}" class="btn btn-primary btn-block d-block mt-3 mb-3 w-25">Добавить
-            ребёнка</a>
+        <div style="width: 240px">
+            <form action='{% url 'webapp:search_view' %}' method="GET" accept-charset="utf-8"
+                  class="form-inline my-2 my-lg-0">
+                <input class="form-control mr-2 shadow-none"
+                       style="width: 67%"
+                       name="q"
+                       id="field"
+                       value="{{ request.GET.q }}"
+                       type="text"
+                       placeholder="Найти детей..."
+                       aria-label="Найти...">
+                <button class="btn btn-outline-dark" type="submit" style="width: 30%">Поиск</button>
+            </form>
+        </div>
+        <a href="{% url 'webapp:child_create' %}" class="btn btn-primary btn-block d-block mt-3 mb-3"
+           style="width: 240px">Добавить ребёнка</a>
         {#  Вывод всех детей  #}
         <div class="list-group mt-3">
             {% for c in child_list %}

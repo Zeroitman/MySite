@@ -4,9 +4,10 @@
     <div class="container">
         <h3 class="text-center">Создание навыка</h3>
         <form action="{% url 'webapp:skill_create' %}" method="post" enctype="multipart/form-data">
-            {% include 'skill_views/skill_form.html' %}
-            <a href="{% url 'webapp:categories_list' %}" class="btn btn-primary btn-block w-25" >Отмена</a>
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit" class="btn btn-success m-2" style="width: 125px">Сохранить</button>
+            <a role="button" class="btn btn-primary m-2" href="{{ request.META.HTTP_REFERER }}" style="width: 125px">Назад</a>
         </form>
-
     </div>
 {% endblock %}

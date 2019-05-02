@@ -5,7 +5,9 @@
             <div class="col-sm-12">
                 <h3 class="mb-4 d-block">Найденных результатов: {{ searched_program.count }}</h3>
                 {% if searched_program.count == 0 %}
-                    <p class="font-weight-normal">Поиск не дал никаких результатов</p>
+                    <p class="font-weight-normal">
+                        Поиск не дал никаких результатов. Поиск ищет по названию программы.
+                    </p>
                     <a href="{% url 'webapp:program_list' %}">
                         <button class="btn btn-outline-dark" type="button">Искать снова</button>
                     </a>

@@ -3,9 +3,9 @@ from webapp.views import \
     ProgramDetailView, ProgramListView, ProgramCreateView, ProgramUpdateView, ProgramSearchView, ChildInProgramListView, \
     ChildList, ChildSearchView, ChildDetailView, ChildUpdateView, ChildCreateView, ChildDeleteView, \
     SessionDetailView, counter_done_with_hint, counter_done, \
-    SkillDetailView, SkillUpdateView, SkillCreateView, delete_skill, \
-    ResultUpdateView, ResultListView, CategoriesListView, CategoriesDetailView, \
-    SkillSearchView, CategoriesCreateView, CategoriesUpdateView, delete_category
+    SkillDetailView, SkillUpdateView, SkillCreateView, SkillSearchView, delete_skill, \
+    ResultUpdateView, ResultListView, \
+    CategoriesListView, CategoriesDetailView, CategoriesCreateView, CategoriesUpdateView, CategoriesSearchView, delete_category \
 
 
 # Название приложения, ссылки расставляются в виде webapp:{название шалона}
@@ -35,6 +35,7 @@ urlpatterns = [
     path('categories/create', CategoriesCreateView.as_view(), name='categories_create'),
     path('categories/<int:pk>/update', CategoriesUpdateView.as_view(), name='categories_update'),
     path('categories/<int:pk>/delete', delete_category, name='categories_delete'),
+    path('categories/categories_search/', CategoriesSearchView.as_view(), name='search_view_categories'),
     # session_and_result_urls
     path('session/<int:pk>', SessionDetailView.as_view(), name='session_view'),
     path('session/<int:pk>/result', ResultListView.as_view(), name='session_result_view'),

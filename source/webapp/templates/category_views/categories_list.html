@@ -1,26 +1,31 @@
 {% extends 'base.html' %}
+
 {% block title %}Список категорий{% endblock %}
 {% block content %}
     <div class="container">
         {#  Форма поиска программ #}
-        <form action='{% url 'webapp:search_view_skill' %}' method="GET" accept-charset="utf-8"
-              class="form-inline my-2 my-lg-0">
-            <div>
-                <input class="form-control mr-sm-2 shadow-none"
+        <div style="width: 240px">
+            <form action='{% url 'webapp:search_view_categories' %}' method="GET" accept-charset="utf-8"
+                  class="form-inline my-2 my-lg-0">
+                <input class="form-control mr-2 shadow-none"
+                       style="width: 67%"
                        name="q"
                        id="field"
                        value="{{ request.GET.q }}"
                        type="text"
-                       placeholder="Найти..."
+                       placeholder="Найти категории..."
                        aria-label="Найти...">
-                <button class="btn btn-outline-dark" type="submit">Поиск</button>
-            </div>
-        </form>
-        <a href="{% url 'webapp:categories_create' %}" class="btn btn-primary btn-block d-block mt-3 mb-3 w-25">
-            Добавить категорию</a>
+                <button class="btn btn-outline-dark" type="submit" style="width: 30%">Поиск</button>
+
+            </form>
+        </div>
+        <a href="{% url 'webapp:categories_create' %}" class="btn btn-primary btn-block d-block mt-3 mb-3"
+           style="width: 240px">Добавить категорию</a>
         {% for categories in categories_list %}
-            <div class="border-bottom w-75 pb-2 mb-1">
-                <a href="{% url 'webapp:categories_detail' categories.pk %}" class="text-decoration-none text-dark">
+            <div class="border-bottom pb-2 mb-1">
+                <a role="button" class="text-decoration-none text-dark" style="width: 15%"
+                   data-toggle="tooltip" data-placement="right" title="Нажмите для просмотра навыков в категории"
+                   href="{% url 'webapp:categories_detail' categories.pk %}">
                     <p class="text-wrap d-block mb-0">{{ categories.pk }}. {{ categories.name }}</p>
                 </a>
                 <p class="d-block pb-0 mb-0 small font-weight-bold mt-1 ml-3">Код категории: <span
@@ -38,28 +43,43 @@
                  aria-hidden="true">
                 <div class="modal-dialog" role="document">
                     <div class="modal-content">
-                        <div class="modal-header">
-                            <h5 class="modal-title" id="exampleModalLabel">Удаление категории</h5>
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                            </button>
+                        <div class="card">
+                            <h5 class="card-header text-center"> Удаление категории</h5>
                         </div>
                         <div class="modal-body p-0 m-0">
                             <div class="modal-body">
                                 <p class="d-block text-center mb-1">Вы уверены что хотите удалить категорию
-                                    <span class="d-block font-weight-bold text-center mb-3">{{ categories.name }}</span></p>
+                                    <span class="d-block font-weight-bold text-center mb-3">{{ categories.name }}?</span>
+                                </p>
                                 <div class="text-center">
-                                <a class="btn btn-primary modal_btn w-25"
-                                   href="{% url 'webapp:categories_delete' categories.pk %}">Да</a>
-                                <a class="btn btn-danger modal_btn w-25"
-                                   href="{% url 'webapp:categories_list' %}">Нет</a>
+                                    <button style="
+                                            background-color: #4CAF50;
+                                            border: none;
+                                            text-align: center;
+                                            display: inline-block;
+                                            border-radius: 10%;
+                                            width: 70px;
+                                            font-size: 16px">
+                                        <a class="btn modal_btn"
+                                           href={% url 'webapp:categories_delete' categories.pk %}>Да</a>
+                                    </button>
+                                    <button data-dismiss="modal"
+                                            style="
+                                            background-color: #af1228;
+                                            border: none;
+                                            text-align: center;
+                                            display: inline-block;
+                                            border-radius: 10%;
+                                            width: 70px;
+                                            font-size: 16px">
+                                        <a class="btn modal_btn">Нет</a>
+                                    </button>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-            {#            #}
         {% endfor %}
     </div>
 {% endblock %}
