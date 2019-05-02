@@ -302,7 +302,7 @@
     "skill": 1,
     "done": 0,
     "done_with_hint": 0,
-    "total": "0.00",
+    "total": 0,
     "created_date": "2019-04-25T16:32:56.762Z",
     "edited_date": "2019-04-25T16:32:56.762Z",
     "deleted_date": null
@@ -316,7 +316,7 @@
     "skill": 2,
     "done": 0,
     "done_with_hint": 0,
-    "total": "0.00",
+    "total": 0,
     "created_date": "2019-04-25T16:33:09.980Z",
     "edited_date": "2019-04-25T16:33:09.980Z",
     "deleted_date": null
@@ -330,7 +330,7 @@
     "skill": 3,
     "done": 0,
     "done_with_hint": 0,
-    "total": "0.00",
+    "total": 0,
     "created_date": "2019-04-25T16:33:16.322Z",
     "edited_date": "2019-04-25T16:33:16.322Z",
     "deleted_date": null
@@ -344,7 +344,7 @@
     "skill": 4,
     "done": 0,
     "done_with_hint": 0,
-    "total": "0.00",
+    "total": 0,
     "created_date": "2019-04-25T16:33:32.885Z",
     "edited_date": "2019-04-25T16:33:32.885Z",
     "deleted_date": null
