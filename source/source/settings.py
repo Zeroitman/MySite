@@ -91,6 +91,10 @@ USE_L10N = True
 
 USE_TZ = True
 
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR, 'webapp/static')
+]
+
 STATIC_URL = '/static/'
 LOGIN_URL = reverse_lazy('login')
 LOGIN_REDIRECT_URL = reverse_lazy('webapp:child_program_list')

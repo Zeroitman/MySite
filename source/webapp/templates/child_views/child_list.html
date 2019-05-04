@@ -1,4 +1,5 @@
 {% extends 'base.html' %}
+{% load staticfiles %}
 {% block title %}Дети{% endblock %}
 {% block content %}
     <div class="container">
@@ -17,10 +18,10 @@
                 <button class="btn btn-outline-dark" type="submit" style="width: 30%">Поиск</button>
             </form>
         </div>
-        <a href="{% url 'webapp:child_create' %}" class="btn btn-primary btn-block d-block mt-3 mb-3"
-           style="width: 240px">Добавить ребёнка</a>
         {#  Вывод всех детей  #}
         <div class="list-group mt-3">
+            <a href="{% url 'webapp:child_create' %}" class="btn btn-primary btn-block d-block mt-3 mb-3"
+               style="width: 240px">Добавить ребёнка</a>
             {% for c in child_list %}
                 <a href="{% url 'webapp:child_detail' c.pk %}" class="list-group-item list-group-item-action m-1">
                     <div class="d-flex w-100 justify-content-between">
