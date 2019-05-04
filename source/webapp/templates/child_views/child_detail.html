@@ -62,11 +62,11 @@
         <p class="font-weight-bold">Дата последнего редактирования профиля ребенка: <span
                 class="font-weight-normal">{{ child.edited_date.date }}</span></p>
         <div class="text-center">
-            <a role="button" class="btn btn-success m-2" style="width: 125px"
+            <a role="button" class="btn btn-success m-2 m-0" style="width: 125px"
                href={% url 'webapp:child_update' child.pk %}>Редактировать</a>
             <a href="#" data-toggle="modal" data-target="#deleteModal" style="width: 125px"
                data-delete-url="{% url 'webapp:child_delete' child.pk %}"
-               class="btn btn-danger m-2">Удалить</a>
+               class="btn btn-danger m-0">Удалить</a>
         </div>
         <h3 class="text-center mt-4">Программы ребёнка</h3>
 
