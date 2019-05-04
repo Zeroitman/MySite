@@ -1,7 +1,7 @@
 from django.urls import path
 from webapp.views import \
     ProgramDetailView, ProgramListView, ProgramCreateView, ProgramUpdateView, ProgramSearchView, ChildInProgramListView, \
-    ChildList, ChildSearchView, ChildDetailView, ChildUpdateView, ChildCreateView, ChildDeleteView, \
+    ChildList, ChildSearchView, ChildDetailView, ChildUpdateView, ChildCreateView, soft_delete_child, \
     SessionDetailView, counter_done_with_hint, counter_done, \
     SkillDetailView, SkillUpdateView, SkillCreateView, SkillSearchView, delete_skill, \
     ResultUpdateView, ResultListView, \
@@ -21,7 +21,7 @@ urlpatterns = [
     path('child/<int:pk>', ChildDetailView.as_view(), name='child_detail'),
     path('child/create', ChildCreateView.as_view(), name='child_create'),
     path('child/<int:pk>/update', ChildUpdateView.as_view(), name='child_update'),
-    path('child/<int:pk>/delete', ChildDeleteView.as_view(), name='child_delete'),
+    path('child/<int:pk>/delete', soft_delete_child, name='child_delete'),
     # program urls------------------------------------------------------------------------------------------------
     path('', ChildInProgramListView.as_view(), name='child_program_list'),
     path('program/', ProgramListView.as_view(), name='program_list'),

@@ -53,6 +53,8 @@ class SkillSearchView(View):
 
 # Child-----------------------------------------------------------------------------------------------------------------
 class ChildList(ListView):
+    # Query с детьми со статусом active
+    queryset = Child.objects.active()
     model = Child
     template_name = 'child_views/child_list.html'
 
@@ -80,9 +82,12 @@ class ChildCreateView(CreateView):
         return reverse('webapp:child_detail', kwargs={'pk': self.object.pk})
 
 
-class ChildDeleteView(DeleteView):
-    model = Child
-    success_url = reverse_lazy('webapp:child_list')
+# Мягкое удаление, статус ребенка при удалении переводится в False.
+def soft_delete_child(request, pk):
+    child = get_object_or_404(Child, pk=pk)
+    child.is_deleted = True
+    child.save()
+    return redirect('webapp:child_list')
 
 
 class ChildSearchView(View):
