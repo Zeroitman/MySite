@@ -13,6 +13,14 @@ class UserInfo(models.Model):
         return "%s. %s %s" % (self.user.id, self.user.first_name, self.user.last_name)
 
 
+class SoftDeleteManager(models.Manager):
+    def active(self):
+        return self.filter(is_deleted=False)
+
+    def deleted(self):
+        return self.filter(is_deleted=True)
+
+
 class Child(models.Model):
     first_name = models.CharField(max_length=100, verbose_name='Имя ребенка')
     last_name = models.CharField(max_length=100, verbose_name='Фамилия ребенка')
@@ -28,6 +36,9 @@ class Child(models.Model):
     created_date = models.DateTimeField(auto_now_add=True, verbose_name='Дата добавления ребенка')
     edited_date = models.DateTimeField(auto_now=True, null=True, blank=True, verbose_name='Дата редактирования')
     deleted_date = models.DateTimeField(null=True, blank=True, verbose_name='Дата удаления')
+    is_deleted = models.BooleanField(default=False)
+
+    objects = SoftDeleteManager()
 
     def __str__(self):
         return "%s. %s %s" % (self.id, self.last_name, self.first_name)
