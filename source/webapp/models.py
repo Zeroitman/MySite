@@ -36,7 +36,7 @@ class Child(models.Model):
     created_date = models.DateTimeField(auto_now_add=True, verbose_name='Дата добавления ребенка')
     edited_date = models.DateTimeField(auto_now=True, null=True, blank=True, verbose_name='Дата редактирования')
     deleted_date = models.DateTimeField(null=True, blank=True, verbose_name='Дата удаления')
-    is_deleted = models.BooleanField(default=False)
+    is_deleted = models.BooleanField(default=False, null=True, blank=True)  # добавил временно null
 
     objects = SoftDeleteManager()
 
@@ -119,7 +119,8 @@ class Program(models.Model):
 class Session(models.Model):
     program = models.ForeignKey(Program, related_name='session_program', on_delete=models.PROTECT,
                                 verbose_name='Программа')
-    attending_therapist = models.ForeignKey(UserInfo, on_delete=models.PROTECT, related_name='attending_session')
+    attending_therapist = models.ForeignKey(UserInfo, on_delete=models.PROTECT, null=True,
+                                            related_name='attending_session')  # сделал временно null
     description = models.TextField(max_length=2000, blank=True, null=True, verbose_name="Описание сессии")
     created_date = models.DateTimeField(auto_now_add=True, verbose_name="Дата создания")
     edited_date = models.DateTimeField(auto_now=True, blank=True, null=True, verbose_name="Дата редактирования")
@@ -134,8 +135,9 @@ class Session(models.Model):
 
 
 class Result(models.Model):
-    session = models.ForeignKey(Session, on_delete=models.PROTECT, related_name='session_results')
-    skill = models.ForeignKey(Skill, on_delete=models.PROTECT, related_name='skills_results') # должен ссылаться на SkillInProgram
+    session = models.ForeignKey(Session, on_delete=models.SET_NULL, related_name='session_results', null=True)
+    skill = models.ForeignKey(Skill, on_delete=models.PROTECT,
+                              related_name='skills_results')  # должен ссылаться на SkillInProgram
     done = models.PositiveSmallIntegerField(default=0, verbose_name="Ответил сам")
     done_with_hint = models.PositiveSmallIntegerField(default=0, verbose_name="Ответил с подсказкой")
     total = models.IntegerField(default=0)

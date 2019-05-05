@@ -111,6 +111,11 @@ class ChildInProgramListView(ListView):
     model = Program
     template_name = 'program_views/child_program_list.html'
 
+    def get_allow_empty(self):  # Удалит/закроет сессию
+        session = Session.objects.all()
+        if session:
+            session.delete()
+
 
 class ProgramListView(ListView):
     model = Program
@@ -179,6 +184,21 @@ class ResultUpdateView(UpdateView):
 class SessionDetailView(DetailView):
     model = Session
     template_name = 'session_views/session_detail.html'
+
+
+def create_session_and_result(request, pk):
+    current_program = Program.objects.get(id=pk)
+    skill_ids_list = current_program.skills.all()
+    skill_names_list = []
+    session = Session.objects.create(program=current_program)
+    session.save()
+    for skill in skill_ids_list:
+        skill_names_list.append(skill.name)
+        current_skill = Skill.objects.get(id=skill.pk)
+        current_result = Session.objects.get(id=session.pk)
+        result = Result.objects.create(skill=current_skill, session=current_result)
+        result.save()
+    return render(request, 'session_views/session_detail.html', {'list': skill_ids_list, 'pk': session.pk})
 
 
 # Categories------------------------------------------------------------------------------------------------------------
