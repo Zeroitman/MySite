@@ -36,7 +36,7 @@ class Child(models.Model):
     created_date = models.DateTimeField(auto_now_add=True, verbose_name='Дата добавления ребенка')
     edited_date = models.DateTimeField(auto_now=True, null=True, blank=True, verbose_name='Дата редактирования')
     deleted_date = models.DateTimeField(null=True, blank=True, verbose_name='Дата удаления')
-    is_deleted = models.BooleanField(default=False, null=True, blank=True)  # добавил временно null
+    is_deleted = models.BooleanField(default=False)
 
     objects = SoftDeleteManager()
 
@@ -66,6 +66,7 @@ class Categories(models.Model):
 class Skill(models.Model):
     code_skill = models.CharField(max_length=5, verbose_name='Код навыка')
     name = models.CharField(max_length=255, verbose_name='Название навыка')
+    skill_comment = models.CharField(max_length=255, null=True, blank=True, verbose_name='Комментарий к навыку')
     category = models.ForeignKey(Categories, on_delete=models.PROTECT, related_name='skill', verbose_name='Категория')
     description = models.TextField(max_length=1000, null=True, blank=True, verbose_name='Описание навыка')
     criterion = models.TextField(max_length=1000, null=True, blank=True, verbose_name='Критерии')
@@ -87,8 +88,14 @@ class SkillsInProgram(models.Model):
                                 verbose_name='Программа')
     skill = models.ForeignKey('Skill', related_name='skill_in_program', on_delete=models.PROTECT,
                               verbose_name='Навык')
-    # skill_name -> char field (заполняется или skill или это поле)
-    # parent_skill -> foreign key (skill in program)
+    added_skill = models.CharField(max_length=255,
+                                   verbose_name='Добавленный навык', null=True,
+                                   blank=True)
+    added_skill_comment = models.CharField(max_length=255, null=True, blank=True,
+                                           verbose_name='Комментарий к добавленному навыку')
+    extra_skill_to_skill = models.ForeignKey('SkillsInProgram', related_name='extra_skill_in_program',
+                                             on_delete=models.PROTECT,
+                                             null=True, blank=True, verbose_name='Поднавык')
     status = models.BooleanField(default=True, verbose_name='Статус')
 
     def __str__(self):
@@ -98,6 +105,7 @@ class SkillsInProgram(models.Model):
 class Program(models.Model):
     name = models.CharField(max_length=255, null=True, blank=True, verbose_name="Название программы")
     description = models.TextField(max_length=2000, blank=True, null=True, verbose_name="Описание программы")
+    program_comment = models.CharField(max_length=255, null=True, blank=True, verbose_name='Комментарий к программе')
     child = models.ForeignKey('Child', on_delete=models.PROTECT, related_name='child_in_program',
                               verbose_name='Ребенок')
     author_therapist = models.ForeignKey(UserInfo, on_delete=models.PROTECT, related_name='author_program',
@@ -136,7 +144,7 @@ class Session(models.Model):
 
 class Result(models.Model):
     session = models.ForeignKey(Session, on_delete=models.SET_NULL, related_name='session_results', null=True)
-    skill = models.ForeignKey(Skill, on_delete=models.PROTECT,
+    skill = models.ForeignKey(SkillsInProgram, on_delete=models.PROTECT,
                               related_name='skills_results')  # должен ссылаться на SkillInProgram
     done = models.PositiveSmallIntegerField(default=0, verbose_name="Ответил сам")
     done_with_hint = models.PositiveSmallIntegerField(default=0, verbose_name="Ответил с подсказкой")

@@ -1,9 +1,9 @@
 from django.http import JsonResponse
 from django.shortcuts import get_object_or_404, redirect, render
-from webapp.models import Program, Session, Result, Skill, Child, Categories
-from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView, View
+from webapp.models import Program, Session, Result, Skill, Child, Categories, SkillsInProgram
+from django.views.generic import ListView, DetailView, CreateView, UpdateView, View
 from webapp.forms import SkillForm, ChildForm, ResultForm, ProgramForm, CategoryForm
-from django.urls import reverse, reverse_lazy
+from django.urls import reverse
 from django.db.models import Q
 
 
@@ -194,7 +194,7 @@ def create_session_and_result(request, pk):
     session.save()
     for skill in skill_ids_list:
         skill_names_list.append(skill.name)
-        current_skill = Skill.objects.get(id=skill.pk)
+        current_skill = SkillsInProgram.objects.get(id=skill.pk)
         current_result = Session.objects.get(id=session.pk)
         result = Result.objects.create(skill=current_skill, session=current_result)
         result.save()

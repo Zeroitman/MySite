@@ -40,7 +40,6 @@ class ResultForm(forms.ModelForm):
 
 
 class ProgramForm(forms.ModelForm):
-    CHOICES = (('1', 'First',), ('2', 'Second',)),
     author_therapist = forms.ModelChoiceField(queryset=UserInfo.objects.all(),
                                               empty_label='Не выбрано',
                                               widget=forms.Select

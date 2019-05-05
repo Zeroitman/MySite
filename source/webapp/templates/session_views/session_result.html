@@ -18,10 +18,10 @@
             </thead>
             <tbody>
             {% for result in result_list %}
-                <tr id="01" class="text-center">
-                    <td class="number" slot=""></td>
-                    <td>{{ result.skill.code_skill }}</td>
-                    <td class="text-left">{{ result.skill.name }}</td>
+                <tr class="text-center">
+                    <td class="number"></td>
+                    <td>{{ result.skill.skill.code_skill }}</td>
+                    <td class="text-left">{{ result.skill.skill.name }}</td>
                     <td>{{ result.done }}</td>
                     <td>{{ result.done_with_hint }}</td>
                     <td id="001">{{ result.total }}</td>
@@ -73,4 +73,3 @@
 {% block scripts %}
     <script src=../../static/js/session_result/update_result_in_modal.js></script>
 {% endblock %}
-
