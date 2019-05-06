@@ -2,14 +2,12 @@ from django.urls import path
 from webapp.views import \
     ProgramDetailView, ProgramListView, ProgramCreateView, ProgramUpdateView, ProgramSearchView, ChildInProgramListView, \
     ChildList, ChildSearchView, ChildDetailView, ChildUpdateView, ChildCreateView, soft_delete_child, \
-    SessionDetailView, counter_done_with_hint, counter_done, \
+    SessionDetailView, counter_done_with_hint, counter_done, create_session_and_result, \
     SkillDetailView, SkillUpdateView, SkillCreateView, SkillSearchView, delete_skill, \
     ResultUpdateView, ResultListView, \
     CategoriesListView, CategoriesDetailView, CategoriesCreateView, CategoriesUpdateView, CategoriesSearchView, \
     delete_category \
 
-
-# Название приложения, ссылки расставляются в виде webapp:{название шалона}
 app_name = 'webapp'
 
 urlpatterns = [
@@ -38,6 +36,7 @@ urlpatterns = [
     path('categories/<int:pk>/delete', delete_category, name='categories_delete'),
     path('categories/categories_search/', CategoriesSearchView.as_view(), name='search_view_categories'),
     # session_and_result_urls-------------------------------------------------------------------------------------
+    path('program/<int:pk>/session', create_session_and_result, name='session_create'),
     path('session/<int:pk>', SessionDetailView.as_view(), name='session_view'),
     path('session/<int:pk>/result', ResultListView.as_view(), name='session_result_view'),
     path('session/result/<int:pk>/update', ResultUpdateView.as_view(), name='session_result_update'),

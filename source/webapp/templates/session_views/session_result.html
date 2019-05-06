@@ -18,10 +18,10 @@
             </thead>
             <tbody>
             {% for result in result_list %}
-                <tr id="01" class="text-center">
-                    <td>{{ result.pk }}</td>
-                    <td>{{ result.skill.code_skill }}</td>
-                    <td class="text-left">{{ result.skill.name }}</td>
+                <tr class="text-center">
+                    <td class="number"></td>
+                    <td>{{ result.skill.skill.code_skill }}</td>
+                    <td class="text-left">{{ result.skill.skill.name }}</td>
                     <td>{{ result.done }}</td>
                     <td>{{ result.done_with_hint }}</td>
                     <td id="001">{{ result.total }}</td>
@@ -60,8 +60,8 @@
                     <div class="modal-body">
                         <form name="link" action="" method="post" enctype="multipart/form-data">
                             {% csrf_token %}
-                            <input type="number" name="done" value=""/>
-                            <input type="number" name="done_with_hint" value=""/>
+                            <input id="done" type="number" name="done" value=""/>
+                            <input id="done_with_hint" type="number" name="done_with_hint" value=""/>
                             <input type="submit" value="Send"/>
                         </form>
                     </div>
@@ -73,4 +73,3 @@
 {% block scripts %}
     <script src=../../static/js/session_result/update_result_in_modal.js></script>
 {% endblock %}
-

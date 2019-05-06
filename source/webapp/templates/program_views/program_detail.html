@@ -23,6 +23,15 @@
                     class="font-weight-normal">Описание программы отсутствует</span></p>
         {% endif %}
 
+        {% if program.program_comment %}
+            <p class="font-weight-bold">Комментарий: <span
+                    class="font-weight-normal">{{ program.program_comment }}</span>
+            </p>
+        {% else %}
+            <p class="font-weight-bold">Комментарий: <span
+                    class="font-weight-normal">Комментарий к программе отсутствует</span></p>
+        {% endif %}
+
 
         {% if program.child.third_name %}
             <p class="font-weight-bold">Ребенок: <span
