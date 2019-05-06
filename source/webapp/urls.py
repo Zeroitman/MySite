@@ -8,6 +8,7 @@ from webapp.views import \
     CategoriesListView, CategoriesDetailView, CategoriesCreateView, CategoriesUpdateView, CategoriesSearchView, \
     delete_category, counter_get_view
 
+
 app_name = 'webapp'
 
 urlpatterns = [
