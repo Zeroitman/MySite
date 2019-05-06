@@ -3,7 +3,7 @@ from webapp.views import ProgramDetailView, ProgramListView, \
     SessionDetailView, \
     ChildList, ChildSearchView, ChildListView, ChildDetailView, ChildUpdateView, ChildCreateView, ChildDeleteView, \
     SkillList, SkillDetailView, SkillUpdateView, SkillCreateView, delete_skill, counter_done_with_hint, counter_done, \
-    ResultUpdateView, ResultListView, CategoriesListView
+    ResultUpdateView, ResultListView, CategoriesListView, counter_get_view
 
 # Название приложения, ссылки расставляются в виде webapp:{название шалона}
 app_name = 'webapp'
@@ -12,6 +12,7 @@ urlpatterns = [
     # counter urls
     path('skill_w_hint/<int:pk>', counter_done_with_hint, name='done_w_hint'),
     path('skill_done/<int:pk>', counter_done, name='counter_done'),
+    path('get_skills/<int:pk>', counter_get_view, name='counter_get_view'),
     # child urls
     path('', ChildListView.as_view(), name='child_program_list'),
     path('child/', ChildList.as_view(), name='child_list'),

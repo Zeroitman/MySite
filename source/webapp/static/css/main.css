@@ -1,0 +1,16 @@
+body{
+    background-color: white;
+}
+
+
+.d-flex form .done_but_padding {
+    padding: 40px;
+    width: 200px;
+    height: 175px;
+}
+
+.w_hint_but_padding {
+    padding: 40px;
+    width: 200px;
+    height: 175px;
+}

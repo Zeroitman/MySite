@@ -1,4 +1,5 @@
 {% extends 'base.html' %}
+{% load staticfiles %}
 {% block title %}Сессия{% endblock %}
 {% block content %}
     <div class="container">
@@ -6,33 +7,61 @@
             <h3 class="text-center mt-2">{{ session.program.name }}</h3>
             {% for skill in session.program.skills.all %}
                 <li class="list-group-item mt-3">
+                    <h3 class="text-center">{{ skill.code_skill }}</h3>
                     <p class="text-center">{{ skill.name }}</p>
                     <div>
                         <div class="d-flex justify-content-around">
-                            <form id="form-{{ skill.pk }}" method="post" class="col-lg-3" action="{% url 'webapp:counter_done' skill.pk %}">
+                            <form id="form-{{ skill.pk }}"
+                                  method="post"
+                                  class="col-lg-3 text-center"
+                                  data-get-url="{% url 'webapp:counter_get_view' skill.pk %}"
+                                  action="{% url 'webapp:counter_done' skill.pk %}">
                                 {% csrf_token %}
-                                <button onclick="counterDone({{ skill.pk }}, event)" class="btn btn-primary w-100 p-3">Ответил сам</button>
+                                <button onclick="counterDone({{ skill.pk }}, event)"
+                                        class="btn rounded-circle btn-primary done_but_padding">
+                                    <span>Сам</span>
+                                </button>
                             </form>
-                            <form id="form-{{ skill.code_skill }}" method="post" class="col-lg-3" action="{% url 'webapp:done_w_hint' skill.pk %}">
+                            <form id="form-hint-{{ skill.pk }}" method="post" class="col-lg-3 text-center"
+                                  action="{% url 'webapp:done_w_hint' skill.pk %}">
                                 {% csrf_token %}
-                                <button onclick="counterDoneWithHint('{{ skill.code_skill }}', event)" class="btn btn-success w-100 p-3">Ответил с подсказкой</button>
+                                <button onclick="counterDoneWithHint('{{ skill.pk }}', event)"
+                                        class="rounded-circle btn btn-success w_hint_but_padding">
+                                    <span>C подсказкой</span>
+
+                                </button>
                             </form>
                         </div>
-                        <div class="d-flex justify-content-around pt-3">
+                        <div class="d-block col-lg-1 m-auto text-center">
                             <p id="{{ skill.pk }}" class="border rounded border-primary p-3">0</p>
-                            <p id="{{ skill.code_skill }}" class="border rounded border-success p-3">0</p>
                         </div>
                     </div>
                 </li>
             {% endfor %}
         </ul>
-    <div class="mt-4 text-center">
-        <a role="button" class="btn btn-primary w-25" href={% url 'webapp:session_result_view' session.pk %}>Результаты сессии</a>
-    </div>
+        <div class="mt-4 text-center">
+            <a role="button" class="btn btn-primary w-25" href={% url 'webapp:session_result_view' session.pk %}>Результаты
+                сессии</a>
+        </div>
 
     </div>
 {% endblock %}
 
 {% block scripts %}
+    <script>
+    let insert_counter = undefined;
+    let insert_counter_total = undefined;
+    let elem = undefined;
+
+    window.onload = () => {
+         {% for skill in session.program.skills.all %}
+            insert_counter = dataGet({{ skill.id }});
+            insert_counter_total = insert_counter['total'];
+            elem = $('#' + {{ skill.id }});
+            elem.empty().append(insert_counter_total);
+         {% endfor %}
+    };
+
+    </script>
     <script src="../../static/js/session_detail/counter.js"></script>
 {% endblock %}

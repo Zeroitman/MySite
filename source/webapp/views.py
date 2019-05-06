@@ -145,6 +145,15 @@ def counter_done_with_hint(request, pk):
     return JsonResponse({'counter': result.done_with_hint})
 
 
+def counter_get_view(request, pk):
+    result = get_object_or_404(Result, skill=pk)
+    return JsonResponse({
+        'result_done': result.done,
+        'result_w_hint': result.done_with_hint,
+        'total': result.total
+    })
+
+
 # Список категорий
 class CategoriesListView(ListView):
     model = Categories
