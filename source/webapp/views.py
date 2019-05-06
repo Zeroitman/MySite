@@ -1,9 +1,9 @@
 from django.http import JsonResponse
 from django.shortcuts import get_object_or_404, redirect, render
 from webapp.models import Program, Session, Result, Skill, Child, Categories
-from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView, View
+from django.views.generic import ListView, DetailView, CreateView, UpdateView, View
 from webapp.forms import SkillForm, ChildForm, ResultForm, ProgramForm, CategoryForm
-from django.urls import reverse, reverse_lazy
+from django.urls import reverse
 from django.db.models import Q
 
 
@@ -53,7 +53,7 @@ class SkillSearchView(View):
 
 # Child-----------------------------------------------------------------------------------------------------------------
 class ChildList(ListView):
-    # Query с детьми со статусом active
+    # Query с детьми со статусом active, active берется из менеджера в моделях.
     queryset = Child.objects.active()
     model = Child
     template_name = 'child_views/child_list.html'

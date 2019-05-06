@@ -5,7 +5,8 @@ from webapp.views import \
     SessionDetailView, counter_done_with_hint, counter_done, \
     SkillDetailView, SkillUpdateView, SkillCreateView, SkillSearchView, delete_skill, \
     ResultUpdateView, ResultListView, \
-    CategoriesListView, CategoriesDetailView, CategoriesCreateView, CategoriesUpdateView, CategoriesSearchView, delete_category \
+    CategoriesListView, CategoriesDetailView, CategoriesCreateView, CategoriesUpdateView, CategoriesSearchView, \
+    delete_category \
 
 
 # Название приложения, ссылки расставляются в виде webapp:{название шалона}

@@ -60,7 +60,7 @@
         <p class="font-weight-bold">Дата создания профиля ребенка: <span
                 class="font-weight-normal">{{ child.created_date.date }}</span></p>
         <p class="font-weight-bold">Дата последнего редактирования профиля ребенка: <span
-                class="font-weight-normal">{{ child.edited_date.date }}</span></p>
+                class="font-weight-normal">{{ child.created_date.date }}</span></p>
         <div class="text-center">
             <a role="button" class="btn btn-success m-2 m-0" style="width: 125px"
                href={% url 'webapp:child_update' child.pk %}>Редактировать</a>
@@ -75,7 +75,7 @@
             <div class="row">
                 {% for program in child.child_in_program.all %}
                     {% if program.status == True %}
-                        <div class="card bg-light m-2 p-0 col-xs-12 col-sm-6 col-lg-4"  style="max-width: 18rem;">
+                        <div class="card bg-light m-2 p-0 col-xs-12 col-sm-6 col-lg-4" style="max-width: 18rem;">
                             <div class="card-header text-center" id=001>{{ program.name }}</div>
                             <div class="card-body text-center">
                                 <a href="{% url 'webapp:program_detail' program.pk %}" class="btn btn-primary">Перейти в
@@ -95,7 +95,7 @@
             <div class="row">
                 {% for program in child.child_in_program.all %}
                     {% if program.status != True %}
-                        <div class="card bg-light m-2 p-0 col-xs-12 col-sm-6 col-lg-4"  style="max-width: 18rem;">
+                        <div class="card bg-light m-2 p-0 col-xs-12 col-sm-6 col-lg-4" style="max-width: 18rem;">
                             <div class="card-header text-center" id=002>{{ program.name }}</div>
                             <div class="card-body text-center">
                                 <a href="{% url 'webapp:program_detail' program.pk %}" class="btn btn-primary">Перейти в
