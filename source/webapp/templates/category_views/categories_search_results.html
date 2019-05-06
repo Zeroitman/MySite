@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+{% block content %}
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12">
+                <h3 class="mb-4 d-block">Найденных результатов: {{ searched_categories.count }}</h3>
+                {% if searched_categories.count == 0 %}
+                    <p class="font-weight-normal">Поиск не дал никаких результатов. Поиск позволяет искать не только по названию категории,
+                но и коду категории.</p>
+                    <a href="{% url 'webapp:categories_list' %}">
+                        <button class="btn btn-outline-dark" type="button">Искать снова</button>
+                    </a>
+                {% else %}
+                    {% for category in searched_categories %}
+                        <div class="border-bottom">
+                            <a href="{% url 'webapp:skill_detail' category.pk %}" class="text-decoration-none text-dark">
+                                <p class="d-inline-block text-wrap">{{ category.code_category }}. {{ category.name }}</p>
+                            </a>
+                        </div>
+                    {% endfor %}
+                {% endif %}
+            </div>
+        </div>
+    </div>
+{% endblock %}

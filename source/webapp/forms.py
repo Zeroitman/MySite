@@ -1,4 +1,4 @@
-from webapp.models import Child, Result, Skill
+from webapp.models import Child, Result, Skill, Program, UserInfo, Categories
 from django import forms
 
 
@@ -37,3 +37,39 @@ class ResultForm(forms.ModelForm):
     class Meta:
         model = Result
         fields = ["done", "done_with_hint"]
+
+
+class ProgramForm(forms.ModelForm):
+    author_therapist = forms.ModelChoiceField(queryset=UserInfo.objects.all(),
+                                              empty_label='Не выбрано',
+                                              widget=forms.Select
+                                              (attrs={'class': 'form-control', 'required': True}),
+                                              label='Терапист')
+    child = forms.ModelChoiceField(queryset=Child.objects.all(),
+                                   empty_label='Не выбрано',
+                                   widget=forms.Select
+                                   (attrs={'class': 'form-control', 'required': True}),
+                                   label='Ребёнок')
+
+    skills = forms.ModelMultipleChoiceField(queryset=Skill.objects.all(),
+                                            widget=forms.SelectMultiple
+                                            (attrs={'class': 'form-control', 'required': True}),
+                                            label='Навыки'),
+
+    class Meta:
+        model = Program
+        exclude = ["created_date", "edited_date", "deleted_date"]
+        widgets = {
+            'name': forms.TextInput(attrs={'class': 'form-control col-xs-12 col-sm-6 col-lg-4'}),
+            'description': forms.Textarea(attrs={'class': 'form-control col-xs-12 col-sm-6 col-lg-4'}),
+        }
+
+
+class CategoryForm(forms.ModelForm):
+    class Meta:
+        model = Categories
+        exclude = ["created_date", "edited_date", "deleted_date"]
+        widgets = {
+            'name': forms.TextInput(attrs={'class': 'form-control col-xs-12 col-sm-6 col-lg-4'}),
+            'code_category': forms.TextInput(attrs={'class': 'form-control col-xs-12 col-sm-6 col-lg-4'}),
+        }

@@ -1,7 +1,7 @@
 import os
 from django.urls import reverse_lazy
 from .settings_local import *
-
+from django.utils.translation import gettext_lazy as _
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
@@ -24,6 +24,7 @@ INSTALLED_APPS = [
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
+    'django.middleware.locale.LocaleMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
@@ -51,7 +52,6 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'source.wsgi.application'
 
-
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
@@ -65,6 +65,9 @@ DATABASES = {
     }
 }
 
+LANGUAGES = [
+    ('ru', _('Russian'))
+]
 
 AUTH_PASSWORD_VALIDATORS = [
     # {
@@ -81,7 +84,7 @@ AUTH_PASSWORD_VALIDATORS = [
     # },
 ]
 
-LANGUAGE_CODE = 'en-us'
+LANGUAGE_CODE = 'ru-RU'
 
 TIME_ZONE = 'Asia/Bishkek'
 
@@ -90,6 +93,10 @@ USE_I18N = True
 USE_L10N = True
 
 USE_TZ = True
+
+STATICFILES_DIRS = [
+    os.path.join(BASE_DIR, 'webapp/static')
+]
 
 STATIC_URL = '/static/'
 LOGIN_URL = reverse_lazy('login')

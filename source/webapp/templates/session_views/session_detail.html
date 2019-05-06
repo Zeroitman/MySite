@@ -5,7 +5,7 @@
     <div class="container">
         <ul class="list-group">
             <h3 class="text-center mt-2">{{ session.program.name }}</h3>
-            {% for skill in session.program.skills.all %}
+            {% for skill in list %}
                 <li class="list-group-item mt-3">
                     <h3 class="text-center">{{ skill.code_skill }}</h3>
                     <p class="text-center">{{ skill.name }}</p>
@@ -40,8 +40,7 @@
             {% endfor %}
         </ul>
         <div class="mt-4 text-center">
-            <a role="button" class="btn btn-primary w-25" href={% url 'webapp:session_result_view' session.pk %}>Результаты
-                сессии</a>
+            <a role="button" class="btn btn-primary w-25" href={% url 'webapp:session_result_view' pk %}>Результаты сессии</a>
         </div>
 
     </div>
@@ -54,10 +53,10 @@
     let elem = undefined;
 
     window.onload = () => {
-         {% for skill in session.program.skills.all %}
-            insert_counter = dataGet({{ skill.id }});
+         {% for skill in list %}
+            insert_counter = dataGet({{ skill.pk }});
             insert_counter_total = insert_counter['total'];
-            elem = $('#' + {{ skill.id }});
+            elem = $('#' + {{ skill.pk }});
             elem.empty().append(insert_counter_total);
          {% endfor %}
     };
