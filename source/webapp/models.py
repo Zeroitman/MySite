@@ -133,6 +133,7 @@ class Session(models.Model):
     created_date = models.DateTimeField(auto_now_add=True, verbose_name="Дата создания")
     edited_date = models.DateTimeField(auto_now=True, blank=True, null=True, verbose_name="Дата редактирования")
     deleted_date = models.DateTimeField(blank=True, null=True, verbose_name="Дата удаления")
+    status_session = models.BooleanField(default=False)
 
     def __str__(self):
         return "Сессия %s" % self.id

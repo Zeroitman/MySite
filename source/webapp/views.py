@@ -111,11 +111,6 @@ class ChildInProgramListView(ListView):
     model = Program
     template_name = 'program_views/child_program_list.html'
 
-    def get_allow_empty(self):  # Удалит/закроет сессию
-        session = Session.objects.all()
-        if session:
-            session.delete()
-
 
 class ProgramListView(ListView):
     model = Program
@@ -164,7 +159,10 @@ class ResultListView(ListView):
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        context['session_pk'] = self.kwargs.get('pk')
+        now_pk = int(self.kwargs.get('pk'))
+        context['session_pk'] = now_pk
+        current_session = Session.objects.get(id=now_pk)
+        context['status_session'] = current_session.status_session
         return context
 
     def get_queryset(self):
@@ -199,6 +197,14 @@ def create_session_and_result(request, pk):
         result = Result.objects.create(skill=current_skill, session=current_result)
         result.save()
     return render(request, 'session_views/session_detail.html', {'list': skill_ids_list, 'pk': session.pk})
+
+
+def change_status_session(request, pk):
+    session = get_object_or_404(Session, pk=pk)
+    session.status_session = True
+    print(session.status_session)
+    session.save()
+    return redirect('webapp:child_program_list')
 
 
 # Categories------------------------------------------------------------------------------------------------------------

@@ -1,6 +1,4 @@
 $(function () {
-    (!$(document.getElementById("001")).text()) ? $(document.getElementById("01")).text('Нет открытых программм') :
-        null;
-    (!$(document.getElementById("002")).text()) ? $(document.getElementById("02")).text('Нет закрытых  программ') :
-        null;
+    (!$("#001").text()) ? $("#01").text('Нет открытых программ') : null;
+    (!$("#002").text()) ? $("#02").text('Нет закрытых  программ') : null;
 });

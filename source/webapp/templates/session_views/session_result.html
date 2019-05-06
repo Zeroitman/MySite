@@ -2,51 +2,94 @@
 {% block title %}Результат сессии{% endblock %}
 {% block content %}
     <div class="container">
-        <table class="table table-bordered table-sm">
-            <thead>
-            <tr class="text-center">
-                <th scope="col">№</th>
-                <th scope="col">Код</th>
-                <th scope="col">Название навыка</th>
-                <th scope="col">Без подсказки <br>(кол-во)</th>
-                <th scope="col">C подсказкой <br>(кол-во)</th>
-                <th scope="col">Количество ответов<br>(кол-во)</th>
-                <th scope="col">Процент успешности <br>(%)</th>
-                <th scope="col">Выполнено <br></th>
-                <th scope="col">Редакт.<br>ответы</th>
-            </tr>
-            </thead>
-            <tbody>
-            {% for result in result_list %}
+        {% if  status_session == False %}
+            <table class="table table-bordered table-sm">
+                <thead>
                 <tr class="text-center">
-                    <td class="number"></td>
-                    <td>{{ result.skill.skill.code_skill }}</td>
-                    <td class="text-left">{{ result.skill.skill.name }}</td>
-                    <td>{{ result.done }}</td>
-                    <td>{{ result.done_with_hint }}</td>
-                    <td id="001">{{ result.total }}</td>
-                    <td>{{ result.percent }}</td>
-                    <td> {% if result.percent >= 80 %}
-                        <i class="fas fa-check-circle"></i>
-                    {% endif %}
-                    </td>
-                    <td><a href="#" onclick="getEl({{ result.pk }})" data-toggle="modal" id="modal"
-                           data-target="#deleteModal"
-                           name="data"
-                           data-update-url="{% url 'webapp:session_result_update' result.pk %}"
-                           data-ident="{{ result.pk }}"
-                           data-done-number="{{ result.done }}"
-                           data-done_with_hint-number="{{ result.done_with_hint }}"
-                           class="btn btn-danger"><i class="fas fa-edit"></i></a>
-                    </td>
+                    <th scope="col">№</th>
+                    <th scope="col">Код</th>
+                    <th scope="col">Название навыка</th>
+                    <th scope="col">Без подсказки <br>(кол-во)</th>
+                    <th scope="col">C подсказкой <br>(кол-во)</th>
+                    <th scope="col">Количество ответов<br>(кол-во)</th>
+                    <th scope="col">Процент успешности <br>(%)</th>
+                    <th scope="col">Выполнено <br></th>
+                    <th scope="col">Редакт.<br>ответы</th>
                 </tr>
-            {% endfor %}
-            </tbody>
-        </table>
-        <div class="text-center mt-3">
-            <a role="button" class="btn btn-success m-2" href="{% url 'webapp:child_program_list' %}"
-               style="width: 100%">Продолжить</a>
-        </div>
+                </thead>
+                <tbody>
+                {% for result in result_list %}
+                    <tr class="text-center">
+                        <td class="number"></td>
+                        <td>{{ result.skill.skill.code_skill }}</td>
+                        <td class="text-left">{{ result.skill.skill.name }}</td>
+                        <td>{{ result.done }}</td>
+                        <td>{{ result.done_with_hint }}</td>
+                        <td id="001">{{ result.total }}</td>
+                        <td>{{ result.percent }}</td>
+                        <td> {% if result.percent >= 80 %}
+                            <i class="fas fa-check-circle"></i>
+                        {% endif %}
+                        </td>
+                        <td>
+                            <a href="#"
+                               data-toggle="modal"
+                               class="edit_result"
+                               data-target="#deleteModal"
+                               data-update-url="{% url 'webapp:session_result_update' result.pk %}"
+                               data-done-number="{{ result.done }}"
+                               data-done_with_hint-number="{{ result.done_with_hint }}"
+                            >
+                                <i class="fas fa-edit"></i>
+                            </a>
+                        </td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+            <div class="text-center mt-3">
+                <a role="button" class="btn btn-success m-2" href="{% url 'webapp:change_status_session' session_pk %}"
+                   style="width: 100%">Закрыть сессию</a>
+            </div>
+        {% else %}
+            <table class="table table-bordered table-sm">
+                <thead>
+                <tr class="text-center">
+                    <th scope="col">№</th>
+                    <th scope="col">Код</th>
+                    <th scope="col">Название навыка</th>
+                    <th scope="col">Без подсказки <br>(кол-во)</th>
+                    <th scope="col">C подсказкой <br>(кол-во)</th>
+                    <th scope="col">Количество ответов<br>(кол-во)</th>
+                    <th scope="col">Процент успешности <br>(%)</th>
+                    <th scope="col">Выполнено <br></th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for result in result_list %}
+                    <tr class="text-center">
+                        <td class="number"></td>
+                        <td>{{ result.skill.skill.code_skill }}</td>
+                        <td class="text-left">{{ result.skill.skill.name }}</td>
+                        <td>{{ result.done }}</td>
+                        <td>{{ result.done_with_hint }}</td>
+                        <td id="001">{{ result.total }}</td>
+                        <td>{{ result.percent }}</td>
+                        <td> {% if result.percent >= 80 %}
+                            <i class="fas fa-check-circle"></i>
+                        {% endif %}
+                        </td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+            <div class="text-center mt-3">
+                <a role="button" class="btn btn-success m-2" href="{% url 'webapp:child_program_list' %}"
+                   style="width: 100%">Закончить прсомотр результатов</a>
+            </div>
+        {% endif %}
+
+
         <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
              aria-hidden="true">
             <div class="modal-dialog" role="document">
@@ -58,11 +101,11 @@
                         </button>
                     </div>
                     <div class="modal-body">
-                        <form name="link" action="" method="post" enctype="multipart/form-data">
+                        <form name="link" id="link" action="" method="post" enctype="multipart/form-data">
                             {% csrf_token %}
                             <input id="done" type="number" name="done" value=""/>
                             <input id="done_with_hint" type="number" name="done_with_hint" value=""/>
-                            <input type="submit" value="Send"/>
+                            <input id="link" type="submit" value="Send"/>
                         </form>
                     </div>
                 </div>
@@ -73,3 +116,4 @@
 {% block scripts %}
     <script src=../../static/js/session_result/update_result_in_modal.js></script>
 {% endblock %}
+

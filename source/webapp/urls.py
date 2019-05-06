@@ -2,7 +2,7 @@ from django.urls import path
 from webapp.views import \
     ProgramDetailView, ProgramListView, ProgramCreateView, ProgramUpdateView, ProgramSearchView, ChildInProgramListView, \
     ChildList, ChildSearchView, ChildDetailView, ChildUpdateView, ChildCreateView, soft_delete_child, \
-    SessionDetailView, counter_done_with_hint, counter_done, create_session_and_result, \
+    SessionDetailView, counter_done_with_hint, counter_done, create_session_and_result, change_status_session, \
     SkillDetailView, SkillUpdateView, SkillCreateView, SkillSearchView, delete_skill, \
     ResultUpdateView, ResultListView, \
     CategoriesListView, CategoriesDetailView, CategoriesCreateView, CategoriesUpdateView, CategoriesSearchView, \
@@ -39,6 +39,7 @@ urlpatterns = [
     path('categories/categories_search/', CategoriesSearchView.as_view(), name='search_view_categories'),
     # session_and_result_urls-------------------------------------------------------------------------------------
     path('program/<int:pk>/session', create_session_and_result, name='session_create'),
+    path('session/<int:pk>', change_status_session, name='change_status_session'),
     path('session/<int:pk>', SessionDetailView.as_view(), name='session_view'),
     path('session/<int:pk>/result', ResultListView.as_view(), name='session_result_view'),
     path('session/result/<int:pk>/update', ResultUpdateView.as_view(), name='session_result_update'),
