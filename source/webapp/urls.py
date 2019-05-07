@@ -4,7 +4,7 @@ from webapp.views import \
     ChildList, ChildSearchView, ChildDetailView, ChildUpdateView, ChildCreateView, soft_delete_child, \
     SessionDetailView, counter_done_with_hint, counter_done, create_session_and_result, change_status_session, \
     SkillDetailView, SkillUpdateView, SkillCreateView, SkillSearchView, delete_skill, \
-    ResultUpdateView, ResultListView, \
+    ResultUpdateView, ResultListView, change_status_skill, \
     CategoriesListView, CategoriesDetailView, CategoriesCreateView, CategoriesUpdateView, CategoriesSearchView, \
     delete_category, counter_get_view
 
@@ -38,6 +38,7 @@ urlpatterns = [
     path('categories/<int:pk>/delete', delete_category, name='categories_delete'),
     path('categories/categories_search/', CategoriesSearchView.as_view(), name='search_view_categories'),
     # session_and_result_urls-------------------------------------------------------------------------------------
+    path('skill_in_program/<int:pk>', change_status_skill, name='change_status_skill'),
     path('program/<int:pk>/session', create_session_and_result, name='session_create'),
     path('session/<int:pk>', change_status_session, name='change_status_session'),
     path('session/<int:pk>', SessionDetailView.as_view(), name='session_view'),

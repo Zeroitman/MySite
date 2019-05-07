@@ -178,6 +178,15 @@ class ResultUpdateView(UpdateView):
                        kwargs={'pk': get_object_or_404(Result, pk=self.kwargs.get('pk')).session.pk})
 
 
+def change_status_skill(request, pk, **kwargs):
+    result = get_object_or_404(SkillsInProgram, pk=pk)
+    result.status = False
+    result.save()
+    return redirect('webapp:child_program_list')
+    # return reverse('webapp:program_detail',
+    #                kwargs={'pk': get_object_or_404(Result, pk=kwargs.get('pk')).session.pk})
+
+
 # Session---------------------------------------------------------------------------------------------------------------
 class SessionDetailView(DetailView):
     model = Session
@@ -202,7 +211,6 @@ def create_session_and_result(request, pk):
 def change_status_session(request, pk):
     session = get_object_or_404(Session, pk=pk)
     session.status_session = True
-    print(session.status_session)
     session.save()
     return redirect('webapp:child_program_list')
 
