@@ -1,10 +1,11 @@
-from django.http import JsonResponse
-from django.shortcuts import get_object_or_404, redirect, render
+from django.http import JsonResponse, HttpResponseRedirect
+from django.shortcuts import get_object_or_404, redirect, render, render_to_response
 from webapp.models import Program, Session, Result, Skill, Child, Categories, SkillsInProgram
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, View
 from webapp.forms import SkillForm, ChildForm, ResultForm, ProgramForm, CategoryForm
 from django.urls import reverse
 from django.db.models import Q
+from django.views.decorators.csrf import csrf_exempt
 
 
 # Skill-----------------------------------------------------------------------------------------------------------------
@@ -108,6 +109,7 @@ class ChildSearchView(View):
 
 # Program---------------------------------------------------------------------------------------------------------------
 class ChildInProgramListView(ListView):
+
     model = Program
     template_name = 'program_views/child_program_list.html'
 
@@ -178,13 +180,12 @@ class ResultUpdateView(UpdateView):
                        kwargs={'pk': get_object_or_404(Result, pk=self.kwargs.get('pk')).session.pk})
 
 
-def change_status_skill(request, pk, **kwargs):
+def change_status_skill(request, pk):
     result = get_object_or_404(SkillsInProgram, pk=pk)
+    session_pk = request.GET.get('session')
     result.status = False
     result.save()
-    return redirect('webapp:child_program_list')
-    # return reverse('webapp:program_detail',
-    #                kwargs={'pk': get_object_or_404(Result, pk=kwargs.get('pk')).session.pk})
+    return redirect('webapp:session_result_view', pk=session_pk)
 
 
 # Session---------------------------------------------------------------------------------------------------------------
@@ -194,25 +195,34 @@ class SessionDetailView(DetailView):
 
 
 def create_session_and_result(request, pk):
-    current_program = Program.objects.get(id=pk)
-    skill_ids_list = current_program.skills.all()
-    skill_names_list = []
-    session = Session.objects.create(program=current_program)
-    session.save()
-    for skill in skill_ids_list:
-        skill_names_list.append(skill.name)
-        current_skill = SkillsInProgram.objects.get(id=skill.pk)
-        current_result = Session.objects.get(id=session.pk)
-        result = Result.objects.create(skill=current_skill, session=current_result)
-        result.save()
-    return render(request, 'session_views/session_detail.html', {'list': skill_ids_list, 'pk': session.pk})
+    if not request.COOKIES.get("session_number"):
+        current_program = Program.objects.get(id=pk)
+        skill_in_program = SkillsInProgram.objects.filter(program_id=current_program.pk, status=True)
+        session = Session.objects.create(program=current_program)
+        session.save()
+        for skill in skill_in_program:
+            current_skill = SkillsInProgram.objects.get(id=skill.pk)
+            current_result = Session.objects.get(id=session.pk)
+            result = Result.objects.create(skill=current_skill, session=current_result)
+            result.save()
+        response = render_to_response('session_views/session_detail.html', {'list': skill_in_program, 'pk': session.pk})
+        response.set_cookie("session_number", session.pk)
+        return response
+    else:
+        current_program = Program.objects.get(id=pk)
+        skill_in_program = SkillsInProgram.objects.filter(program_id=current_program.pk, status=True)
+        print(request.COOKIES.get("session_number"))
+        return render(request, 'session_views/session_detail.html',
+                      {'list': skill_in_program, 'pk': request.COOKIES.get("session_number")})
 
 
 def change_status_session(request, pk):
+    response = HttpResponseRedirect('http://localhost:8000/')
     session = get_object_or_404(Session, pk=pk)
     session.status_session = True
     session.save()
-    return redirect('webapp:child_program_list')
+    response.delete_cookie("session_number")
+    return response
 
 
 # Categories------------------------------------------------------------------------------------------------------------
@@ -265,16 +275,18 @@ class CategoriesSearchView(View):
 
 
 # Вьюшки счетчика, сохранение результатов накликивания, связано с фронтендом--------------------------------------------
+@csrf_exempt
 def counter_done(request, pk):
-    result = get_object_or_404(Result, skill=pk)
+    result = get_object_or_404(Result, skill=pk, session_id=request.COOKIES.get("session_number"))
     counter = request.POST.get('counter', None)
     result.done = int(counter)
     result.save()
     return JsonResponse({'counter': result.done})
 
 
+@csrf_exempt
 def counter_done_with_hint(request, pk):
-    result = get_object_or_404(Result, skill=pk)
+    result = get_object_or_404(Result, skill=pk, session_id=request.COOKIES.get("session_number"))
     counter = request.POST.get('counter', None)
     result.done_with_hint = int(counter)
     result.save()
@@ -282,7 +294,7 @@ def counter_done_with_hint(request, pk):
 
 
 def counter_get_view(request, pk):
-    result = get_object_or_404(Result, skill=pk)
+    result = get_object_or_404(Result, skill=pk, session_id=request.COOKIES.get("session_number"))
     return JsonResponse({
         'result_done': result.done,
         'result_w_hint': result.done_with_hint,

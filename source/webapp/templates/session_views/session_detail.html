@@ -7,8 +7,8 @@
             <h3 class="text-center mt-2">{{ session.program.name }}</h3>
             {% for skill in list %}
                 <li class="list-group-item mt-3">
-                    <h3 class="text-center">{{ skill.code_skill }}</h3>
-                    <p class="text-center">{{ skill.name }}</p>
+                    <h3 class="text-center">{{ skill.skill.code_skill }}</h3>
+                    <p class="text-center">{{ skill.skill.name }}</p>
                     <div>
                         <div class="d-flex justify-content-around">
                             <form id="form-{{ skill.pk }}"
