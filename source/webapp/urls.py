@@ -6,7 +6,7 @@ from webapp.views import \
     SkillDetailView, SkillUpdateView, SkillCreateView, SkillSearchView, delete_skill, \
     ResultUpdateView, ResultListView, change_status_skill, \
     CategoriesListView, CategoriesDetailView, CategoriesCreateView, CategoriesUpdateView, CategoriesSearchView, \
-    delete_category, counter_get_view
+    delete_category, counter_get_view, AddExtraSkill
 
 
 app_name = 'webapp'
@@ -41,9 +41,9 @@ urlpatterns = [
     path('skill_in_program/<int:pk>', change_status_skill, name='change_status_skill'),
     path('program/<int:pk>/session', create_session_and_result, name='session_create'),
     path('session/<int:pk>', change_status_session, name='change_status_session'),
-    path('session/<int:pk>', SessionDetailView.as_view(), name='session_view'),
     path('session/<int:pk>/result', ResultListView.as_view(), name='session_result_view'),
     path('session/result/<int:pk>/update', ResultUpdateView.as_view(), name='session_result_update'),
+    path('program/<int:pk>/skill/create', AddExtraSkill.as_view(), name='extra_skill'),
     # skill urls--------------------------------------------------------------------------------------------------
     path('skill/<int:pk>', SkillDetailView.as_view(), name='skill_detail'),
     path('skill/create', SkillCreateView.as_view(), name='skill_create'),

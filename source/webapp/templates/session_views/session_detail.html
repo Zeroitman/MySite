@@ -4,11 +4,23 @@
 {% block content %}
     <div class="container">
         <ul class="list-group">
-            <h3 class="text-center mt-2">{{ session.program.name }}</h3>
+            <h3 class="text-center mt-2">{{ program.name }}</h3>
+            <a href="{% url 'webapp:extra_skill' program.pk %}"
+                   data-pk="{{ program.pk }}"
+                   data-toggle="modal"
+                   class="edit_result"
+                   data-target="#skill_add_modal"
+                >
+                    <i class="fas fa-edit"></i>
+            </a>
             {% for skill in list %}
                 <li class="list-group-item mt-3">
+                {% if skill.skill.name %}
                     <h3 class="text-center">{{ skill.skill.code_skill }}</h3>
                     <p class="text-center">{{ skill.skill.name }}</p>
+                {% else %}
+                    <p class="text-center">{{ skill.added_skill }}</p>
+                {% endif %}
                     <div>
                         <div class="d-flex justify-content-around">
                             <form id="form-{{ skill.pk }}"
@@ -42,6 +54,49 @@
         <div class="mt-4 text-center">
             <a role="button" class="btn btn-primary w-25" href={% url 'webapp:session_result_view' pk %}>Результаты сессии</a>
         </div>
+
+        <div class="modal" tabindex="-1" role="dialog" id="skill_add_modal">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Добавить навык</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form id="skill_form" action="{% url 'webapp:extra_skill' program.pk %}" method="POST" enctype="multipart/form-data">
+                        <div class="text-danger" id="skill_form_errors"></div>
+                        <div class="form-group row m-2">
+                            {% csrf_token %}
+                            <label class="col-sm-10 col-form-label">Является поднавыком к навыку:</label>
+                            <select name="extra_skill_to_skill" id="extra_skill_to_skill" class="custom-select extra_skill col-sm-12">
+                                <option selected value="">Выберите навык</option>
+                                {% for skill in list %}
+                                <option value={{ skill.skill.pk }}>{{ skill.skill.code_skill }} {{skill.skill.name}}</option>
+                                {% endfor %}
+                            </select>
+                            <label class="col-sm-12 col-form-label">Вырать из существующих навыков:</label>
+                            <select name="skill" id="skill" class="custom-select col-sm-12 extra_skill">
+                                <option selected value="">Выберите навык</option>
+                                {% for skill in skills %}
+                                <option value={{ skill.pk }}>{{ skill.code_skill }} {{skill.name}}</option>
+                                {% endfor %}
+                            </select>
+                            <label class="col-sm-12 col-form-label">Написать собственный:</label>
+                            <input class="form-control col-sm-12 extra_skill" type="text"  name="added_skill" maxlength="255" id="added_skill">
+                            <div class="col-sm-12 mt-3 text-center">
+                            <button type="submit" class="btn btn-primary w-25 extra_skill_save">Сохранить</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Закрыть</button>
+                </div>
+            </div>
+        </div>
+    </div>
 
     </div>
 {% endblock %}
