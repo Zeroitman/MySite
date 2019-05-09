@@ -17,7 +17,7 @@ class SkillForm(forms.ModelForm):
 class ChildForm(forms.ModelForm):
     class Meta:
         model = Child
-        exclude = ["created_date", "edited_date", "deleted_date"]
+        exclude = ["created_date", "edited_date", "deleted_date", "is_deleted"]
         widgets = {
             'first_name': forms.TextInput(attrs={'class': 'form-control col-xs-12 col-sm-6 col-lg-4'}),
             'last_name': forms.TextInput(attrs={'class': 'form-control col-xs-12 col-sm-6 col-lg-4'}),
@@ -58,7 +58,7 @@ class ProgramForm(forms.ModelForm):
 
     class Meta:
         model = Program
-        exclude = ["created_date", "edited_date", "deleted_date"]
+        exclude = ["created_date", "edited_date", "deleted_date", "status"]
         widgets = {
             'name': forms.TextInput(attrs={'class': 'form-control col-xs-12 col-sm-6 col-lg-4'}),
             'description': forms.Textarea(attrs={'class': 'form-control col-xs-12 col-sm-6 col-lg-4'}),

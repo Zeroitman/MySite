@@ -2,6 +2,7 @@
 {% block title %}Результат сессии{% endblock %}
 {% block content %}
     <div class="container">
+        <h3 class="text-center mt-4 mb-4">Страница просмотра результата</h3>
         {% if  status_session == False %}
             <div class="table"
                  style="overflow: auto;">
@@ -11,8 +12,8 @@
                         <th scope="col">№</th>
                         <th scope="col">Код</th>
                         <th scope="col">Название навыка</th>
-                        <th scope="col">Без подсказки <br>(кол-во)</th>
                         <th scope="col">C подсказкой <br>(кол-во)</th>
+                        <th scope="col">Без подсказки <br>(кол-во)</th>
                         <th scope="col">Количество ответов<br>(кол-во)</th>
                         <th scope="col">Процент успешности <br>(%)</th>
                         <th scope="col">Статус</th>
@@ -26,8 +27,8 @@
                             <td class="number"></td>
                             <td>{{ result.skill.skill.code_skill }}</td>
                             <td class="text-left">{{ result.skill.skill.name }}</td>
-                            <td>{{ result.done }}</td>
                             <td>{{ result.done_with_hint }}</td>
+                            <td>{{ result.done }}</td>
                             <td id="001">{{ result.total }}</td>
                             <td>{{ result.percent }}</td>
                             <td> {% if result.skill.status != True %}
@@ -76,8 +77,8 @@
                         <th scope="col">№</th>
                         <th scope="col">Код</th>
                         <th scope="col">Название навыка</th>
-                        <th scope="col">Без подсказки <br>(кол-во)</th>
                         <th scope="col">C подсказкой <br>(кол-во)</th>
+                        <th scope="col">Без подсказки <br>(кол-во)</th>
                         <th scope="col">Количество ответов<br>(кол-во)</th>
                         <th scope="col">Процент успешности <br>(%)</th>
                         <th scope="col">Статус</th>
@@ -90,8 +91,8 @@
                             <td class="number"></td>
                             <td>{{ result.skill.skill.code_skill }}</td>
                             <td class="text-left">{{ result.skill.skill.name }}</td>
-                            <td>{{ result.done }}</td>
                             <td>{{ result.done_with_hint }}</td>
+                            <td>{{ result.done }}</td>
                             <td id="001">{{ result.total }}</td>
                             <td>{{ result.percent }}</td>
                             <td> {% if result.skill.status != True %}

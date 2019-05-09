@@ -6,6 +6,22 @@ from webapp.forms import SkillForm, ChildForm, ResultForm, ProgramForm, Category
 from django.urls import reverse
 from django.db.models import Q
 from django.views.decorators.csrf import csrf_exempt
+from datetime import datetime, timezone
+import threading
+
+
+def automatic_session_closure():
+    threading.Timer(60, automatic_session_closure).start()
+    now = datetime.now(timezone.utc)
+    all_session = Session.objects.filter(status_session=False)
+    for session in all_session:
+        delta = now - session.created_date
+        if delta.seconds > 7200:
+            session.status_session = True
+            session.save()
+
+
+automatic_session_closure()
 
 
 # Skill-----------------------------------------------------------------------------------------------------------------
@@ -109,7 +125,6 @@ class ChildSearchView(View):
 
 # Program---------------------------------------------------------------------------------------------------------------
 class ChildInProgramListView(ListView):
-
     model = Program
     template_name = 'program_views/child_program_list.html'
 
@@ -206,12 +221,11 @@ def create_session_and_result(request, pk):
             result = Result.objects.create(skill=current_skill, session=current_result)
             result.save()
         response = render_to_response('session_views/session_detail.html', {'list': skill_in_program, 'pk': session.pk})
-        response.set_cookie("session_number", session.pk)
+        response.set_cookie("session_number", session.pk, max_age=7200)
         return response
     else:
         current_program = Program.objects.get(id=pk)
         skill_in_program = SkillsInProgram.objects.filter(program_id=current_program.pk, status=True)
-        print(request.COOKIES.get("session_number"))
         return render(request, 'session_views/session_detail.html',
                       {'list': skill_in_program, 'pk': request.COOKIES.get("session_number")})
 
