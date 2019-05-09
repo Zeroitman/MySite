@@ -1,8 +1,8 @@
 from django.http import JsonResponse, HttpResponseRedirect
-from django.shortcuts import get_object_or_404, redirect, render, render_to_response
+from django.shortcuts import get_object_or_404, redirect, render
 from webapp.models import Program, Session, Result, Skill, Child, Categories, SkillsInProgram
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, View
-from webapp.forms import SkillForm, ChildForm, ResultForm, ProgramForm, CategoryForm
+from webapp.forms import SkillForm, ChildForm, ResultForm, ProgramForm, CategoryForm, SkillsInProgramForm
 from django.urls import reverse
 from django.db.models import Q
 from django.views.decorators.csrf import csrf_exempt
@@ -169,6 +169,19 @@ class ProgramSearchView(View):
         return render(self.request, self.template_name, context)
 
 
+class AddExtraSkill(CreateView):
+    model = SkillsInProgram
+    form_class = SkillsInProgramForm
+
+    def form_valid(self, form):
+        form.instance.program = Program.objects.get(pk=self.kwargs.get('pk'))
+        form.instance.status = True
+        return super().form_valid(form)
+
+    def get_success_url(self):
+        return reverse('webapp:session_create', kwargs={'pk': self.kwargs.get('pk')})
+
+
 # Result----------------------------------------------------------------------------------------------------------------
 class ResultListView(ListView):
     model = Result
@@ -210,24 +223,31 @@ class SessionDetailView(DetailView):
 
 
 def create_session_and_result(request, pk):
+    current_program = Program.objects.get(id=pk)
+    skill_in_program = SkillsInProgram.objects.filter(program_id=current_program.pk, status=True)
     if not request.COOKIES.get("session_number"):
-        current_program = Program.objects.get(id=pk)
-        skill_in_program = SkillsInProgram.objects.filter(program_id=current_program.pk, status=True)
         session = Session.objects.create(program=current_program)
         session.save()
         for skill in skill_in_program:
-            current_skill = SkillsInProgram.objects.get(id=skill.pk)
+            current_skill = SkillsInProgram.objects.get(pk=skill.pk)
             current_result = Session.objects.get(id=session.pk)
             result = Result.objects.create(skill=current_skill, session=current_result)
             result.save()
-        response = render_to_response('session_views/session_detail.html', {'list': skill_in_program, 'pk': session.pk})
-        response.set_cookie("session_number", session.pk, max_age=7200)
+
+        response = render(request, 'session_views/session_detail.html',
+                          {'list': skill_in_program, 'pk': session.pk, 'program': current_program,
+                           'skills': Skill.objects.all()})
+        response.set_cookie("session_number", session.pk)
         return response
     else:
-        current_program = Program.objects.get(id=pk)
-        skill_in_program = SkillsInProgram.objects.filter(program_id=current_program.pk, status=True)
+        for skill in skill_in_program:
+            current_skill = SkillsInProgram.objects.get(pk=skill.pk)
+            current_result = Session.objects.get(id=request.COOKIES.get("session_number"))
+            Result.objects.get_or_create(skill=current_skill, session=current_result)
         return render(request, 'session_views/session_detail.html',
-                      {'list': skill_in_program, 'pk': request.COOKIES.get("session_number")})
+                      {'list': skill_in_program, 'pk': request.COOKIES.get("session_number"),
+                       'program': current_program,
+                       'skills': Skill.objects.all()})
 
 
 def change_status_session(request, pk):

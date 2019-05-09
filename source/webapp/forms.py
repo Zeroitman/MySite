@@ -1,4 +1,4 @@
-from webapp.models import Child, Result, Skill, Program, UserInfo, Categories
+from webapp.models import Child, Result, Skill, Program, UserInfo, Categories, SkillsInProgram
 from django import forms
 
 
@@ -72,4 +72,16 @@ class CategoryForm(forms.ModelForm):
         widgets = {
             'name': forms.TextInput(attrs={'class': 'form-control col-xs-12 col-sm-6 col-lg-4'}),
             'code_category': forms.TextInput(attrs={'class': 'form-control col-xs-12 col-sm-6 col-lg-4'}),
+        }
+
+
+class SkillsInProgramForm(forms.ModelForm):
+    class Meta:
+        model = SkillsInProgram
+        exclude = ["program", "status"]
+        widgets = {
+            'extra_skill_to_skill': forms.Select(attrs={'class': 'form-control col-xs-12 col-sm-6 col-lg-4'}),
+            'skill': forms.Select(attrs={'class': 'form-control col-xs-12 col-sm-6 col-lg-4'}),
+            'added_skill': forms.TextInput(attrs={'class': 'form-control col-xs-12 col-sm-6 col-lg-4'}),
+            'added_skill_comment': forms.Textarea(attrs={'class': 'form-control col-xs-12 col-sm-6 col-lg-4'})
         }
