@@ -60,11 +60,10 @@ DATABASES = {
         'PASSWORD': 'aba_django',
         'HOST': '127.0.0.1',
         'TEST': {
-            'NAME': 'test_base',
+            'NAME': 'test_aba',
         },
     }
 }
-
 LANGUAGES = [
     ('ru', _('Russian'))
 ]
