@@ -207,3 +207,6 @@ def counter_done_with_hint(request, pk):
 class CategoriesListView(ListView):
     model = Categories
     template_name = 'categories_list.html'
+
+
+
