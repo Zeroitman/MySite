@@ -1,4 +1,4 @@
-from webapp.models import Child, Result, Skill, Program, UserInfo, Categories, SkillsInProgram
+from webapp.models import Child, UserInfo, Result, Skill, Program, Categories, SkillsInProgram
 from django import forms
 
 

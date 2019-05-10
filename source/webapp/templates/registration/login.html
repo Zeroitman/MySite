@@ -25,7 +25,7 @@
     <form action="{% url 'login' %}" method="post">
         {% csrf_token %}
         {% if form.errors %}
-            <p class="form-text text-danger text-center">Введено неверное имя пользователя или пароль</p>
+            <p class="form-text text-danger text-center error-text">Введено неверное имя пользователя или пароль</p>
         {% endif %}
         <input type="hidden" name="next" value="{{ next }}">
         <div class="form-row form-group">

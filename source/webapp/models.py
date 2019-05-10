@@ -108,8 +108,8 @@ class Program(models.Model):
     program_comment = models.CharField(max_length=255, null=True, blank=True, verbose_name='Комментарий к программе')
     child = models.ForeignKey('Child', on_delete=models.PROTECT, related_name='child_in_program',
                               verbose_name='Ребенок')
-    author_therapist = models.ForeignKey(UserInfo, on_delete=models.PROTECT, related_name='author_program',
-                                         verbose_name='Терапист')
+    # author_therapist = models.ForeignKey(UserInfo, on_delete=models.PROTECT, related_name='author_program',
+    #                                      verbose_name='Терапист')
     skills = models.ManyToManyField('Skill', through='SkillsInProgram', verbose_name='Навыки')
     status = models.BooleanField(default=True, verbose_name='Статус')
     created_date = models.DateTimeField(auto_now_add=True, verbose_name="Дата создания")
@@ -127,8 +127,8 @@ class Program(models.Model):
 class Session(models.Model):
     program = models.ForeignKey(Program, related_name='session_program', on_delete=models.PROTECT,
                                 verbose_name='Программа')
-    attending_therapist = models.ForeignKey(UserInfo, on_delete=models.PROTECT, null=True,
-                                            related_name='attending_session')  # сделал временно null
+    # attending_therapist = models.ForeignKey(UserInfo, on_delete=models.PROTECT, null=True,
+    #                                         related_name='attending_session')  # сделал временно null
     description = models.TextField(max_length=2000, blank=True, null=True, verbose_name="Описание сессии")
     created_date = models.DateTimeField(auto_now_add=True, verbose_name="Дата создания")
     edited_date = models.DateTimeField(auto_now=True, blank=True, null=True, verbose_name="Дата редактирования")

@@ -1,6 +1,6 @@
 from django.contrib import admin
 from django.contrib.auth.models import User
-from webapp.models import UserInfo, Skill, Program, Session, Result, Child, Categories, SkillsInProgram
+from webapp.models import Skill, UserInfo, Program, Session, Result, Child, Categories, SkillsInProgram
 from django.contrib.auth.admin import UserAdmin
 
 
@@ -12,10 +12,12 @@ class ResultModelAdmin(admin.ModelAdmin):
 
     def session_id(self, obj):
         return obj.session.pk
+
     session_id.empty_value_display = 'Не известно'
 
     def code_skill(self, obj):
         return obj.skill.code_skill
+
     code_skill.empty_value_display = 'Не известно'
 
 
@@ -27,6 +29,7 @@ class SessionModelAdmin(admin.ModelAdmin):
 
     def program_name(self, obj):
         return obj.program.name
+
     program_name.empty_value_display = 'Не известно'
 
 
