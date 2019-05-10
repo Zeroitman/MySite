@@ -1,0 +1,88 @@
+{% extends 'base.html' %}
+
+{% block title %}Список категорий{% endblock %}
+{% block content %}
+    <div class="container">
+        {#  Форма поиска программ #}
+        <div style="width: 240px">
+            <form action='{% url 'webapp:search_view_categories' %}' method="GET" accept-charset="utf-8"
+                  class="form-inline my-2 my-lg-0">
+                <input class="form-control mr-2 shadow-none"
+                       style="width: 67%"
+                       name="q"
+                       id="field"
+                       value="{{ request.GET.q }}"
+                       type="text"
+                       placeholder="Найти категории..."
+                       aria-label="Найти...">
+                <button class="btn btn-outline-dark" type="submit" style="width: 30%">Поиск</button>
+
+            </form>
+        </div>
+        <a href="{% url 'webapp:categories_create' %}" class="btn btn-primary btn-block d-block mt-3 mb-3"
+           style="width: 240px">Добавить категорию</a>
+        {% for categories in categories_list %}
+            <div class="border-bottom pb-2 mb-1">
+                <a role="button" class="text-decoration-none text-dark" style="width: 15%"
+                   data-toggle="tooltip" data-placement="right" title="Нажмите для просмотра навыков в категории"
+                   href="{% url 'webapp:categories_detail' categories.pk %}">
+                    <p class="text-wrap d-block mb-0">{{ categories.pk }}. {{ categories.name }}</p>
+                </a>
+                <p class="d-block pb-0 mb-0 small font-weight-bold mt-1 ml-3">Код категории: <span
+                        class="badge badge-primary">{{ categories.code_category }}</span></p>
+                <a class="text-decoration-none small text-muted d-inline-block pb-0 mb-0 font-weight-light ml-3 mt-1"
+                   href="{% url 'webapp:categories_update' categories.pk %}">Редактировать</a>
+                <a href="#"
+                   class="text-decoration-none small text-muted d-inline-block pb-0 mb-0 font-weight-light ml-1 mt-1"
+                   data-toggle="modal" data-target="#deleteModal_{{ categories.pk }}" style="width: 15%"
+                   data-delete-url="{% url 'webapp:categories_delete' categories.pk %}">Удалить</a>
+            </div>
+            {#      Модалка удаления категории      #}
+            <div class="modal fade" id="deleteModal_{{ categories.pk }}" tabindex="-1" role="dialog"
+                 aria-labelledby="exampleModalLabel"
+                 aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="card">
+                            <h5 class="card-header text-center"> Удаление категории</h5>
+                        </div>
+                        <div class="modal-body p-0 m-0">
+                            <div class="modal-body">
+                                <p class="d-block text-center mb-1">Вы уверены что хотите удалить категорию
+                                    <span class="d-block font-weight-bold text-center mb-3">{{ categories.name }}?</span>
+                                </p>
+                                <div class="text-center">
+                                    <button style="
+                                            background-color: #4CAF50;
+                                            border: none;
+                                            text-align: center;
+                                            display: inline-block;
+                                            border-radius: 10%;
+                                            width: 70px;
+                                            font-size: 16px">
+                                        <a class="btn modal_btn"
+                                           href={% url 'webapp:categories_delete' categories.pk %}>Да</a>
+                                    </button>
+                                    <button data-dismiss="modal"
+                                            style="
+                                            background-color: #af1228;
+                                            border: none;
+                                            text-align: center;
+                                            display: inline-block;
+                                            border-radius: 10%;
+                                            width: 70px;
+                                            font-size: 16px">
+                                        <a class="btn modal_btn">Нет</a>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+{% endblock %}
+{% block scripts %}
+    <script src=../../static/js/check_find_input_is_not_null/check_find_input_is_not_null.js></script>
+{% endblock %}

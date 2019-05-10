@@ -1,9 +1,13 @@
-function getEl(id) {
-    let modal = document.getElementsByName('data');
-    let input_1 = modal[id - 1].attributes[8].nodeValue;
-    let input_2 = modal[id - 1].attributes[9].nodeValue;
-    let value_1 = $(document.getElementsByName('done')).attr('value', input_1);
-    let value_2 = $(document.getElementsByName('done_with_hint')).attr('value', input_2);
-    let link_1 = (modal[id - 1].attributes[6].value);
-    let link = $(document.getElementsByName('link')).attr('action', link_1);
-}
+$(function () {
+    for (let i = 1; i <= $('.number').length; i++) {
+        $(document.getElementsByClassName("number")[i-1]).text(i);
+    }
+});
+$('.edit_result').on('click', function () {
+    const input_1 = $(this).attr("data-done-number");
+    const input_2 = $(this).attr("data-done_with_hint-number");
+    const link_1 = $(this).attr("data-update-url");
+    $('#done').attr('value', input_1);
+    $('#done_with_hint').attr('value', input_2);
+    $('#link').attr('action', link_1);
+});

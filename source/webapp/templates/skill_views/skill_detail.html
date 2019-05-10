@@ -17,6 +17,14 @@
                     class="font-weight-normal">Название навыка отсутствует</span></p>
         {% endif %}
 
+        {% if skill.skill_comment %}
+            <p class="font-weight-bold">Комментарий: <span class="font-weight-normal">{{ skill.skill_comment }}</span>
+            </p>
+        {% else %}
+            <p class="font-weight-bold">Комментарий: <span
+                    class="font-weight-normal">Комментарий отсутствует</span></p>
+        {% endif %}
+
         {% if skill.category %}
             <p class="font-weight-bold">Категория: <span class="font-weight-normal">{{ skill.category }}</span>
             </p>
@@ -48,12 +56,12 @@
                 class="font-weight-normal">{{ skill.updated_date.date }}</span></p>
 
         <div class="text-center">
-            <a role="button" class="btn btn-success px-2 py-0 m-2" href="{% url 'webapp:skill_update' skill.pk %}"
-               style="width: 15%">Редактировать</a>
-            <button type="button" class="btn btn-danger px-2 py-0 m-2" style="width: 15%" data-toggle="modal" data-placement="top"
+            <a role="button" class="btn btn-success m-2" href="{% url 'webapp:skill_update' skill.pk %}"
+               style="width: 125px">Редактировать</a>
+            <button type="button" class="btn btn-danger m-2" style="width: 125px" data-toggle="modal"
+                    data-placement="top"
                     title="Удалить" data-target="#Modal_{{ skill.pk }}">Удалить
             </button>
-            <a role="button" class="btn btn-primary px-2 py-0 m-2" href="{% url 'webapp:skill_list' %}" style="width: 15%">Назад</a>
         </div>
     </div>
 

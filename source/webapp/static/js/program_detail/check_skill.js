@@ -1,4 +1,4 @@
 $(function () {
-    (!$(document.getElementById("001")).text()) ? $(document.getElementById("01")).text('Нет выполненных навыков') : null;
-    (!$(document.getElementById("002")).text()) ? $(document.getElementById("02")).text('Нет невыполненных навыков') : null;
+    (!$("#001").text()) ? $("#01").text('Нет закрытых навыков') : null;
+    (!$("#002").text()) ? $("#02").text('Нет открытых навыков') : null;
 });

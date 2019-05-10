@@ -32,8 +32,15 @@ def should_be_at_login(context):
     assert context.browser.current_url == 'http://localhost:8000/auth/login/'
 
 
-@then('Я должен видеть сообщение об ошибке с текстом "{text}"')
+@then(u'Я ввожу текст "{text}" в поле "{name}"')
+def enter_incorrect_data(context, text, name):
+    sleep(1)
+    context.browser.find_element_by_name(name).send_keys(text)
+
+
+@then(u'Я должен видеть сообщение об ошибке с текстом "{text}"')
 def see_error_with_text(context, text):
     sleep(1)
-    error = context.browser.find_element_by_css_selector('.form-text.text-danger')
+    error = context.browser.find_element_by_css_selector('.error-text')
     assert error.text == text
+    sleep(2)

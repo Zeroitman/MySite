@@ -8,7 +8,7 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>{% block title %}{% endblock %}</title>
     <link rel="stylesheet" href="{% static 'css/bootstrap.css' %}">
-    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <link rel="stylesheet" href="{% static 'css/main.css' %}">
     <script src="{% static 'js/jquery-3.3.1.min.js' %}"></script>
     <link href="https://fonts.googleapis.com/css?family=Arimo:400,700" rel="stylesheet">
     {% block styles %}{% endblock %}
@@ -25,7 +25,7 @@
     <form action="{% url 'login' %}" method="post">
         {% csrf_token %}
         {% if form.errors %}
-            <p class="form-text text-danger text-center">Введено неверное имя пользователя или пароль</p>
+            <p class="form-text text-danger text-center error-text">Введено неверное имя пользователя или пароль</p>
         {% endif %}
         <input type="hidden" name="next" value="{{ next }}">
         <div class="form-row form-group">

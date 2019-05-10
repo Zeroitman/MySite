@@ -7,11 +7,12 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>{% block title %}{% endblock %}</title>
     <link rel="stylesheet" href="{% static 'css/bootstrap.css' %}">
-    <link rel="stylesheet" href="{% static 'css/style.css' %}">
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/all.css"
-          integrity="sha384-hWVjflwFxL6sNzntih27bfxkr27PmbbK/iSvJ+a4+0owXq79v+lsFkW54bOGbiDQ" crossorigin="anonymous">
+    <link rel="stylesheet" href="{% static 'css/main.css' %}">
     <link href="https://fonts.googleapis.com/css?family=Arimo:400,700" rel="stylesheet">
     <script src="{% static 'js/jquery-3.3.1.min.js' %}"></script>
+    <script defer src="https://use.fontawesome.com/releases/v5.8.1/js/all.js"
+            integrity="sha384-g5uSoOSBd7KkhAMlnQILrecXvzst9TdC09/VM+pjDTCM+1il8RHz5fKANTFFb+gQ"
+            crossorigin="anonymous"></script>
     {% block styles %}{% endblock %}
     <style>
         * {
@@ -33,17 +34,15 @@
                 {% if user.is_authenticated %}
                     <ul class="navbar-nav mr-auto">
                         <li class="nav-item">
-                            <a href="{% url 'webapp:child_list' %}" class="nav-link text-dark">Дети</a>
+                            <a href="{% url 'webapp:child_list' %}" class="nav-link text-dark" id="child_page">Дети</a>
                         </li>
                         <li class="nav-item">
                             <a href="{% url 'webapp:program_list' %}" class="nav-link text-dark">Программы</a>
                         </li>
                         <li class="nav-item active">
-                            <a href="{% url 'webapp:categories_list' %}" class="nav-link text-dark">Категории<span
-                                    class="sr-only">(current)</span></a>
-                        </li>
-                        <li class="nav-item">
-                            <a href="{% url 'webapp:skill_list' %}" class="nav-link text-dark">Навыки</a>
+                            <a href="{% url 'webapp:categories_list' %}" class="nav-link text-dark">Категории и
+                                навыки<span
+                                        class="sr-only">(current)</span></a>
                         </li>
                     </ul>
                     </ul>

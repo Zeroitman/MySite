@@ -1,4 +1,4 @@
-from webapp.models import Child, Result, Skill, Program, UserInfo
+from webapp.models import Child, Result, Skill, Program, UserInfo, Categories, SkillsInProgram
 from django import forms
 
 
@@ -17,7 +17,7 @@ class SkillForm(forms.ModelForm):
 class ChildForm(forms.ModelForm):
     class Meta:
         model = Child
-        exclude = ["created_date", "edited_date", "deleted_date"]
+        exclude = ["created_date", "edited_date", "deleted_date", "is_deleted"]
         widgets = {
             'first_name': forms.TextInput(attrs={'class': 'form-control col-xs-12 col-sm-6 col-lg-4'}),
             'last_name': forms.TextInput(attrs={'class': 'form-control col-xs-12 col-sm-6 col-lg-4'}),
@@ -40,7 +40,6 @@ class ResultForm(forms.ModelForm):
 
 
 class ProgramForm(forms.ModelForm):
-    CHOICES = (('1', 'First',), ('2', 'Second',)),
     author_therapist = forms.ModelChoiceField(queryset=UserInfo.objects.all(),
                                               empty_label='Не выбрано',
                                               widget=forms.Select
@@ -59,8 +58,30 @@ class ProgramForm(forms.ModelForm):
 
     class Meta:
         model = Program
-        exclude = ["created_date", "edited_date", "deleted_date"]
+        exclude = ["created_date", "edited_date", "deleted_date", "status"]
         widgets = {
             'name': forms.TextInput(attrs={'class': 'form-control col-xs-12 col-sm-6 col-lg-4'}),
             'description': forms.Textarea(attrs={'class': 'form-control col-xs-12 col-sm-6 col-lg-4'}),
+        }
+
+
+class CategoryForm(forms.ModelForm):
+    class Meta:
+        model = Categories
+        exclude = ["created_date", "edited_date", "deleted_date"]
+        widgets = {
+            'name': forms.TextInput(attrs={'class': 'form-control col-xs-12 col-sm-6 col-lg-4'}),
+            'code_category': forms.TextInput(attrs={'class': 'form-control col-xs-12 col-sm-6 col-lg-4'}),
+        }
+
+
+class SkillsInProgramForm(forms.ModelForm):
+    class Meta:
+        model = SkillsInProgram
+        exclude = ["program", "status"]
+        widgets = {
+            'extra_skill_to_skill': forms.Select(attrs={'class': 'form-control col-xs-12 col-sm-6 col-lg-4'}),
+            'skill': forms.Select(attrs={'class': 'form-control col-xs-12 col-sm-6 col-lg-4'}),
+            'added_skill': forms.TextInput(attrs={'class': 'form-control col-xs-12 col-sm-6 col-lg-4'}),
+            'added_skill_comment': forms.Textarea(attrs={'class': 'form-control col-xs-12 col-sm-6 col-lg-4'})
         }
