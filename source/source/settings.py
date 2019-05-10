@@ -59,6 +59,9 @@ DATABASES = {
         'USER': 'aba_django',
         'PASSWORD': 'aba_django',
         'HOST': '127.0.0.1',
+        'TEST': {
+            'NAME': 'test_aba',
+        },
     }
 }
 LANGUAGES = [
