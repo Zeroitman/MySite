@@ -86,9 +86,9 @@ class Skill(models.Model):
 class SkillsInProgram(models.Model):
     program = models.ForeignKey('Program', related_name='related_to_program', on_delete=models.PROTECT,
                                 verbose_name='Программа')
-    skill = models.ForeignKey('Skill', related_name='skill_in_program', on_delete=models.PROTECT,
+    skill = models.ForeignKey('Skill', null=True, blank=True, related_name='skill_in_program', on_delete=models.PROTECT,
                               verbose_name='Навык')
-    added_skill = models.CharField(max_length=255,
+    added_skill = models.CharField(max_length=1000,
                                    verbose_name='Добавленный навык', null=True,
                                    blank=True)
     added_skill_comment = models.CharField(max_length=255, null=True, blank=True,

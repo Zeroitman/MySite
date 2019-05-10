@@ -17,7 +17,7 @@
                 <button class="btn btn-outline-dark" type="submit" style="width: 30%">Поиск</button>
             </form>
         </div>
-        <div class="list-group mt-3">
+        <div class="list-group">
             <a href="{% url 'webapp:program_create' %}" class="btn btn-primary btn-block d-block mt-3 mb-3"
                style="width: 240px">Добавить программу</a>
             {% for program in program_list %}

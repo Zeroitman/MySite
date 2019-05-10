@@ -6,33 +6,39 @@
     <div class="container">
         <h2 class="text-center">Список детей: </h2>
         {% for var in program_list %}
-            <div class="card d-inline-flex ml-3 mt-2" style="width: 18rem; height: 13rem;">
-                <div class="card-body">
-                    <h5 class="card-title mb-0 text-truncate"
-                        style="height: 1.5rem">{{ var.child.first_name }} {{ var.child.last_name }}</h5>
-                    {% if var.child.age %}
-                        <p class="card-text mb-0 text-muted" style="width: 10rem; height: 1rem;">
-                            Возраст: {{ var.child.age }}</p>
-                    {% else %}
-                        <p class="card-text mb-2 text-muted" style="width: 10rem; height: 1rem;">Возраст: Не указан</p>
-                    {% endif %}
-                    {% if var.child.first_parent and var.child.second_parent == Null %}
-                        <p class="card-text small pt-2 mb-0" style="width: 18rem; height: 3rem;">
-                            Родитель: {{ var.child.first_parent }}</p>
-                    {% elif var.child.first_parent and var.child.second_parent %}
-                        <p class="card-text small pt-2" style="width: 17rem; height: 2rem;">
-                            Родители: {{ var.child.first_parent }}, {{ var.child.second_parent }}</p>
-                    {% endif %}
-                    <p class="card-text small mb-0 font-weight-light pb-1">Начало
-                        лечения: {{ var.child.created_date.date }}</p>
-                    <div class="text-center">
-                        <a role="button" class="btn btn-secondary px-2 py-0 m-2" style="width: 42%; height: 24%;"
-                           href={% url 'webapp:program_detail' var.pk %}>Программа ребёнка</a>
-                        <a role="button" class="btn btn-success px-2 py-0 m-2" style="width: 42%; height: 24%;"
-                           href="{% url 'webapp:session_create' var.pk %}">Начать сессию</a>
+            {% if var.status == True %}
+                <div class="card d-inline-flex ml-3 mt-2" style="width: 18rem; height: 13rem;">
+                    <div class="card-body">
+                        <h5 class="card-title mb-0 text-truncate"
+                            style="height: 1.5rem">{{ var.child.first_name }} {{ var.child.last_name }}</h5>
+                        {% if var.child.age %}
+                            <p class="card-text mb-0 text-muted" style="width: 10rem; height: 1rem;">
+                                Возраст: {{ var.child.age }}</p>
+                        {% else %}
+                            <p class="card-text mb-2 text-muted" style="width: 10rem; height: 1rem;">Возраст: Не
+                                указан</p>
+                        {% endif %}
+                        {% if var.child.first_parent and var.child.second_parent == Null %}
+                            <p class="card-text small pt-2 mb-0" style="width: 18rem; height: 3rem;">
+                                Родитель: {{ var.child.first_parent }}</p>
+                        {% elif var.child.first_parent and var.child.second_parent %}
+                            <p class="card-text small pt-2" style="width: 17rem; height: 2rem;">
+                                Родители: {{ var.child.first_parent }}, {{ var.child.second_parent }}</p>
+                        {% endif %}
+                        <p class="card-text small mb-0 font-weight-light pb-1">Начало
+                            лечения: {{ var.child.created_date.date }}</p>
+                        <div class="text-center">
+                            <a role="button" disabled class="btn btn-secondary px-2 py-0 m-2"
+                               style="width: 42%; height: 24%;"
+                               href={% url 'webapp:program_detail' var.pk %}>Программа ребёнка
+                            </a>
+                            <a role="button" class="btn btn-success px-2 py-0 m-2"
+                               style="width: 42%; height: 24%;"
+                               href="{% url 'webapp:session_create' var.pk %}">Начать сессию</a>
+                        </div>
                     </div>
                 </div>
-            </div>
+            {% endif %}
         {% endfor %}
     </div>
 {% endblock %}

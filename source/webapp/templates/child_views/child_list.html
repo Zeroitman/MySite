@@ -19,7 +19,7 @@
             </form>
         </div>
         {#  Вывод всех детей  #}
-        <div class="list-group mt-3">
+        <div class="list-group">
             <a href="{% url 'webapp:child_create' %}" class="btn btn-primary btn-block d-block mt-3 mb-3"
                style="width: 240px">Добавить ребёнка</a>
             {% for c in child_list %}
