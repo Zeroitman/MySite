@@ -14,7 +14,7 @@ def enter_text(context, text, name):
     context.browser.find_element_by_name(name).send_keys(text)
 
 
-@when(u'Я отправляю форму')
+@then(u'Я отправляю форму')
 def submit_form(context):
     sleep(1)
     context.browser.find_element_by_css_selector('button').click()
@@ -43,4 +43,3 @@ def see_error_with_text(context, text):
     sleep(1)
     error = context.browser.find_element_by_css_selector('.error-text')
     assert error.text == text
-    sleep(2)

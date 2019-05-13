@@ -5,7 +5,7 @@
     <form action="{% url 'webapp:child_create' %}" method="post" enctype="multipart/form-data">
         {% csrf_token %}
         {{ form.as_p }}
-        <button type="submit" class="btn btn-success m-2" style="width: 125px">Сохранить</button>
+        <button type="submit" class="btn btn-success m-2" style="width: 125px" id="add_child_button">Сохранить</button>
         <a role="button" class="btn btn-primary m-2" href="{% url 'webapp:child_list' %}" style="width: 125px">Назад</a>
     </form>
     </div>
