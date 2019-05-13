@@ -81,13 +81,15 @@
 
         <h3 class="text-center mt-4">Результаты по сессиям</h3>
 
+        <h4 id=03 class="text-dark font-weight-normal text-center mt-3"></h4>
         <div class="row justify-content-center">
             {% for session in program.session_program.all %}
-                <div class="col-11 col-sm-5 col-md-3 col-lg-2 m-1 p-0"
-                      style="border: 1px solid grey; border-collapse: collapse;">
+                <div id=003 class="col-11 col-sm-5 col-md-3 col-lg-2 m-1 p-0"
+                     style="border: 1px solid grey; border-collapse: collapse;">
                     <div class="card-header text-center"><b>Сессия <br> {{ session.created_date.date }}</b></div>
                     <div class="card-body text-center p-0 m-0" style="height: 33px">
-                        <a href="{% url 'webapp:session_result_view' session.pk %}" class="btn btn-block btn-primary m-0">Результат</a>
+                        <a href="{% url 'webapp:session_result_view' session.pk %}"
+                           class="btn btn-block btn-primary m-0">Результат</a>
                     </div>
                 </div>
             {% endfor %}

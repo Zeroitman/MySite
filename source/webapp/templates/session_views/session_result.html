@@ -17,7 +17,7 @@
                         <th scope="col">Количество ответов<br>(кол-во)</th>
                         <th scope="col">Процент успешности <br>(%)</th>
                         <th scope="col">Статус</th>
-                        <th scope="col">Переместить в усвоенные?<br></th>
+                        <th scope="col">Переместить в закрытые?<br></th>
                         <th scope="col">Редакт.<br>ответы</th>
                     </tr>
                     </thead>
@@ -32,9 +32,9 @@
                             <td id="001">{{ result.total }}</td>
                             <td>{{ result.percent }}</td>
                             <td> {% if result.skill.status != True %}
-                                <p>Усвоен</p>
+                                <p>Закрыт</p>
                             {% else %}
-                                <p>Неусвоен</p>
+                                <p>Открыт</p>
                             {% endif %}
                             <td class="m-0 p-0">
                                 {% if result.skill.status == True %}
@@ -82,7 +82,7 @@
                         <th scope="col">Количество ответов<br>(кол-во)</th>
                         <th scope="col">Процент успешности <br>(%)</th>
                         <th scope="col">Статус</th>
-                        <th scope="col">Переместить в усвоенные?<br></th>
+                        <th scope="col">Переместить в закрытые?<br></th>
                     </tr>
                     </thead>
                     <tbody>
@@ -96,9 +96,9 @@
                             <td id="001">{{ result.total }}</td>
                             <td>{{ result.percent }}</td>
                             <td> {% if result.skill.status != True %}
-                                <p>Усвоен</p>
+                                <p>Закрыт</p>
                             {% else %}
-                                <p>Неусвоен</p>
+                                <p>Открыт</p>
                             {% endif %}
                             </td>
                             <td class="m-0 p-0">
@@ -115,7 +115,7 @@
                 </table>
             </div>
             <div class="text-center mt-3">
-                <a role="button" class="btn btn-success m-2" href="{{ request.META.HTTP_REFERER }}"
+                <a role="button" class="btn btn-success m-2" href="{% url 'webapp:change_status_session' session_pk %}"
                    style="width: 100%">Закончить просмотр результатов</a>
             </div>
         {% endif %}
