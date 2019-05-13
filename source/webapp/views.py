@@ -10,8 +10,8 @@ from datetime import datetime, timezone
 import threading
 
 
-def automatic_session_closure():
-    threading.Timer(60, automatic_session_closure).start()
+def automatic_session_and_program_closure():
+    threading.Timer(60, automatic_session_and_program_closure).start()
     now = datetime.now(timezone.utc)
     all_session = Session.objects.filter(status_session=False)
     for session in all_session:
@@ -19,9 +19,33 @@ def automatic_session_closure():
         if delta.seconds > 7200:
             session.status_session = True
             session.save()
+    all_skills_in_program = SkillsInProgram.objects.all()
+    d = []
+    for skill in all_skills_in_program:
+        d.append(skill.program.pk)
+    i = 1
+    while i <= max(d):
+        skills = SkillsInProgram.objects.filter(program_id=i)
+        e = []
+        for a in skills:
+            e.append(a.status)
+
+        def all_the_same():
+            if not e:
+                return True
+            first, *rest = e
+            the_same = (x == first and x == False for x in rest)
+            return all(the_same)
+
+        a = all_the_same()
+        if a:
+            program = Program.objects.get(id=i)
+            program.status = False
+            program.save()
+        i = i + 1
 
 
-automatic_session_closure()
+automatic_session_and_program_closure()
 
 
 # Skill-----------------------------------------------------------------------------------------------------------------
@@ -251,12 +275,19 @@ def create_session_and_result(request, pk):
 
 
 def change_status_session(request, pk):
-    response = HttpResponseRedirect('http://localhost:8000/')
     session = get_object_or_404(Session, pk=pk)
-    session.status_session = True
-    session.save()
-    response.delete_cookie("session_number")
-    return response
+    if session.status_session:
+        response = HttpResponseRedirect('http://localhost:8000/program/' + str(session.program_id))
+        response.delete_cookie("session_number")
+        automatic_session_and_program_closure()
+        return response
+    else:
+        session.status_session = True
+        session.save()
+        response = HttpResponseRedirect('http://localhost:8000/program/' + str(session.program_id))
+        response.delete_cookie("session_number")
+        automatic_session_and_program_closure()
+        return response
 
 
 # Categories------------------------------------------------------------------------------------------------------------
