@@ -177,6 +177,11 @@ class ProgramUpdateView(UpdateView):
     template_name = 'program_views/program_update.html'
     form_class = ProgramForm
 
+    def form_valid(self, form):
+        form.instance.program = Program.objects.get(pk=self.kwargs.get('pk'))
+        if form.instance.status:
+            return super().form_valid(form)
+
     def get_success_url(self):
         return reverse('webapp:program_detail', kwargs={'pk': self.object.pk})
 

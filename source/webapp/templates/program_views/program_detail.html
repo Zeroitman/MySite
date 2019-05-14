@@ -73,8 +73,10 @@
                 class="font-weight-normal">{{ program.edited_date.date }}</span></p>
 
         <div class="text-center">
-            <a role="button" class="btn btn-success m-2" style="width: 125px"
-               href={% url 'webapp:program_update' program.pk %}>Редактировать</a>
+            {% if program.status == True %}
+                <a role="button" class="btn btn-success m-2" style="width: 125px"
+                   href={% url 'webapp:program_update' program.pk %}>Редактировать</a>
+            {% endif %}
             <a role="button" class="btn btn-primary m-2" href="{% url 'webapp:program_list' %}"
                style="width: 125px">Назад</a>
         </div>
