@@ -217,6 +217,10 @@ class ResultListView(ListView):
         context['session_pk'] = now_pk
         current_session = Session.objects.get(id=now_pk)
         context['status_session'] = current_session.status_session
+        context['date_of_session'] = current_session.created_date
+        context['terapist'] = current_session.attending_therapist
+        current_program = Program.objects.get(id=current_session.program_id)
+        context['child'] = current_program.child
         return context
 
     def get_queryset(self):
