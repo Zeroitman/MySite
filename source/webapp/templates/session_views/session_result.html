@@ -65,7 +65,9 @@
                 </table>
             </div>
             <div class="text-center mt-3">
-                <a role="button" class="btn btn-success m-2" href="{% url 'webapp:change_status_session' session_pk %}"
+                <a role="button" class="btn btn-success m-2"
+                   id = "session_close"
+                   href="{% url 'webapp:change_status_session' session_pk %}"
                    style="width: 100%">Закрыть сессию</a>
             </div>
         {% else %}
@@ -115,7 +117,9 @@
                 </table>
             </div>
             <div class="text-center mt-3">
-                <a role="button" class="btn btn-success m-2" href="{% url 'webapp:change_status_session' session_pk %}"
+                <a role="button" class="btn btn-success m-2"
+                   id = "session_close"
+                   href="{% url 'webapp:change_status_session' session_pk %}"
                    style="width: 100%">Закончить просмотр результатов</a>
             </div>
         {% endif %}

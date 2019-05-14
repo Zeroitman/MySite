@@ -61,6 +61,8 @@ DATABASES = {
         'HOST': '127.0.0.1',
         'TEST': {
             'NAME': 'test_aba',
+            'CHARSET': 'utf8',
+            'COLLATION': 'utf8_general_ci',
         },
     }
 }
