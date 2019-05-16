@@ -47,104 +47,120 @@
                 class="font-weight-normal">{{ program.author_therapist.user }}</span>
         </p>
 
-
-        <p class="font-weight-bold">Закрытые навыки:</p>
-        <p id=01 class="text-dark font-weight-normal"></p>
-        <div id="table_1" class="table" style="overflow: auto;">
-            <div class="d-flex justify-content-start">
-                <table class="col-10 table table-bordered">
-                    <thead>
-                    <tr class="text-center">
-                        <th scope="col">Код</th>
-                        <th scope="col">Название</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    {% for program_skill in program.related_to_program.all %}
-                        {% if program_skill.status == False %}
-                            <tr>
-                                <td>{{ program_skill.skill.code_skill }}</td>
-                                <td id="001">
-                                    <p class="text m-0 text-truncate font-weight-normal">
-                                        {{ program_skill.skill.name }}</p>
-                                </td>
-                            </tr>
-                        {% endif %}
-                    {% endfor %}
-                    </tbody>
-                </table>
-            </div>
-        </div>
-
-        <p class="font-weight-bold">Открытые навыки:</p>
-        <p id=02 class="text-dark font-weight-normal"></p>
-        <div id="table_2" class="table" style="overflow: auto;">
-            <div class="d-flex justify-content-start">
-                <table class="col-10 table table-bordered">
-                    <thead>
-                    <tr class="text-center">
-                        <th scope="col">Код</th>
-                        <th scope="col">Название</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    {% for program_skill in program.related_to_program.all %}
-                        {% if program_skill.status != False %}
-                            <tr>
-                                <td>{{ program_skill.skill.code_skill }}</td>
-                                <td id="002">
-                                    <p class="text m-0 text-truncate font-weight-normal">
-                                        {{ program_skill.skill.name }}</p>
-                                </td>
-                            </tr>
-                        {% endif %}
-                    {% endfor %}
-                    </tbody>
-                </table>
-                <table class="col-1 table table-bordered">
-                    {% if all_skill.values %}
-                        <thead>
-                        <tr class="text-center">
-                            <th scope="col">Процент</th>
-                        </tr>
-                        </thead>
-                    {% endif %}
-                    <tbody>
-                    {% if all_skill.values %}
-                        {% for skill in all_skill.values %}
-                            <tr class="text-center">
-                                <td>{{ skill }}</td>
-                            </tr>
-                        {% endfor %}
-                    {% endif %}
-                    </tbody>
-                </table>
-            </div>
-        </div>
-
         <p class="font-weight-bold">Дата создания: <span
                 class="font-weight-normal">{{ program.created_date.date }}</span></p>
+
         <p class="font-weight-bold">Дата последнего редактирования: <span
                 class="font-weight-normal">{{ program.edited_date.date }}</span></p>
 
-        <div class="text-center">
+        <div class="accordion" id="accordionExample">
+            <div class="card">
+                <button class="btn btn_outline_none btn-light"
+                        type="button"
+                        data-toggle="collapse"
+                        data-target="#collapseOne"
+                        aria-controls="collapseOne">
+                    <span class="btn_accordion_text">Закрытые навыки в программе</span>
+                </button>
+                <div id="collapseOne" class="collapse" aria-labelledby="headingOne"
+                     data-parent="#accordionExample">
+                    <h5 id=01 class="text-dark text-center m-0 pl-5"></h5>
+                    <div id="table_1" class="table m-0 table_skill">
+                        <div class="d-flex justify-content-start">
+                            <table class="col-12 table table-bordered m-0 p-0">
+                                <thead>
+                                <tr class="text-center">
+                                    <th scope="col">Код</th>
+                                    <th scope="col">Название</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                {% for program_skill in program.related_to_program.all %}
+                                    {% if program_skill.status == False %}
+                                        <tr>
+                                            <td>{{ program_skill.skill.code_skill }}</td>
+                                            <td id="001">
+                                                <p class="text m-0 text-truncate font-weight-normal">
+                                                    {{ program_skill.skill.name }}</p>
+                                            </td>
+                                        </tr>
+                                    {% endif %}
+                                {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="card">
+                <button class="btn btn_outline_none btn-light"
+                        type="button"
+                        data-toggle="collapse"
+                        data-target="#collapseTwo"
+                        aria-controls="collapseTwo">
+                    <span class="btn_accordion_text">Открытые навыки в программе</span>
+                </button>
+                <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionExample">
+                    <h5 id=02 class="text-dark text-center m-0 pl-5"></h5>
+                    <div id="table_2" class="table m-0 table_skill">
+                        <div class="d-flex justify-content-start">
+                            <table class="col-10 table table-bordered m-0">
+                                <thead>
+                                <tr class="text-center">
+                                    <th scope="col">Код</th>
+                                    <th scope="col">Название</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                {% for program_skill in program.related_to_program.all %}
+                                    {% if program_skill.status != False %}
+                                        <tr>
+                                            <td>{{ program_skill.skill.code_skill }}</td>
+                                            <td id="002">
+                                                <p class="text m-0 text-truncate font-weight-normal">
+                                                    {{ program_skill.skill.name }}</p>
+                                            </td>
+                                        </tr>
+                                    {% endif %}
+                                {% endfor %}
+                                </tbody>
+                            </table>
+                            <table class="col-2 table table-bordered m-0">
+                                {% if all_skill.values %}
+                                    <thead>
+                                    <tr class="text-center">
+                                        <th scope="col">Процент</th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    {% for skill in all_skill.values %}
+                                        <tr class="text-center">
+                                            <td>{{ skill }}</td>
+                                        </tr>
+                                    {% endfor %}
+                                {% endif %}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="text-center mt-4">
             {% if program.status == True %}
-                <a role="button" class="btn btn-success m-2" style="width: 125px"
+                <a role="button" class="btn btn-success m-2 update_and_back"
                    href={% url 'webapp:program_update' program.pk %}>Редактировать</a>
             {% endif %}
-            <a role="button" class="btn btn-primary m-2" href="{% url 'webapp:program_list' %}"
-               style="width: 125px">Назад</a>
+            <a role="button" class="btn btn-primary m-2 update_and_back"
+               href="{% url 'webapp:program_list' %}">Назад</a>
         </div>
-
         <h3 class="text-center mt-4">Результаты по сессиям</h3>
-
         <h4 id=03 class="text-dark font-weight-normal text-center mt-3"></h4>
         <div class="row justify-content-center">
             {% for session in program.session_program.all %}
-                <div id=003 class="col-11 col-sm-5 col-md-3 col-lg-2 m-1 p-0"
-                     style="border: 1px solid grey; border-collapse: collapse;">
+                <div id="003" class="col-11 col-sm-5 col-md-3 col-lg-2 m-1 p-0">
                     <div class="card-header text-center"><b>Сессия <br> {{ session.created_date.date }}</b></div>
-                    <div class="card-body text-center p-0 m-0" style="height: 33px">
+                    <div class="card-body text-center p-0 m-0 result">
                         <a href="{% url 'webapp:session_result_view' session.pk %}"
                            class="btn btn-block btn-primary m-0">Результат</a>
                     </div>
