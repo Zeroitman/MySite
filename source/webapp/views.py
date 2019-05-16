@@ -1,4 +1,4 @@
-from django.http import JsonResponse, HttpResponseRedirect
+from django.http import JsonResponse
 from django.shortcuts import get_object_or_404, redirect, render
 from webapp.models import Program, Session, Result, Skill, Child, Categories, SkillsInProgram
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, View
@@ -297,17 +297,15 @@ def create_session_and_result(request, pk):
                        'skills': Skill.objects.all()})
 
 
-def change_status_session(request, pk):
+def close_session_result_view(request, pk):
     session = get_object_or_404(Session, pk=pk)
     if session.status_session:
-        response = HttpResponseRedirect('http://localhost:8000/program/' + str(session.program_id))
-        response.delete_cookie("session_number")
         automatic_session_and_program_closure()
-        return response
+        return redirect('webapp:program_detail', pk=session.program_id)
     else:
         session.status_session = True
         session.save()
-        response = HttpResponseRedirect('http://localhost:8000/program/' + str(session.program_id))
+        response = redirect('webapp:program_detail', pk=session.program_id)
         response.delete_cookie("session_number")
         automatic_session_and_program_closure()
         return response
