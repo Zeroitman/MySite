@@ -11,38 +11,39 @@ import threading
 
 
 def automatic_session_and_program_closure():
-    threading.Timer(60, automatic_session_and_program_closure).start()
-    now = datetime.now(timezone.utc)
-    all_session = Session.objects.filter(status_session=False)
-    for session in all_session:
-        delta = now - session.created_date
-        if delta.seconds > 7200:
-            session.status_session = True
-            session.save()
-    all_skills_in_program = SkillsInProgram.objects.all()
-    d = []
-    for skill in all_skills_in_program:
-        d.append(skill.program.pk)
-    i = 1
-    while i <= max(d):
-        skills = SkillsInProgram.objects.filter(program_id=i)
-        e = []
-        for a in skills:
-            e.append(a.status)
-
-        def all_the_same():
-            if not e:
-                return True
-            first, *rest = e
-            the_same = (x == first and x == False for x in rest)
-            return all(the_same)
-
-        a = all_the_same()
-        if a:
-            program = Program.objects.get(id=i)
-            program.status = False
-            program.save()
-        i = i + 1
+    pass
+    # threading.Timer(60, automatic_session_and_program_closure).start()
+    # now = datetime.now(timezone.utc)
+    # all_session = Session.objects.filter(status_session=False)
+    # for session in all_session:
+    #     delta = now - session.created_date
+    #     if delta.seconds > 7200:
+    #         session.status_session = True
+    #         session.save()
+    # all_skills_in_program = SkillsInProgram.objects.all()
+    # d = []
+    # for skill in all_skills_in_program:
+    #     d.append(skill.program.pk)
+    # i = 1
+    # while i <= max(d):
+    #     skills = SkillsInProgram.objects.filter(program_id=i)
+    #     e = []
+    #     for a in skills:
+    #         e.append(a.status)
+    #
+    #     def all_the_same():
+    #         if not e:
+    #             return True
+    #         first, *rest = e
+    #         the_same = (x == first and x == False for x in rest)
+    #         return all(the_same)
+    #
+    #     a = all_the_same()
+    #     if a:
+    #         program = Program.objects.get(id=i)
+    #         program.status = False
+    #         program.save()
+    #     i = i + 1
 
 
 automatic_session_and_program_closure()
@@ -379,6 +380,7 @@ def counter_done_with_hint(request, pk):
     return JsonResponse({'counter': result.done_with_hint})
 
 
+
 def counter_get_view(request, pk):
     result = get_object_or_404(Result, skill=pk, session_id=request.COOKIES.get("session_number"))
     return JsonResponse({
@@ -386,3 +388,4 @@ def counter_get_view(request, pk):
         'result_w_hint': result.done_with_hint,
         'total': result.total
     })
+
