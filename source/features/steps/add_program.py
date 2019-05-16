@@ -42,3 +42,4 @@ def click_save(context):
     context.browser.find_element_by_xpath(
         u"(.//*[normalize-space(text()) and normalize-space(.)='Навыки:'])[1]/following::button[1]").click()
 
+
