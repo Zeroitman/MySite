@@ -1,6 +1,5 @@
 import os
 from django.urls import reverse_lazy
-from .settings_local import *
 from django.utils.translation import gettext_lazy as _
 
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -93,11 +92,13 @@ USE_L10N = True
 
 USE_TZ = True
 
-STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, 'webapp/static')
-]
 
 STATIC_URL = '/static/'
 LOGIN_URL = reverse_lazy('login')
 LOGIN_REDIRECT_URL = reverse_lazy('webapp:child_program_list')
 LOGOUT_REDIRECT_URL = reverse_lazy('login')
+
+try:
+    from .settings_local import *
+except ImportError:
+    pass
