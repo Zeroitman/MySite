@@ -1,3 +1,4 @@
+# django config files
 .idea
 *.sqlite3
 venv
@@ -7,3 +8,9 @@ __pycache__
 settings_local.py
 requirements-local.txt
 .vscode
+
+# log files
+*.log
+
+# statics for server
+/source/static/
