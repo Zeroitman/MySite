@@ -8,6 +8,7 @@ from django.db.models import Q
 from django.views.decorators.csrf import csrf_exempt
 from datetime import datetime, timezone
 import threading
+from django.contrib.auth.mixins import LoginRequiredMixin
 
 
 def automatic_session_and_program_closure():
@@ -49,12 +50,12 @@ automatic_session_and_program_closure()
 
 
 # Skill-----------------------------------------------------------------------------------------------------------------
-class SkillDetailView(DetailView):
+class SkillDetailView(LoginRequiredMixin, DetailView):
     model = Skill
     template_name = 'skill_views/skill_detail.html'
 
 
-class SkillCreateView(CreateView):
+class SkillCreateView(LoginRequiredMixin, CreateView):
     model = Skill
     form_class = SkillForm
     template_name = 'skill_views/skill_create.html'
@@ -63,7 +64,7 @@ class SkillCreateView(CreateView):
         return reverse('webapp:skill_detail', kwargs={'pk': self.object.pk})
 
 
-class SkillUpdateView(UpdateView):
+class SkillUpdateView(LoginRequiredMixin, UpdateView):
     model = Skill
     form_class = SkillForm
     template_name = 'skill_views/skill_update.html'
@@ -78,7 +79,7 @@ def delete_skill(request, pk):
     return redirect('webapp:categories_list')
 
 
-class SkillSearchView(View):
+class SkillSearchView(LoginRequiredMixin, View):
     template_name = 'skill_views/skill_search_results.html'
 
     def get(self, request):
@@ -93,19 +94,19 @@ class SkillSearchView(View):
 
 
 # Child-----------------------------------------------------------------------------------------------------------------
-class ChildList(ListView):
+class ChildList(LoginRequiredMixin, ListView):
     # Query с детьми со статусом active, active берется из менеджера в моделях.
     queryset = Child.objects.active()
     model = Child
     template_name = 'child_views/child_list.html'
 
 
-class ChildDetailView(DetailView):
+class ChildDetailView(LoginRequiredMixin, DetailView):
     model = Child
     template_name = 'child_views/child_detail.html'
 
 
-class ChildUpdateView(UpdateView):
+class ChildUpdateView(LoginRequiredMixin, UpdateView):
     model = Child
     template_name = 'child_views/child_update.html'
     form_class = ChildForm
@@ -114,7 +115,7 @@ class ChildUpdateView(UpdateView):
         return reverse('webapp:child_detail', kwargs={'pk': self.object.pk})
 
 
-class ChildCreateView(CreateView):
+class ChildCreateView(LoginRequiredMixin, CreateView):
     model = Child
     template_name = 'child_views/child_create.html'
     form_class = ChildForm
@@ -131,7 +132,7 @@ def soft_delete_child(request, pk):
     return redirect('webapp:child_list')
 
 
-class ChildSearchView(View):
+class ChildSearchView(LoginRequiredMixin, View):
     template_name = 'child_views/child_search_results.html'
 
     def get(self, request):
@@ -148,17 +149,17 @@ class ChildSearchView(View):
 
 
 # Program---------------------------------------------------------------------------------------------------------------
-class ChildInProgramListView(ListView):
+class ChildInProgramListView(LoginRequiredMixin, ListView):
     model = Program
     template_name = 'program_views/child_program_list.html'
 
 
-class ProgramListView(ListView):
+class ProgramListView(LoginRequiredMixin, ListView):
     model = Program
     template_name = 'program_views/program_list.html'
 
 
-class ProgramDetailView(DetailView):
+class ProgramDetailView(LoginRequiredMixin, DetailView):
     model = Program
     template_name = 'program_views/program_detail.html'
 
@@ -177,7 +178,7 @@ class ProgramDetailView(DetailView):
         return context
 
 
-class ProgramCreateView(CreateView):
+class ProgramCreateView(LoginRequiredMixin, CreateView):
     model = Program
     template_name = 'program_views/program_create.html'
     form_class = ProgramForm
@@ -186,7 +187,7 @@ class ProgramCreateView(CreateView):
         return reverse('webapp:program_detail', kwargs={'pk': self.object.pk})
 
 
-class ProgramUpdateView(UpdateView):
+class ProgramUpdateView(LoginRequiredMixin, UpdateView):
     model = Program
     template_name = 'program_views/program_update.html'
     form_class = ProgramForm
@@ -200,7 +201,7 @@ class ProgramUpdateView(UpdateView):
         return reverse('webapp:program_detail', kwargs={'pk': self.object.pk})
 
 
-class ProgramSearchView(View):
+class ProgramSearchView(LoginRequiredMixin, View):
     template_name = 'program_views/program_search_results.html'
 
     def get(self, request):
@@ -212,7 +213,7 @@ class ProgramSearchView(View):
         return render(self.request, self.template_name, context)
 
 
-class AddExtraSkill(CreateView):
+class AddExtraSkill(LoginRequiredMixin, CreateView):
     model = SkillsInProgram
     form_class = SkillsInProgramForm
 
@@ -226,7 +227,7 @@ class AddExtraSkill(CreateView):
 
 
 # Result----------------------------------------------------------------------------------------------------------------
-class ResultListView(ListView):
+class ResultListView(LoginRequiredMixin, ListView):
     model = Result
     template_name = 'session_views/session_result.html'
 
@@ -246,7 +247,7 @@ class ResultListView(ListView):
         return Result.objects.filter(session=self.kwargs['pk'])
 
 
-class ResultUpdateView(UpdateView):
+class ResultUpdateView(LoginRequiredMixin, UpdateView):
     model = Result
     form_class = ResultForm
 
@@ -264,37 +265,40 @@ def change_status_skill(request, pk):
 
 
 # Session---------------------------------------------------------------------------------------------------------------
-class SessionDetailView(DetailView):
+class SessionDetailView(LoginRequiredMixin, DetailView):
     model = Session
     template_name = 'session_views/session_detail.html'
 
 
 def create_session_and_result(request, pk):
-    current_program = Program.objects.get(id=pk)
-    skill_in_program = SkillsInProgram.objects.filter(program_id=current_program.pk, status=True)
-    if not request.COOKIES.get("session_number"):
-        session = Session.objects.create(program=current_program)
-        session.save()
-        for skill in skill_in_program:
-            current_skill = SkillsInProgram.objects.get(pk=skill.pk)
-            current_result = Session.objects.get(id=session.pk)
-            result = Result.objects.create(skill=current_skill, session=current_result)
-            result.save()
+    if request.user.is_authenticated:
+        current_program = Program.objects.get(id=pk)
+        skill_in_program = SkillsInProgram.objects.filter(program_id=current_program.pk, status=True)
+        if not request.COOKIES.get("session_number"):
+            session = Session.objects.create(program=current_program)
+            session.save()
+            for skill in skill_in_program:
+                current_skill = SkillsInProgram.objects.get(pk=skill.pk)
+                current_result = Session.objects.get(id=session.pk)
+                result = Result.objects.create(skill=current_skill, session=current_result)
+                result.save()
 
-        response = render(request, 'session_views/session_detail.html',
-                          {'list': skill_in_program, 'pk': session.pk, 'program': current_program,
+            response = render(request, 'session_views/session_detail.html',
+                              {'list': skill_in_program, 'pk': session.pk, 'program': current_program,
+                               'skills': Skill.objects.all()})
+            response.set_cookie("session_number", session.pk, expires=7200)
+            return response
+        else:
+            for skill in skill_in_program:
+                current_skill = SkillsInProgram.objects.get(pk=skill.pk)
+                current_result = Session.objects.get(id=request.COOKIES.get("session_number"))
+                Result.objects.get_or_create(skill=current_skill, session=current_result)
+            return render(request, 'session_views/session_detail.html',
+                          {'list': skill_in_program, 'pk': request.COOKIES.get("session_number"),
+                           'program': current_program,
                            'skills': Skill.objects.all()})
-        response.set_cookie("session_number", session.pk)
-        return response
     else:
-        for skill in skill_in_program:
-            current_skill = SkillsInProgram.objects.get(pk=skill.pk)
-            current_result = Session.objects.get(id=request.COOKIES.get("session_number"))
-            Result.objects.get_or_create(skill=current_skill, session=current_result)
-        return render(request, 'session_views/session_detail.html',
-                      {'list': skill_in_program, 'pk': request.COOKIES.get("session_number"),
-                       'program': current_program,
-                       'skills': Skill.objects.all()})
+        return redirect('login')
 
 
 def close_session_result_view(request, pk):
@@ -312,17 +316,17 @@ def close_session_result_view(request, pk):
 
 
 # Categories------------------------------------------------------------------------------------------------------------
-class CategoriesListView(ListView):
+class CategoriesListView(LoginRequiredMixin, ListView):
     model = Categories
     template_name = 'category_views/categories_list.html'
 
 
-class CategoriesDetailView(DetailView):
+class CategoriesDetailView(LoginRequiredMixin, DetailView):
     model = Categories
     template_name = 'category_views/categories_detail.html'
 
 
-class CategoriesCreateView(CreateView):
+class CategoriesCreateView(LoginRequiredMixin, CreateView):
     model = Categories
     form_class = CategoryForm
     template_name = 'category_views/categories_create.html'
@@ -331,7 +335,7 @@ class CategoriesCreateView(CreateView):
         return reverse('webapp:categories_list')
 
 
-class CategoriesUpdateView(UpdateView):
+class CategoriesUpdateView(LoginRequiredMixin, UpdateView):
     model = Categories
     template_name = 'category_views/categories_update.html'
     form_class = CategoryForm
@@ -346,7 +350,7 @@ def delete_category(request, pk):
     return redirect('webapp:categories_list')
 
 
-class CategoriesSearchView(View):
+class CategoriesSearchView(LoginRequiredMixin, View):
     template_name = 'category_views/categories_search_results.html'
 
     def get(self, request):
@@ -379,7 +383,6 @@ def counter_done_with_hint(request, pk):
     return JsonResponse({'counter': result.done_with_hint})
 
 
-
 def counter_get_view(request, pk):
     result = get_object_or_404(Result, skill=pk, session_id=request.COOKIES.get("session_number"))
     return JsonResponse({
@@ -387,4 +390,3 @@ def counter_get_view(request, pk):
         'result_w_hint': result.done_with_hint,
         'total': result.total
     })
-
