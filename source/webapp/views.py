@@ -1,4 +1,4 @@
-from django.http import JsonResponse, HttpResponseRedirect
+from django.http import JsonResponse
 from django.shortcuts import get_object_or_404, redirect, render
 from webapp.models import Program, Session, Result, Skill, Child, Categories, SkillsInProgram
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, View
@@ -162,6 +162,20 @@ class ProgramDetailView(DetailView):
     model = Program
     template_name = 'program_views/program_detail.html'
 
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        now_pk = int(self.kwargs.get('pk'))
+        all_true_skills = SkillsInProgram.objects.filter(program_id=now_pk, status=True)
+        all_session_in_program = Session.objects.filter(program_id=now_pk, status_session=True)
+        skills = {}
+        for session in all_session_in_program:
+            for sk in all_true_skills:
+                current_program_skill = Result.objects.filter(session_id=session.pk, skill_id=sk)
+                for skill in current_program_skill:
+                    skills[skill.skill_id] = str(skill.percent)
+        context['all_skill'] = skills
+        return context
+
 
 class ProgramCreateView(CreateView):
     model = Program
@@ -176,6 +190,11 @@ class ProgramUpdateView(UpdateView):
     model = Program
     template_name = 'program_views/program_update.html'
     form_class = ProgramForm
+
+    def form_valid(self, form):
+        form.instance.program = Program.objects.get(pk=self.kwargs.get('pk'))
+        if form.instance.status:
+            return super().form_valid(form)
 
     def get_success_url(self):
         return reverse('webapp:program_detail', kwargs={'pk': self.object.pk})
@@ -217,6 +236,10 @@ class ResultListView(ListView):
         context['session_pk'] = now_pk
         current_session = Session.objects.get(id=now_pk)
         context['status_session'] = current_session.status_session
+        context['date_of_session'] = current_session.created_date
+        context['terapist'] = current_session.attending_therapist
+        current_program = Program.objects.get(id=current_session.program_id)
+        context['child'] = current_program.child
         return context
 
     def get_queryset(self):
@@ -274,17 +297,15 @@ def create_session_and_result(request, pk):
                        'skills': Skill.objects.all()})
 
 
-def change_status_session(request, pk):
+def close_session_result_view(request, pk):
     session = get_object_or_404(Session, pk=pk)
     if session.status_session:
-        response = HttpResponseRedirect('http://localhost:8000/program/' + str(session.program_id))
-        response.delete_cookie("session_number")
         automatic_session_and_program_closure()
-        return response
+        return redirect('webapp:program_detail', pk=session.program_id)
     else:
         session.status_session = True
         session.save()
-        response = HttpResponseRedirect('http://localhost:8000/program/' + str(session.program_id))
+        response = redirect('webapp:program_detail', pk=session.program_id)
         response.delete_cookie("session_number")
         automatic_session_and_program_closure()
         return response
@@ -358,6 +379,7 @@ def counter_done_with_hint(request, pk):
     return JsonResponse({'counter': result.done_with_hint})
 
 
+
 def counter_get_view(request, pk):
     result = get_object_or_404(Result, skill=pk, session_id=request.COOKIES.get("session_number"))
     return JsonResponse({
@@ -365,3 +387,4 @@ def counter_get_view(request, pk):
         'result_w_hint': result.done_with_hint,
         'total': result.total
     })
+

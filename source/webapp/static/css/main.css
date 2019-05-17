@@ -1,8 +1,7 @@
 
-body{
+body {
     background-color: white;
 }
-
 
 .d-flex form .done_but_padding {
     padding: 40px;
@@ -14,6 +13,33 @@ body{
     padding: 40px;
     width: 200px;
     height: 175px;
+}
+
+/*Program_detail------------------------------------------------------------------------------------------------------*/
+.btn_outline_none:focus {
+    box-shadow: none;
+}
+
+.btn_accordion_text {
+    font-size: 18px;
+
+}
+
+.update_and_back {
+    width: 125px;
+}
+
+.result {
+    height: 33px;
+}
+
+.table_skill {
+    overflow: auto;
+}
+
+.col-11{
+    border: 1px solid grey;
+    border-collapse: collapse;
 }
 
 

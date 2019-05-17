@@ -1,8 +1,9 @@
+from django.conf.urls import url
 from django.urls import path
 from webapp.views import \
     ProgramDetailView, ProgramListView, ProgramCreateView, ProgramUpdateView, ProgramSearchView, ChildInProgramListView, \
     ChildList, ChildSearchView, ChildDetailView, ChildUpdateView, ChildCreateView, soft_delete_child, \
-    SessionDetailView, counter_done_with_hint, counter_done, create_session_and_result, change_status_session, \
+    counter_done_with_hint, counter_done, create_session_and_result, close_session_result_view, \
     SkillDetailView, SkillUpdateView, SkillCreateView, SkillSearchView, delete_skill, \
     ResultUpdateView, ResultListView, change_status_skill, \
     CategoriesListView, CategoriesDetailView, CategoriesCreateView, CategoriesUpdateView, CategoriesSearchView, \
@@ -40,7 +41,7 @@ urlpatterns = [
     # session_and_result_urls-------------------------------------------------------------------------------------
     path('skill_in_program/<int:pk>', change_status_skill, name='change_status_skill'),
     path('program/<int:pk>/session', create_session_and_result, name='session_create'),
-    path('session/<int:pk>', change_status_session, name='change_status_session'),
+    path('session/<int:pk>', close_session_result_view, name='change_status_session'),
     path('session/<int:pk>/result', ResultListView.as_view(), name='session_result_view'),
     path('session/result/<int:pk>/update', ResultUpdateView.as_view(), name='session_result_update'),
     path('program/<int:pk>/skill/create', AddExtraSkill.as_view(), name='extra_skill'),

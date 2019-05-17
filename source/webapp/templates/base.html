@@ -34,10 +34,10 @@
                 {% if user.is_authenticated %}
                     <ul class="navbar-nav mr-auto">
                         <li class="nav-item">
-                            <a href="{% url 'webapp:child_list' %}" class="nav-link text-dark" id="child_page">Дети</a>
+                            <a href="{% url 'webapp:child_list' %}" class="nav-link text-dark child_page" id="child_page">Дети</a>
                         </li>
                         <li class="nav-item">
-                            <a href="{% url 'webapp:program_list' %}" class="nav-link text-dark">Программы</a>
+                            <a href="{% url 'webapp:program_list' %}" class="nav-link text-dark" id="program_page">Программы</a>
                         </li>
                         <li class="nav-item active">
                             <a href="{% url 'webapp:categories_list' %}" class="nav-link text-dark">Категории и
