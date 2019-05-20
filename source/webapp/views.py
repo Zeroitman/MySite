@@ -1,5 +1,6 @@
 from django.http import JsonResponse
 from django.shortcuts import get_object_or_404, redirect, render
+from mysql.connector import MySQLConnection
 from webapp.models import Program, Session, Result, Skill, Child, Categories, SkillsInProgram
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, View
 from webapp.forms import SkillForm, ChildForm, ResultForm, ProgramForm, CategoryForm, SkillsInProgramForm
@@ -11,42 +12,52 @@ import threading
 from django.contrib.auth.mixins import LoginRequiredMixin
 
 
-def automatic_session_and_program_closure():
-    threading.Timer(60, automatic_session_and_program_closure).start()
+def automatic_session_closure():
+    threading.Timer(60, automatic_session_closure).start()
     now = datetime.now(timezone.utc)
-    all_session = Session.objects.filter(status_session=False)
-    for session in all_session:
-        delta = now - session.created_date
-        if delta.seconds > 7200:
-            session.status_session = True
-            session.save()
+    conn = MySQLConnection(user='aba_django', password='aba_django', host='127.0.0.1', database='ABA')
+    cursor = conn.cursor()
+    stmt = "SHOW TABLES WHERE `Tables_in_ABA` LIKE 'webapp_session%' OR `Tables_in_ABA` LIKE 'webapp_skillsinprogram%';"
+    cursor.execute(stmt)
+    if cursor.fetchone():
+        automatic_program_closure()
+        all_session = Session.objects.filter(status_session=False)
+        for session in all_session:
+            delta = now - session.created_date
+            if delta.seconds > 7200:
+                session.status_session = True
+                session.save()
+
+
+def automatic_program_closure():
     all_skills_in_program = SkillsInProgram.objects.all()
-    d = []
+    number_of_program = []
     for skill in all_skills_in_program:
-        d.append(skill.program.pk)
+        number_of_program.append(skill.program.pk)
     i = 1
-    while i <= max(d):
-        skills = SkillsInProgram.objects.filter(program_id=i)
-        e = []
-        for a in skills:
-            e.append(a.status)
+    if number_of_program:
+        while i <= max(number_of_program):
+            skills = SkillsInProgram.objects.filter(program_id=i)
+            skills_in_the_program = []
+            for skill in skills:
+                skills_in_the_program.append(skill.status)
 
-        def all_the_same():
-            if not e:
-                return True
-            first, *rest = e
-            the_same = (x == first and x == False for x in rest)
-            return all(the_same)
+            def find_all_closed_skills():
+                if not skills_in_the_program:
+                    return True
+                first, *rest = skills_in_the_program
+                the_same = (x == first and False for x in rest)
+                return all(the_same)
 
-        a = all_the_same()
-        if a:
-            program = Program.objects.get(id=i)
-            program.status = False
-            program.save()
-        i = i + 1
+            answer = find_all_closed_skills()
+            if answer:
+                program = Program.objects.get(id=i)
+                program.status = False
+                program.save()
+            i = i + 1
 
 
-automatic_session_and_program_closure()
+automatic_session_closure()
 
 
 # Skill-----------------------------------------------------------------------------------------------------------------
@@ -304,14 +315,14 @@ def create_session_and_result(request, pk):
 def close_session_result_view(request, pk):
     session = get_object_or_404(Session, pk=pk)
     if session.status_session:
-        automatic_session_and_program_closure()
+        automatic_session_closure()
         return redirect('webapp:program_detail', pk=session.program_id)
     else:
         session.status_session = True
         session.save()
         response = redirect('webapp:program_detail', pk=session.program_id)
         response.delete_cookie("session_number")
-        automatic_session_and_program_closure()
+        automatic_session_closure()
         return response
 
 
