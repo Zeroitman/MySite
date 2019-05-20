@@ -1,14 +1,15 @@
-from django.conf.urls import url
 from django.urls import path
-from webapp.views import \
-    ProgramDetailView, ProgramListView, ProgramCreateView, ProgramUpdateView, ProgramSearchView, ChildInProgramListView, \
-    ChildList, ChildSearchView, ChildDetailView, ChildUpdateView, ChildCreateView, soft_delete_child, \
-    counter_done_with_hint, counter_done, create_session_and_result, close_session_result_view, \
-    SkillDetailView, SkillUpdateView, SkillCreateView, SkillSearchView, delete_skill, \
-    ResultUpdateView, ResultListView, change_status_skill, \
-    CategoriesListView, CategoriesDetailView, CategoriesCreateView, CategoriesUpdateView, CategoriesSearchView, \
-    delete_category, counter_get_view, AddExtraSkill
 
+from webapp.views.skils import SkillDetailView, SkillUpdateView, SkillCreateView, SkillSearchView, delete_skill
+from webapp.views.child import ChildList, ChildSearchView, ChildDetailView, ChildUpdateView, ChildCreateView, \
+    soft_delete_child
+from webapp.views.program import ProgramDetailView, ProgramListView, ProgramCreateView, ProgramUpdateView, \
+    ProgramSearchView, ChildInProgramListView
+from webapp.views.categories import CategoriesListView, CategoriesDetailView, CategoriesCreateView, \
+    CategoriesUpdateView, CategoriesSearchView, delete_category
+from webapp.views.session import create_session_and_result, AddExtraSkill, close_session_result_view, \
+    counter_done_with_hint, counter_done, counter_get_view
+from webapp.views.result import change_status_skill, ResultUpdateView, ResultListView
 
 app_name = 'webapp'
 
@@ -38,13 +39,14 @@ urlpatterns = [
     path('categories/<int:pk>/update', CategoriesUpdateView.as_view(), name='categories_update'),
     path('categories/<int:pk>/delete', delete_category, name='categories_delete'),
     path('categories/categories_search/', CategoriesSearchView.as_view(), name='search_view_categories'),
-    # session_and_result_urls-------------------------------------------------------------------------------------
-    path('skill_in_program/<int:pk>', change_status_skill, name='change_status_skill'),
+    # session_urls------------------------------------------------------------------------------------------------
     path('program/<int:pk>/session', create_session_and_result, name='session_create'),
     path('session/<int:pk>', close_session_result_view, name='change_status_session'),
-    path('session/<int:pk>/result', ResultListView.as_view(), name='session_result_view'),
-    path('session/result/<int:pk>/update', ResultUpdateView.as_view(), name='session_result_update'),
     path('program/<int:pk>/skill/create', AddExtraSkill.as_view(), name='extra_skill'),
+    # result_urls------------------------------------------------------------------------------------------------
+    path('session/<int:pk>/result', ResultListView.as_view(), name='session_result_view'),
+    path('skill_in_program/<int:pk>', change_status_skill, name='change_status_skill'),
+    path('session/result/<int:pk>/update', ResultUpdateView.as_view(), name='session_result_update'),
     # skill urls--------------------------------------------------------------------------------------------------
     path('skill/<int:pk>', SkillDetailView.as_view(), name='skill_detail'),
     path('skill/create', SkillCreateView.as_view(), name='skill_create'),
