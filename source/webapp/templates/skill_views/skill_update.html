@@ -9,18 +9,21 @@
                 <label for="id_name" class="col-sm-2 col-form-label col-form-label-sm">Навык</label>
                 <div class="col-sm-6">
                     {{ form.name }}
+                    <small class="form-text text-muted">Обязательное поле</small>
                 </div>
             </div>
             <div class="form-group row was-validated">
                 <label for="id_code_skill" class="col-sm-2 col-form-label col-form-label-sm">Код навыка</label>
                 <div class="col-sm-6">
                     {{ form.code_skill }}
+                    <small class="form-text text-muted">Обязательное поле</small>
                 </div>
             </div>
             <div class="form-group row was-validated">
                 <label for="id_category" class="col-sm-2 col-form-label col-form-label-sm">Категория</label>
                 <div class="col-sm-6">
                     {{ form.category }}
+                    <small class="form-text text-muted">Обязательное поле</small>
                 </div>
             </div>
             <div class="form-group row">
@@ -28,18 +31,21 @@
                     навыку</label>
                 <div class="col-sm-6">
                     {{ form.skill_comment }}
+                    <small class="form-text text-muted">По необходимости</small>
                 </div>
             </div>
             <div class="form-group row">
                 <label for="id_description" class="col-sm-2 col-form-label col-form-label-sm">Описание</label>
                 <div class="col-sm-6">
                     {{ form.description }}
+                    <small class="form-text text-muted">По необходимости</small>
                 </div>
             </div>
             <div class="form-group row">
                 <label for="id_criterion" class="col-sm-2 col-form-label col-form-label-sm">Критерий</label>
                 <div class="col-sm-6">
                     {{ form.criterion }}
+                    <small class="form-text text-muted">По необходимости</small>
                 </div>
             </div>
             <button type="submit" class="btn btn-success m-2" style="width: 125px">Сохранить</button>

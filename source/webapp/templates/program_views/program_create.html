@@ -12,24 +12,28 @@
                 <label for="id_name" class="col-sm-2 col-form-label col-form-label-sm">Программа</label>
                 <div class="col-sm-6">
                     {{ form.name }}
+                    <small class="form-text text-muted">Желательно ввести название для программы</small>
                 </div>
             </div>
             <div class="form-group row was-validated">
                 <label for="id_child" class="col-sm-2 col-form-label col-form-label-sm">Ребенок</label>
                 <div class="col-sm-6">
                     {{ form.child }}
+                    <small class="form-text text-muted">Обязательное поле</small>
                 </div>
             </div>
             <div class="form-group row was-validated">
                 <label for="id_author_therapist" class="col-sm-2 col-form-label col-form-label-sm">Терапевт:</label>
                 <div class="col-sm-6">
                     {{ form.author_therapist }}
+                    <small class="form-text text-muted">Обязательное поле</small>
                 </div>
             </div>
             <div class="form-group row">
                 <label for="id_description" class="col-sm-2 col-form-label col-form-label-sm">Описание</label>
                 <div class="col-sm-6">
                     {{ form.description }}
+                    <small class="form-text text-muted">По желанию</small>
                 </div>
             </div>
             <div class="form-group row">
@@ -37,6 +41,7 @@
                     программе</label>
                 <div class="col-sm-6">
                     {{ form.program_comment }}
+                    <small class="form-text text-muted">По желанию</small>
                 </div>
             </div>
             <button type="submit" class="btn btn-success m-2" style="width: 125px">Сохранить</button>
