@@ -93,6 +93,8 @@ class ProgramForm(forms.ModelForm):
                                    (attrs={'class': 'form-control form-control-sm shadow-none', 'required': True}),
                                    label='Ребёнок', )
 
+    skills = forms.ModelMultipleChoiceField(queryset=Skill.objects.all(),
+                                            widget=Select2MultipleWidget)
 
     class Meta:
         model = Program

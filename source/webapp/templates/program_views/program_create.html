@@ -44,6 +44,12 @@
                     <small class="form-text text-muted">По желанию</small>
                 </div>
             </div>
+            <div class="form-group row">
+                <label for="id_skills" class="col-sm-2 col-form-label col-form-label-sm">Навыки</label>
+                <div class="col-sm-6">
+                    {{ form.skills }}
+                </div>
+            </div>
             <button type="submit" class="btn btn-success m-2" style="width: 125px">Сохранить</button>
             <a role="button" class="btn btn-primary m-2" href="{% url 'webapp:program_list' %}" style="width: 125px">Назад</a>
         </form>
