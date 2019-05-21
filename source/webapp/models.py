@@ -176,3 +176,14 @@ class Result(models.Model):
         self.total = self.get_total()
         self.percent = self.get_percent()
         super(Result, self).save(*args, **kwargs)
+
+
+class Test(models.Model):
+    child = models.ForeignKey('Child', on_delete=models.PROTECT, related_name='child_test',
+                              verbose_name='Ребенок')
+    attending_therapist = models.ForeignKey(UserInfo, on_delete=models.PROTECT, null=True,
+                                            related_name='attending_test')
+    status = models.BooleanField(default=True, verbose_name='Статус')
+    created_date = models.DateTimeField(auto_now_add=True, verbose_name="Дата создания")
+    edited_date = models.DateTimeField(auto_now=True, blank=True, null=True, verbose_name="Дата редактирования")
+    deleted_date = models.DateTimeField(blank=True, null=True, verbose_name="Дата удаления")
