@@ -1,11 +1,49 @@
 {% extends 'base.html' %}
+{% load staticfiles %}
 {% block title %} Создание навыка {% endblock %}
 {% block content %}
     <div class="container">
         <h3 class="text-center">Создание навыка</h3>
         <form action="{% url 'webapp:skill_create' %}" method="post" enctype="multipart/form-data">
             {% csrf_token %}
-            {{ form.as_p }}
+            <div class="form-group row was-validated">
+                <label for="id_name" class="col-sm-2 col-form-label col-form-label-sm">Навык</label>
+                <div class="col-sm-6">
+                    {{ form.name }}
+                </div>
+            </div>
+            <div class="form-group row was-validated">
+                <label for="id_code_skill" class="col-sm-2 col-form-label col-form-label-sm">Код навыка</label>
+                <div class="col-sm-6">
+                    {{ form.code_skill }}
+                </div>
+            </div>
+            <div class="form-group row was-validated">
+                <label for="id_category" class="col-sm-2 col-form-label col-form-label-sm">Категория</label>
+                <div class="col-sm-6">
+                    {{ form.category }}
+                </div>
+            </div>
+            <div class="form-group row">
+                <label for="id_skill_comment" class="col-sm-2 col-form-label col-form-label-sm">Комментарий к
+                    навыку</label>
+                <div class="col-sm-6">
+                    {{ form.skill_comment }}
+                </div>
+            </div>
+            <div class="form-group row">
+                <label for="id_description" class="col-sm-2 col-form-label col-form-label-sm">Описание</label>
+                <div class="col-sm-6">
+                    {{ form.description }}
+                </div>
+            </div>
+            <div class="form-group row">
+                <label for="id_criterion" class="col-sm-2 col-form-label col-form-label-sm">Критерий</label>
+                <div class="col-sm-6">
+                    {{ form.criterion }}
+                </div>
+            </div>
+
             <button type="submit" class="btn btn-success m-2" style="width: 125px">Сохранить</button>
             <a role="button" class="btn btn-primary m-2" href="{{ request.META.HTTP_REFERER }}" style="width: 125px">Назад</a>
         </form>

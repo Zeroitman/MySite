@@ -1,12 +1,49 @@
 {% extends 'base.html' %}
+{% load staticfiles %}
+{% block styles %}
+    {{ form.media.css }}
+{% endblock %}
 {% block content %}
     <div class="container">
         <h2 class="text-center">Добавление программы</h2>
         <form action="{% url 'webapp:program_create' %}" method="post" enctype="multipart/form-data">
             {% csrf_token %}
-            {{ form.as_p }}
+            <div class="form-group row">
+                <label for="id_name" class="col-sm-2 col-form-label col-form-label-sm">Программа</label>
+                <div class="col-sm-6">
+                    {{ form.name }}
+                </div>
+            </div>
+            <div class="form-group row was-validated">
+                <label for="id_child" class="col-sm-2 col-form-label col-form-label-sm">Ребенок</label>
+                <div class="col-sm-6">
+                    {{ form.child }}
+                </div>
+            </div>
+            <div class="form-group row was-validated">
+                <label for="id_author_therapist" class="col-sm-2 col-form-label col-form-label-sm">Терапевт:</label>
+                <div class="col-sm-6">
+                    {{ form.author_therapist }}
+                </div>
+            </div>
+            <div class="form-group row">
+                <label for="id_description" class="col-sm-2 col-form-label col-form-label-sm">Описание</label>
+                <div class="col-sm-6">
+                    {{ form.description }}
+                </div>
+            </div>
+            <div class="form-group row">
+                <label for="id_program_comment" class="col-sm-2 col-form-label col-form-label-sm">Комментарий к
+                    программе</label>
+                <div class="col-sm-6">
+                    {{ form.program_comment }}
+                </div>
+            </div>
             <button type="submit" class="btn btn-success m-2" style="width: 125px">Сохранить</button>
             <a role="button" class="btn btn-primary m-2" href="{% url 'webapp:program_list' %}" style="width: 125px">Назад</a>
         </form>
     </div>
+{% endblock %}
+{% block scripts %}
+    {{ form.media.js }}
 {% endblock %}

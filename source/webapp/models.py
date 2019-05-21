@@ -10,7 +10,7 @@ class UserInfo(models.Model):
     edited_date = models.DateTimeField(auto_now=True, blank=True, null=True, verbose_name='Дата редактирования')
 
     def __str__(self):
-        return "%s. %s %s" % (self.user.id, self.user.first_name, self.user.last_name)
+        return "%s" % self.user.username
 
 
 class SoftDeleteManager(models.Manager):
@@ -25,7 +25,7 @@ class Child(models.Model):
     first_name = models.CharField(max_length=100, verbose_name='Имя ребенка')
     last_name = models.CharField(max_length=100, verbose_name='Фамилия ребенка')
     third_name = models.CharField(max_length=100, blank=True, null=True, verbose_name='Отчество ребенка')
-    birthday = models.DateField(null=True, blank=True, verbose_name='Дата рождения')
+    birthday = models.DateField(blank=True, null=True, verbose_name='Дата рождения')
     age = models.CharField(max_length=100, verbose_name='Возраст')
     address = models.TextField(max_length=1000, blank=True, null=True, verbose_name='Адрес проживания')
     characteristic = models.CharField(max_length=1000, blank=True, null=True, verbose_name='Характеристика на ребенка')
@@ -33,7 +33,7 @@ class Child(models.Model):
     first_parent = models.CharField(max_length=255, verbose_name='Родитель')
     second_parent = models.CharField(max_length=255, blank=True, null=True, verbose_name='Второй родитель')
     contacts = models.CharField(max_length=200, blank=True, null=True, verbose_name='Контакты ребенка')
-    created_date = models.DateTimeField(auto_now_add=True, verbose_name='Дата добавления ребенка')
+    created_date = models.DateTimeField(auto_now_add=True, blank=True, null=True, verbose_name='Дата добавления ребенка')
     edited_date = models.DateTimeField(auto_now=True, null=True, blank=True, verbose_name='Дата редактирования')
     deleted_date = models.DateTimeField(null=True, blank=True, verbose_name='Дата удаления')
     is_deleted = models.BooleanField(default=False)
@@ -41,7 +41,7 @@ class Child(models.Model):
     objects = SoftDeleteManager()
 
     def __str__(self):
-        return "%s. %s %s" % (self.id, self.last_name, self.first_name)
+        return "%s %s" % (self.first_name, self.last_name)
 
     class Meta:
         verbose_name = 'Дети'

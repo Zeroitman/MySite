@@ -44,11 +44,12 @@
             </p>
         {% endif %}
 
+        {% if child.first_parent %}
+            <p class="font-weight-bold">Первый родитель: <span
+                    class="font-weight-normal">{{ child.first_parent }}</span></p>
+        {% endif %}
         {% if child.second_parent %}
-            <p class="font-weight-bold">Родители: <span
-                    class="font-weight-normal">{{ child.first_parent }}, {{ child.second_parent }}</span></p>
-        {% else %}
-            <p class="font-weight-bold">Родители: <span class="font-weight-normal">{{ child.first_parent }}</span></p>
+            <p class="font-weight-bold">Второй родитель: <span class="font-weight-normal">{{ child.second_parent }}</span></p>
         {% endif %}
 
         {% if child.contacts %}

@@ -4,7 +4,18 @@
         <h2 class="text-center">Добавление категории</h2>
         <form action="{% url 'webapp:categories_create' %}" method="post" enctype="multipart/form-data">
             {% csrf_token %}
-            {{ form.as_p }}
+            <div class="form-group row was-validated">
+                <label for="id_name" class="col-sm-2 col-form-label col-form-label-sm">Категория</label>
+                <div class="col-sm-6">
+                    {{ form.name }}
+                </div>
+            </div>
+            <div class="form-group row">
+                <label for="id_code_category" class="col-sm-2 col-form-label col-form-label-sm">Код категории</label>
+                <div class="col-sm-6">
+                    {{ form.code_category }}
+                </div>
+            </div>
             <button type="submit" class="btn btn-success m-2" style="width: 125px">Сохранить</button>
             <a role="button" class="btn btn-primary m-2" href="{% url 'webapp:categories_list' %}" style="width: 125px">Назад</a>
         </form>

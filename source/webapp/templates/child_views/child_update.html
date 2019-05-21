@@ -4,7 +4,80 @@
         <h2 class="text-center">Редактирование данных ребенка</h2>
         <form action="{% url 'webapp:child_update' form.instance.pk %}" method="post" enctype="multipart/form-data">
             {% csrf_token %}
-            {{ form.as_p }}
+            <div class="form-group row was-validated">
+                {{ form.first_name.errors }}
+                <label for="id_first_name" class="col-sm-2 col-form-label col-form-label-sm">Имя
+                    ребенка:</label>
+                <div class="col-sm-6">
+                    {{ form.first_name }}
+                </div>
+            </div>
+            <div class="form-group row was-validated">
+                {{ form.last_name.errors }}
+                <label for="id_last_name" class="col-sm-2 col-form-label col-form-label-sm">Фамилия ребенка:</label>
+                <div class="col-sm-6">
+                    {{ form.last_name }}
+                </div>
+            </div>
+            <div class="form-group row">
+                <label for="id_third_name" class="col-sm-2 col-form-label col-form-label-sm">Отчество ребенка:</label>
+                <div class="col-sm-6">
+                    {{ form.third_name }}
+                </div>
+            </div>
+            <div class="form-group row">
+                <label for="id_birthday" class="col-sm-2 col-form-label col-form-label-sm">Дата рождения.</label>
+                <div class="col-sm-6">
+                    {{ form.birthday }}
+                </div>
+            </div>
+            <div class="form-group row was-validated">
+                {{ form.age.errors }}
+                <label for="id_age" class="col-sm-2 col-form-label col-form-label-sm">Возраст:</label>
+                <div class="col-sm-6">
+                    {{ form.age }}
+                </div>
+            </div>
+            <div class="form-group row">
+                <label for="id_address" class="col-sm-2 col-form-label col-form-label-sm">Адрес:</label>
+                <div class="col-sm-6">
+                    {{ form.address }}
+                </div>
+            </div>
+            <div class="form-group row">
+                <label for="id_characteristic" class="col-sm-2 col-form-label col-form-label-sm">Характеристика:</label>
+                <div class="col-sm-6">
+                    {{ form.characteristic }}
+                </div>
+            </div>
+            <div class="form-group row">
+                <label for="id_preferences" class="col-sm-2 col-form-label col-form-label-sm">Предпочтения:</label>
+                <div class="col-sm-6">
+                    {{ form.preferences }}
+                </div>
+            </div>
+            <div class="form-group row was-validated">
+                {{ form.first_parent.errors }}
+                <label for="id_first_parent" class="col-sm-2 col-form-label col-form-label-sm">Первый родитель:</label>
+                <div class="col-sm-6">
+                    {{ form.first_parent }}
+                </div>
+            </div>
+            <div class="form-group row">
+                <label for="id_second_parent" class="col-sm-2 col-form-label col-form-label-sm">Второй родитель:</label>
+                <div class="col-sm-6">
+                    {{ form.second_parent }}
+                </div>
+            </div>
+            <div class="form-group row">
+                <label for="id_contacts" class="col-sm-2 col-form-label col-form-label-sm">Контакты:</label>
+                <div class="col-sm-6 input-group">
+                    <div class="input-group-prepend">
+                        <div class="input-group-text"><i class="fas fa-phone"></i></div>
+                    </div>
+                    {{ form.contacts }}
+                </div>
+            </div>
             <button type="submit" class="btn btn-success m-2" style="width: 125px">Сохранить</button>
             <a role="button" class="btn btn-primary m-2" href="{{ request.META.HTTP_REFERER }}"
                style="width: 125px">Назад</a>
