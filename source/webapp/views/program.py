@@ -62,7 +62,7 @@ class ProgramUpdateView(LoginRequiredMixin, UpdateView):
 class ProgramSearchView(LoginRequiredMixin, View):
     template_name = 'program_views/program_search_results.html'
 
-    def get(self):
+    def get(self, request):
         query = self.request.GET.get('q')
         searched_program = Program.objects.filter(Q(name__icontains=query))
         context = {

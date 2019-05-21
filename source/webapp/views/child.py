@@ -36,7 +36,7 @@ class ChildCreateView(LoginRequiredMixin, CreateView):
         return reverse('webapp:child_detail', kwargs={'pk': self.object.pk})
 
 
-def soft_delete_child(pk):
+def soft_delete_child(request, pk):
     child = get_object_or_404(Child, pk=pk)
     child.is_deleted = True
     child.save()
@@ -46,7 +46,7 @@ def soft_delete_child(pk):
 class ChildSearchView(LoginRequiredMixin, View):
     template_name = 'child_views/child_search_results.html'
 
-    def get(self):
+    def get(self, request):
         query = self.request.GET.get('q')
         searched_child = Child.objects.filter(
             Q(first_name__icontains=query) |

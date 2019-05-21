@@ -35,7 +35,7 @@ class CategoriesUpdateView(LoginRequiredMixin, UpdateView):
         return reverse('webapp:categories_list')
 
 
-def delete_category(pk):
+def delete_category(request, pk):
     category = get_object_or_404(Categories, pk=pk)
     category.delete()
     return redirect('webapp:categories_list')
@@ -44,7 +44,7 @@ def delete_category(pk):
 class CategoriesSearchView(LoginRequiredMixin, View):
     template_name = 'category_views/categories_search_results.html'
 
-    def get(self):
+    def get(self, request):
         query = self.request.GET.get('q')
         searched_categories = Categories.objects.filter(
             Q(name__icontains=query) |

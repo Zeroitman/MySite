@@ -90,20 +90,6 @@ def create_session_and_result(request, pk):
         return redirect('login')
 
 
-def close_session_result_view(pk):
-    session = get_object_or_404(Session, pk=pk)
-    if session.status_session:
-        automatic_session_closure()
-        return redirect('webapp:program_detail', pk=session.program_id)
-    else:
-        session.status_session = True
-        session.save()
-        response = redirect('webapp:program_detail', pk=session.program_id)
-        response.delete_cookie("session_number")
-        automatic_session_closure()
-        return response
-
-
 class AddExtraSkill(LoginRequiredMixin, CreateView):
     model = SkillsInProgram
     form_class = SkillsInProgramForm

@@ -30,7 +30,7 @@ class SkillUpdateView(LoginRequiredMixin, UpdateView):
         return reverse('webapp:skill_detail', kwargs={'pk': self.object.pk})
 
 
-def delete_skill(pk):
+def delete_skill(request, pk):
     skill = get_object_or_404(Skill, pk=pk)
     skill.delete()
     return redirect('webapp:categories_list')
@@ -39,7 +39,7 @@ def delete_skill(pk):
 class SkillSearchView(LoginRequiredMixin, View):
     template_name = 'skill_views/skill_search_results.html'
 
-    def get(self):
+    def get(self, request):
         query = self.request.GET.get('q')
         searched_skills = Skill.objects.filter(
             Q(name__icontains=query) |

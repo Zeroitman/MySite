@@ -7,9 +7,9 @@ from webapp.views.program import ProgramDetailView, ProgramListView, ProgramCrea
     ProgramSearchView, ChildInProgramListView
 from webapp.views.categories import CategoriesListView, CategoriesDetailView, CategoriesCreateView, \
     CategoriesUpdateView, CategoriesSearchView, delete_category
-from webapp.views.session import create_session_and_result, AddExtraSkill, close_session_result_view, \
-    counter_done_with_hint, counter_done, counter_get_view
-from webapp.views.result import change_status_skill, ResultUpdateView, ResultListView
+from webapp.views.session import create_session_and_result, AddExtraSkill, counter_get_view, counter_done, \
+    counter_done_with_hint
+from webapp.views.result import change_status_skill, ResultUpdateView, ResultListView, close_session_result_view
 
 app_name = 'webapp'
 
@@ -41,10 +41,10 @@ urlpatterns = [
     path('categories/categories_search/', CategoriesSearchView.as_view(), name='search_view_categories'),
     # session_urls------------------------------------------------------------------------------------------------
     path('program/<int:pk>/session', create_session_and_result, name='session_create'),
-    path('session/<int:pk>', close_session_result_view, name='change_status_session'),
     path('program/<int:pk>/skill/create', AddExtraSkill.as_view(), name='extra_skill'),
     # result_urls------------------------------------------------------------------------------------------------
     path('session/<int:pk>/result', ResultListView.as_view(), name='session_result_view'),
+    path('session/<int:pk>', close_session_result_view, name='change_status_session'),
     path('skill_in_program/<int:pk>', change_status_skill, name='change_status_skill'),
     path('session/result/<int:pk>/update', ResultUpdateView.as_view(), name='session_result_update'),
     # skill urls--------------------------------------------------------------------------------------------------
