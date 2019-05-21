@@ -18,6 +18,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'webapp',
     'behave_django',
+    'django_select2'
 ]
 
 MIDDLEWARE = [
