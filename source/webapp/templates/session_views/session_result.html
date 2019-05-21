@@ -144,18 +144,38 @@
              aria-hidden="true">
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title text-center" id="exampleModalLabel">Страница редактирования</h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
+                    <div class="card-header">
+                        <div class="d-flex justify-content-between">
+                            <div class="flex-fill"><h5 class="text-right m-0 pt-2"> Редактирование результатов</h5>
+                            </div>
+                            <div class="flex-fill">
+                                <button type="button" class="close p-2" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">X</span>
+                                </button>
+                            </div>
+                        </div>
                     </div>
                     <div class="modal-body">
                         <form name="link" id="link" action="" method="post" enctype="multipart/form-data">
                             {% csrf_token %}
-                            <input id="done" type="number" min="0" name="done" value=""/>
-                            <input id="done_with_hint" type="number" min="0" name="done_with_hint" value=""/>
-                            <input id="link" type="submit" value="Send"/>
+                            <div class="d-flex justify-content-center">
+                                <input id="done_with_hint"
+                                       class="result_modal_inputs"
+                                       type="number"
+                                       min="0" max="100"
+                                       name="done_with_hint"
+                                       value=""/>
+                                <input id="done"
+                                       class="result_modal_inputs"
+                                       type="number"
+                                       min="0" max="100"
+                                       name="done"
+                                       value=""/>
+                                <input id="link"
+                                       class="btn btn-outline-success ml-3 result_modal_link"
+                                       type="submit"
+                                       value="Изменить"/>
+                            </div>
                         </form>
                     </div>
                 </div>

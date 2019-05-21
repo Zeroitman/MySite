@@ -68,16 +68,28 @@
     <div class="modal fade" id="Modal_{{ skill.pk }}" tabindex="-1" role="dialog"
          aria-labelledby="Modal_{{ skill.pk }}Label" aria-hidden="true">
         <div class="modal-dialog" role="document">
-            <div class="modal-content text-center">
-                <div class="modal-header">
-                    <h3 class="modal-title" id="Modal_{{ skill.pk }}Label">Вы уверены?</h3>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
+            <div class="modal-content">
+                <div class="card">
+                    <h5 class="card-header text-center"> Удаление навыка</h5>
                 </div>
-                <div class="modal-body">
-                    <a class="btn btn-primary modal_btn" href="{% url 'webapp:skill_delete' skill.pk %}">Да</a>
-                    <a class="btn btn-secondary modal_btn" href="{% url 'webapp:skill_detail' skill.pk %}">Нет</a>
+                <div class="modal-body p-0 m-0">
+                    <div class="modal-body">
+                        <p class="d-block text-center mb-1">Вы уверены что хотите удалить навык
+                            <span class="d-block font-weight-bold text-center mb-3">{{ skill.name }}?</span>
+                        </p>
+                        <div class="text-center">
+                            <button class="category_button1_modal p-0">
+                                <a class="btn btn-outline-success"
+                                   href={% url 'webapp:skill_delete' skill.pk %}><span class="text-dark">Да</span>
+                                </a>
+                            </button>
+                            <button class="category_button2_modal p-0" data-dismiss="modal">
+                                <a class="btn btn-outline-danger">
+                                    <span class="text-dark">Нет</span>
+                                </a>
+                            </button>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>

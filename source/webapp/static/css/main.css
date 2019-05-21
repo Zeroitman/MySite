@@ -37,11 +37,35 @@ body {
     overflow: auto;
 }
 
-.col-11{
+.col-11 {
     border: 1px solid grey;
     border-collapse: collapse;
 }
 
+/*Modals------------------------------------------------------------------------------------------------------*/
+.category_button1_modal {
+    background-color: #76F163;
+    border: none;
+}
+
+.category_button2_modal {
+    background-color: #F5AEAE;
+    border: none
+}
+
+.btn-outline-success, .btn-outline-danger{
+    width:70px;
+}
+
+.result_modal_inputs{
+    width: 50px;
+    text-align: center;
+    margin: 5px;
+}
+
+.result_modal_link{
+    width: 90px;
+}
 
 /*.search-box {*/
 /*    position: absolute;*/

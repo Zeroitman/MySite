@@ -113,23 +113,29 @@
 
     <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
          aria-hidden="true">
+
         <div class="modal-dialog" role="document">
             <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Вы уверены что хотите удалить ребёнка из базы
-                        данных?</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
+                <div class="card">
+                    <h5 class="card-header text-center"> Удаление ребёнка</h5>
                 </div>
-                <div class="modal-body">
-                    <form action="{% url 'webapp:child_delete' child.pk %}" method="POST">
-                        {% csrf_token %}
+                <div class="modal-body p-0 m-0">
+                    <div class="modal-body">
+                        <p class="d-block text-center mb-1">Вы уверены что хотите удалить ребёнка?
+                            <span class="d-block font-weight-bold text-center mb-3">{{ child.last_name }} {{ child.first_name }}</span>
+                        </p>
                         <div class="text-center">
-                            <button class="btn btn-danger m-2">Удалить</button>
-                            <a href="#" class="btn btn-secondary m-2" data-dismiss="modal">Закрыть</a>
+                            <button class="category_button1_modal p-0">
+                                <a class="btn btn-outline-success"
+                                   href={% url 'webapp:child_delete' child.pk %}>
+                                    <span class="text-dark">Да</span>
+                                </a>
+                            </button>
+                            <button class="category_button2_modal p-0" data-dismiss="modal">
+                                <a class="btn btn-outline-danger"><span class="text-dark">Нет</span></a>
+                            </button>
                         </div>
-                    </form>
+                    </div>
                 </div>
             </div>
         </div>

@@ -3,7 +3,6 @@
 {% block title %}Список категорий{% endblock %}
 {% block content %}
     <div class="container">
-        {#  Форма поиска программ #}
         <div style="width: 240px">
             <form action='{% url 'webapp:search_view_categories' %}' method="GET" accept-charset="utf-8"
                   class="form-inline my-2 my-lg-0">
@@ -37,7 +36,6 @@
                    data-toggle="modal" data-target="#deleteModal_{{ categories.pk }}" style="width: 15%"
                    data-delete-url="{% url 'webapp:categories_delete' categories.pk %}">Удалить</a>
             </div>
-            {#      Модалка удаления категории      #}
             <div class="modal fade" id="deleteModal_{{ categories.pk }}" tabindex="-1" role="dialog"
                  aria-labelledby="exampleModalLabel"
                  aria-hidden="true">
@@ -52,27 +50,14 @@
                                     <span class="d-block font-weight-bold text-center mb-3">{{ categories.name }}?</span>
                                 </p>
                                 <div class="text-center">
-                                    <button style="
-                                            background-color: #4CAF50;
-                                            border: none;
-                                            text-align: center;
-                                            display: inline-block;
-                                            border-radius: 10%;
-                                            width: 70px;
-                                            font-size: 16px">
-                                        <a class="btn modal_btn"
-                                           href={% url 'webapp:categories_delete' categories.pk %}>Да</a>
+                                    <button class="category_button1_modal p-0">
+                                        <a class="btn btn-outline-success"
+                                           href={% url 'webapp:categories_delete' categories.pk %}>
+                                            <span class="text-dark">Да</span>
+                                        </a>
                                     </button>
-                                    <button data-dismiss="modal"
-                                            style="
-                                            background-color: #af1228;
-                                            border: none;
-                                            text-align: center;
-                                            display: inline-block;
-                                            border-radius: 10%;
-                                            width: 70px;
-                                            font-size: 16px">
-                                        <a class="btn modal_btn">Нет</a>
+                                    <button class="category_button2_modal p-0" data-dismiss="modal">
+                                        <a class="btn btn-outline-danger"><span class="text-dark">Нет</span></a>
                                     </button>
                                 </div>
                             </div>
