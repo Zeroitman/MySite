@@ -33,7 +33,7 @@ class Child(models.Model):
     first_parent = models.CharField(max_length=255, verbose_name='Родитель')
     second_parent = models.CharField(max_length=255, blank=True, null=True, verbose_name='Второй родитель')
     contacts = models.CharField(max_length=200, blank=True, null=True, verbose_name='Контакты ребенка')
-    created_date = models.DateTimeField(auto_now_add=True, blank=True, null=True, verbose_name='Дата добавления ребенка')
+    created_date = models.DateTimeField(auto_now_add=True, verbose_name='Дата добавления ребенка')
     edited_date = models.DateTimeField(auto_now=True, null=True, blank=True, verbose_name='Дата редактирования')
     deleted_date = models.DateTimeField(null=True, blank=True, verbose_name='Дата удаления')
     is_deleted = models.BooleanField(default=False)
@@ -183,6 +183,18 @@ class Test(models.Model):
                               verbose_name='Ребенок')
     attending_therapist = models.ForeignKey(UserInfo, on_delete=models.PROTECT, null=True,
                                             related_name='attending_test')
+    status = models.BooleanField(default=True, verbose_name='Статус')
+    created_date = models.DateTimeField(auto_now_add=True, verbose_name="Дата создания")
+    edited_date = models.DateTimeField(auto_now=True, blank=True, null=True, verbose_name="Дата редактирования")
+    deleted_date = models.DateTimeField(blank=True, null=True, verbose_name="Дата удаления")
+
+
+class TestResult(models.Model):
+    test = models.ForeignKey('Test', on_delete=models.PROTECT, related_name='test_result',
+                             verbose_name='Тест')
+    skill = models.ForeignKey('Skill', on_delete=models.PROTECT, related_name='test_skill',
+                              verbose_name='Навык')
+    level = models.PositiveSmallIntegerField(default=0, verbose_name="Уровень владения навыком")
     status = models.BooleanField(default=True, verbose_name='Статус')
     created_date = models.DateTimeField(auto_now_add=True, verbose_name="Дата создания")
     edited_date = models.DateTimeField(auto_now=True, blank=True, null=True, verbose_name="Дата редактирования")
