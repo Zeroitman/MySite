@@ -24,6 +24,11 @@ class ResultListView(LoginRequiredMixin, ListView):
         return context
 
     def get_queryset(self):
+        now_session = Result.objects.filter(session=self.kwargs['pk'])
+        for result in now_session:
+            if result.total == 0:
+                empty_result = Result.objects.get(pk=result.pk)
+                empty_result.delete()
         return Result.objects.filter(session=self.kwargs['pk'])
 
 
