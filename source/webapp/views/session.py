@@ -44,7 +44,7 @@ def automatic_program_closure():
                     if skills_in_the_program[0]:
                         return False
                     first, *rest = skills_in_the_program
-                    the_same = (x == first and False for x in rest)
+                    the_same = (x == first and x == False for x in rest)
                     return all(the_same)
 
                 answer = find_all_closed_skills()
