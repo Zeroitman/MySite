@@ -70,6 +70,7 @@ class Skill(models.Model):
     category = models.ForeignKey(Categories, on_delete=models.PROTECT, related_name='skill', verbose_name='Категория')
     description = models.TextField(max_length=1000, null=True, blank=True, verbose_name='Описание навыка')
     criterion = models.TextField(max_length=1000, null=True, blank=True, verbose_name='Критерии')
+    difficulty = models.PositiveSmallIntegerField(default=1, verbose_name="Количество уровней сложности")
     created_date = models.DateTimeField(auto_now_add=True, verbose_name='Время создания навыка')
     updated_date = models.DateTimeField(auto_now=True, null=True, blank=True,
                                         verbose_name='Время редактирование навыка')
