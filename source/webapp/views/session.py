@@ -1,6 +1,6 @@
 from django.http import JsonResponse
 from django.shortcuts import get_object_or_404, redirect, render
-from mysql.connector import MySQLConnection
+from django.db import ProgrammingError
 from webapp.models import Program, Session, Result, Skill, SkillsInProgram
 from django.views.generic import CreateView
 from webapp.forms import SkillsInProgramForm
@@ -14,18 +14,16 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 def automatic_session_closure():
     threading.Timer(60, automatic_session_closure).start()
     now = datetime.now(timezone.utc)
-    conn = MySQLConnection(user='aba_django', password='aba_django', host='127.0.0.1', database='ABA')
-    cursor = conn.cursor()
-    stmt = "SHOW TABLES WHERE `Tables_in_ABA` LIKE 'webapp_session%' OR `Tables_in_ABA` LIKE 'webapp_skillsinprogram%';"
-    cursor.execute(stmt)
-    if cursor.fetchone():
-        automatic_program_closure()
+    try:
         all_session = Session.objects.filter(status_session=False)
         for session in all_session:
             delta = now - session.created_date
             if delta.seconds > 7200:
                 session.status_session = True
                 session.save()
+        automatic_program_closure()
+    except ProgrammingError:
+        print(ProgrammingError)
 
 
 def automatic_program_closure():
@@ -37,22 +35,23 @@ def automatic_program_closure():
     if number_of_program:
         while i <= max(number_of_program):
             skills = SkillsInProgram.objects.filter(program_id=i)
-            skills_in_the_program = []
-            for skill in skills:
-                skills_in_the_program.append(skill.status)
+            if skills:
+                skills_in_the_program = []
+                for skill in skills:
+                    skills_in_the_program.append(skill.status)
 
-            def find_all_closed_skills():
-                if not skills_in_the_program:
-                    return True
-                first, *rest = skills_in_the_program
-                the_same = (x == first and False for x in rest)
-                return all(the_same)
+                def find_all_closed_skills():
+                    if skills_in_the_program[0]:
+                        return False
+                    first, *rest = skills_in_the_program
+                    the_same = (x == first and False for x in rest)
+                    return all(the_same)
 
-            answer = find_all_closed_skills()
-            if answer:
-                program = Program.objects.get(id=i)
-                program.status = False
-                program.save()
+                answer = find_all_closed_skills()
+                if answer:
+                    program = Program.objects.get(id=i)
+                    program.status = False
+                    program.save()
             i = i + 1
 
 
