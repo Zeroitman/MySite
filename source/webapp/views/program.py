@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from webapp.models import Program, Session, Result, SkillsInProgram
+from webapp.models import Program, Session, Result, SkillsInProgram, Skill
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, View
 from webapp.forms import ProgramForm
 from django.urls import reverse
@@ -24,15 +24,17 @@ class ProgramDetailView(LoginRequiredMixin, DetailView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         now_pk = int(self.kwargs.get('pk'))
-        all_true_skills = SkillsInProgram.objects.filter(program_id=now_pk, status=True)
+        open_skills = {}
         all_session_in_program = Session.objects.filter(program_id=now_pk, status_session=True)
-        skills = {}
         for session in all_session_in_program:
-            for sk in all_true_skills:
-                current_program_skill = Result.objects.filter(session_id=session.pk, skill_id=sk)
-                for skill in current_program_skill:
-                    skills[skill.skill_id] = str(skill.percent)
-        context['all_skill'] = skills
+            all_true_skills = SkillsInProgram.objects.filter(program_id=now_pk, status=True)
+            for skill_in_program in all_true_skills:
+                current_program_skill = Result.objects.filter(session_id=session.pk, skill_id=skill_in_program)
+                for skill_in_result in current_program_skill:
+                    current_skill = Skill.objects.filter(id=skill_in_program.skill_id)
+                    for skill in current_skill:
+                        open_skills[skill.code_skill + " | " + skill.name] = str(skill_in_result.percent)
+        context['all_skill'] = open_skills
         return context
 
 
